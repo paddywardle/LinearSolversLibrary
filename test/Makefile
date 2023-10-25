@@ -1,8 +1,8 @@
 CXX = g++
 TEST_FLAGS = -lgtest -lgtest_main -pthread
 
-SRC_FILES = ../src/Matrix.cpp
-TEST_FILES = test_numRowsCols.cpp
+SRC_FILES = $(shell find ../src/Matrix -name "*.cpp")
+TEST_FILES = $(shell find . -name "test_*.cpp")
 OUT_FILE = ../bin/test_program
 
 all: $(OUT_FILE)
