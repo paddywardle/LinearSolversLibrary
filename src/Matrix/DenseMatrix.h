@@ -8,14 +8,20 @@
 class DenseMatrix: public Matrix {
 
     private:
-
-        std::vector<std::vector<double>> data_;
+        size_t rows;
+        size_t cols;
+        std::vector<double> data_;
 
     public:
 
         DenseMatrix(size_t numRows, size_t numCols, const std::vector<std::vector<double>> data_={});
+        ~DenseMatrix(){};
         
-        std::vector<std::vector<double>> getData() const;
+        size_t numRows() const override;
+        size_t numCols() const override;
+        std::vector<double> getData() const override;
+
+        DenseMatrix matMul(DenseMatrix& other) const;
 
 };
 

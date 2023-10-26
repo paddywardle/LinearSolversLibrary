@@ -8,5 +8,5 @@ int main(){
 
     DenseMatrix mat(2, 2, matrix);
 
-    std::cout<<mat.getData()[0][0]<<std::endl;
+    std::cout<<mat.getData()[0]<<std::endl;
 }

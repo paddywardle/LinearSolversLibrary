@@ -2,19 +2,15 @@
 #define MATRIX_H
 
 #include <cstddef>
+#include <vector>
 
 class Matrix{
-
-    private:
-        size_t rows;
-        size_t cols;
     
     public:
-
-        Matrix(size_t numRows, size_t numCols);
         
-        size_t numRows() const;
-        size_t numCols() const;
+        virtual size_t numRows() const=0;
+        virtual size_t numCols() const=0;
+        virtual std::vector<double> getData() const=0;
 
 };
 
