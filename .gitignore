@@ -1,5 +1,6 @@
 TO_DO.txt
 bin/
+.vscode
 
 # Prerequisites
 *.d
