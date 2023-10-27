@@ -24,9 +24,6 @@ class DenseMatrix: public Matrix {
         size_t numCols() const override;
         std::vector<double> getData() const override;
 
-        // Methods
-        DenseMatrix matMul(const DenseMatrix& other) const;
-
         // Overloads
         friend std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat);  
 

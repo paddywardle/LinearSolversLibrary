@@ -34,36 +34,6 @@ std::vector<double> DenseMatrix::getData() const{
     return this->data_;
 }
 
-DenseMatrix DenseMatrix::matMul(const DenseMatrix& denseMatOther) const{
-
-    int matARows = this->numRows();
-    int matACols = this->numCols();
-
-    int matBRows = denseMatOther.numRows();
-    int matBCols = denseMatOther.numCols();
-
-    if (matACols != matBRows){
-        throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
-    }
-
-    const std::vector<double>& matAData = this->getData();
-    const std::vector<double>& matBData = denseMatOther.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matBCols,0));
-
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            for (int k=0; k<matACols; k++){
-                // make this look prettier (make sure it's correct)
-                resultMat[i][j] += matAData[i*matACols+k]*matBData[k*matBCols+j];
-            }
-        }
-    }
-    // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(matARows, matBCols, resultMat);
-}
-
 std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat){
     
     int matRows = denseMat.numRows();
