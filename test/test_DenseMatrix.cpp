@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "../src/Matrix/DenseMatrix.h"
+#include "../src/MatOps/DMOps.h"
 
 TEST(DenseMatrixTest, Data) {
 
@@ -32,7 +33,7 @@ TEST(DenseMatrixTest, MatrixMultiplication) {
 
     DenseMatrix matA(3, 4, matAData);
     DenseMatrix matB(4, 4, matBData);
-    DenseMatrix mat = matA.matMul(matB);
+    DenseMatrix mat = DMOps::matMul(matA, matB);
 
     EXPECT_EQ(mat.getData()[1], 180);
     EXPECT_EQ(mat.getData()[5], 436);
