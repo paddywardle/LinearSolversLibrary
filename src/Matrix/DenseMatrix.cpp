@@ -29,23 +29,28 @@ std::vector<double> DenseMatrix::getData() const{
     return this->data_;
 }
 
-DenseMatrix DenseMatrix::matMul(DenseMatrix& denseMatOther) const{
+DenseMatrix DenseMatrix::matMul(const DenseMatrix& denseMatOther) const{
 
-    if (this->numCols() == denseMatOther.numRows()){
+    int matARows = this->numRows();
+    int matACols = this->numCols();
+
+    int matBRows = denseMatOther.numRows();
+    int matBCols = denseMatOther.numCols();
+
+    if (matACols == matBRows){
         // needs to be a vector of vectors
-        std::vector<double>resultFlat (this->numRows()*denseMatOther.numCols());
+        std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matBCols,0));
 
-        for (int i=0; i<this->numRows(); i++){
-            for (int j=0; j<denseMatOther.numCols(); i++){
-                for (int k=0; k<this->numCols(); i++){
+        for (int i=0; i<matARows; i++){
+            for (int j=0; j<matACols; i++){
+                for (int k=0; k<matACols; i++){
                     // make this look prettier (make sure it's correct)
-                    resultFlat[i*denseMatOther.numCols()+j] += this->getData()[i*this->numCols()+k] * denseMatOther.getData()[k*denseMatOther.numCols()+j];
+                    resultMat[i][j] += this->getData()[i*matACols+k]*denseMatOther.getData()[k*matBCols+j];
                 }
             }
         }
         // need to actually put it as a vector of vector for the correct initialisation
-        DenseMatrix denseMatResult(this->numRows(), denseMatOther.numCols(), resultFlat)
+        return DenseMatrix(this->numRows(), denseMatOther.numCols(), resultMat);
     }
 
-    return 
 }

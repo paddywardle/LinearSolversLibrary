@@ -21,7 +21,7 @@ class DenseMatrix: public Matrix {
         size_t numCols() const override;
         std::vector<double> getData() const override;
 
-        DenseMatrix matMul(DenseMatrix& other) const;
+        DenseMatrix matMul(const DenseMatrix& other) const;
 
 };
 
