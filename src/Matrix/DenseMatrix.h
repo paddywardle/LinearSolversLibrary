@@ -12,13 +12,13 @@ class DenseMatrix: public Matrix {
     private:
         size_t rows;
         size_t cols;
-        std::vector<double> data_;
+        std::vector<double>* data_ = new std::vector<double>;
 
     public:
         
         // Instantiation
         DenseMatrix(const std::vector<std::vector<double>> data_={});
-        ~DenseMatrix(){};
+        ~DenseMatrix();
         
         // Access functions
         size_t numRows() const override;

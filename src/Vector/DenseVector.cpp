@@ -1,16 +1,20 @@
 #include "DenseVector.h"
 
-DenseVector::DenseVector(const std::vector<double> initialData)
-    :data_(initialData){
+DenseVector::DenseVector(const std::vector<double> initialData){
         length = initialData.size();
-    };
+        *data_ = initialData;
+}
+
+DenseVector::~DenseVector(){
+    delete data_;
+}
 
 size_t DenseVector::getLen() const{ 
     return this->length;
 }
 
 std::vector<double> DenseVector::getData() const{
-    return this->data_;
+    return *data_;
 }
 
 std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec){

@@ -23,9 +23,13 @@ DenseMatrix::DenseMatrix(const std::vector<std::vector<double>> initialData){
         for (const std::vector<double>& iRow: initialData){
             flattenedData.insert(flattenedData.end(), iRow.begin(), iRow.end());
         }
-        data_ = flattenedData;
+        *data_ = flattenedData;
     }
 };
+
+DenseMatrix::~DenseMatrix(){
+    delete data_;
+}
 
 size_t DenseMatrix::numRows() const{ 
     return this->rows;
@@ -36,7 +40,7 @@ size_t DenseMatrix::numCols() const{
 }
 
 std::vector<double> DenseMatrix::getData() const{
-    return this->data_;
+    return *data_;
 }
 
 std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat){
