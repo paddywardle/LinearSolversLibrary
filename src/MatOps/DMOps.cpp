@@ -27,5 +27,5 @@ DenseMatrix DMOps::matMul(const DenseMatrix& matA, const DenseMatrix& matB) {
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(matARows, matBCols, resultMat);
+    return DenseMatrix(resultMat);
 }
