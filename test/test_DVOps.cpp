@@ -4,7 +4,7 @@
 #include "../src/Vector/DenseVector.h"
 #include "../src/VecOps/DVOps.h"
 
-TEST(DenseVectorTest, VectorMultiplication) {
+TEST(DVOpsTest, VectorMultiplication) {
 
     std::vector<double> vecAData{1,2,3,4};
     std::vector<double> vecBData{9,10,11,12};
@@ -20,7 +20,7 @@ TEST(DenseVectorTest, VectorMultiplication) {
     EXPECT_EQ(vec.getData()[3], 48);
 }
 
-TEST(DenseVectorTest, DotProduct) {
+TEST(DVOpsTest, DotProduct) {
 
     std::vector<double> vecAData{1,2,3,4};
     std::vector<double> vecBData{9,10,11,12};
@@ -33,7 +33,7 @@ TEST(DenseVectorTest, DotProduct) {
     EXPECT_EQ(dotResult, 110);
 }
 
-TEST(DenseVectorTest, VectorAddition) {
+TEST(DVOpsTest, VectorAddition) {
 
     std::vector<double> vecAData{1,2,3,4};
     std::vector<double> vecBData{9,10,11,12};
@@ -49,7 +49,7 @@ TEST(DenseVectorTest, VectorAddition) {
     EXPECT_EQ(vec.getData()[3], 16);
 }
 
-TEST(DenseVectorTest, VectorSubtraction) {
+TEST(DVOpsTest, VectorSubtraction) {
 
     std::vector<double> vecAData{1,2,3,4};
     std::vector<double> vecBData{9,10,11,12};
@@ -65,7 +65,7 @@ TEST(DenseVectorTest, VectorSubtraction) {
     EXPECT_EQ(vec.getData()[3], -8);
 }
 
-TEST(DenseVectorTest, VectorDivision) {
+TEST(DVOpsTest, VectorDivision) {
 
     std::vector<double> vecAData{1,2,3,4};
     std::vector<double> vecBData{9,10,11,12};
@@ -78,7 +78,7 @@ TEST(DenseVectorTest, VectorDivision) {
     EXPECT_DOUBLE_EQ(vec.getData()[1], 0.2);
 }
 
-TEST(DenseVectorTest, ScalarMultiplication) {
+TEST(DVOpsTest, ScalarMultiplication) {
 
     std::vector<double> vecAData{1,2,3,4};
     double val = 5;
@@ -93,7 +93,7 @@ TEST(DenseVectorTest, ScalarMultiplication) {
     EXPECT_EQ(vec.getData()[3], 20);
 }
 
-TEST(DenseVectorTest, VectorNorm) {
+TEST(DVOpsTest, VectorNorm) {
 
     std::vector<double> vecAData{1,2,3,4};
 
