@@ -6,10 +6,11 @@
 #include "../Matrix/DenseMatrix.h"
 #include "../Exceptions/DenseMatrixExceptions.h"
 
-class DMOps {
+namespace DMOps {
 
-    public:
-        static DenseMatrix matMul(const DenseMatrix& matA, const DenseMatrix& matB);
+    DenseMatrix matMul(const DenseMatrix& matA, const DenseMatrix& matB);
+
+    DenseMatrix scalarMult(const DenseMatrix& matA, const double val);
 
 };
 
