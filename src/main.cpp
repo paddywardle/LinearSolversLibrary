@@ -23,7 +23,7 @@ int main(){
         DenseVector vecA(vecAData);
         DenseVector vecB(vecBData);
 
-        DenseVector vec = DVOps::elemWise(vecA, vecB);
+        DenseVector vec = DVOps::elemMult(vecA, vecB);
         std::cout<<vec;
 
     }
