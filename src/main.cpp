@@ -3,6 +3,8 @@
 
 #include "Matrix/DenseMatrix.h"
 #include "MatOps/DMOps.h"
+#include "Vector/Vector.h"
+#include "VecOps/DVOps.h"
 #include "Exceptions/DenseMatrixExceptions.h"
 
 int main(){
@@ -14,6 +16,16 @@ int main(){
         DenseMatrix matB(matBData);
         DenseMatrix mat = DMOps::matMul(matA, matB);
         std::cout<<mat;
+
+        std::vector<double> vecAData{1,2,3,4};
+        std::vector<double> vecBData{9,10,11,12};
+
+        DenseVector vecA(vecAData);
+        DenseVector vecB(vecBData);
+
+        DenseVector vec = DVOps::elemWise(vecA, vecB);
+        std::cout<<vec;
+
     }
     catch (const DenseMatrixExceptions& e){
         std::cerr<<e.what()<<"\n";
