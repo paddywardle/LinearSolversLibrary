@@ -21,3 +21,25 @@ DenseVector DVOps::elemWise(const DenseVector& vecA, const DenseVector& vecB) {
     // need to actually put it as a vector of vector for the correct initialisation
     return DenseVector(resultVec);
 }
+
+double DVOps::dot(const DenseVector& vecA, const DenseVector& vecB) {
+
+    int vecALen = vecA.getLen();
+    int vecBLen = vecB.getLen();
+
+    if (vecALen != vecBLen){
+        throw DenseVectorExceptions("Error: Vector dimensions do not match!");
+    }
+
+    const std::vector<double>& vecAData = vecA.getData();
+    const std::vector<double>& vecBData = vecB.getData();
+
+    // needs to be a vector of vectors
+    double dotResult = 0;
+
+    for (int i=0; i<vecALen; i++){
+        dotResult += vecAData[i] * vecBData[i];
+    }
+    // need to actually put it as a vector of vector for the correct initialisation
+    return dotResult;
+}
