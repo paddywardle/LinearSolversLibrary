@@ -40,3 +40,16 @@ TEST(DenseVectorTest, VectorMultiplication) {
     EXPECT_EQ(vec.getData()[2], 33);
     EXPECT_EQ(vec.getData()[3], 48);
 }
+
+TEST(DenseVectorTest, DotProduct) {
+
+    std::vector<double> vecAData{1,2,3,4};
+    std::vector<double> vecBData{9,10,11,12};
+
+    DenseVector vecA(vecAData);
+    DenseVector vecB(vecBData);
+
+    double dotResult = DVOps::dot(vecA, vecB);
+
+    EXPECT_EQ(dotResult, 110);
+}
