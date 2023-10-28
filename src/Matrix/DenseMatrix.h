@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Matrix.h"
+#include "../Exceptions/DenseMatrixExceptions.h"
 
 class DenseMatrix: public Matrix {
 
@@ -16,7 +17,7 @@ class DenseMatrix: public Matrix {
     public:
         
         // Instantiation
-        DenseMatrix(const size_t numRows, const size_t numCols, const std::vector<std::vector<double>> data_={});
+        DenseMatrix(const std::vector<std::vector<double>> data_={});
         ~DenseMatrix(){};
         
         // Access functions

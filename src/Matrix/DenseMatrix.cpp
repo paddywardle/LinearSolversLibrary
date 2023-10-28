@@ -1,12 +1,20 @@
 #include <iostream>
 
 #include "DenseMatrix.h"
-#include "../Exceptions/DenseMatrixExceptions.h"
 
-DenseMatrix::DenseMatrix(const size_t numRows, const size_t numCols, const std::vector<std::vector<double>> initialData){
+DenseMatrix::DenseMatrix(const std::vector<std::vector<double>> initialData){
 
-    rows = numRows;
-    cols = numCols;
+    rows = initialData.size();
+
+    size_t colTmp = initialData[0].size();
+
+    for (int i=1; i<rows; i++){
+        if (initialData[i].size() != colTmp){
+            throw DenseMatrixExceptions("Error: Invalid matrix structure!");
+        }
+    }
+
+    cols = colTmp;
     
     if (!initialData.empty()){
         // would probably be good to add a check that column and rows are equal
@@ -16,9 +24,6 @@ DenseMatrix::DenseMatrix(const size_t numRows, const size_t numCols, const std::
             flattenedData.insert(flattenedData.end(), iRow.begin(), iRow.end());
         }
         data_ = flattenedData;
-    }
-    else {
-        data_ = std::vector<double>(numRows*numCols, 0);
     }
 };
 
