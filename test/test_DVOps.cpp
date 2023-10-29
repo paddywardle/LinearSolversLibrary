@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 
+#include "../src/Matrix/DenseMatrix.h"
 #include "../src/Vector/DenseVector.h"
 #include "../src/VecOps/DVOps.h"
 
@@ -102,4 +103,31 @@ TEST(DVOpsTest, VectorNorm) {
     double normResult = DVOps::norm(vecA);
 
     EXPECT_NEAR(normResult, 5.477225575051661, 1e-5);
+}
+
+TEST(DVOpsTest, VectorSum) {
+
+    std::vector<double> vecAData{1,2,3,4};
+
+    DenseVector vecA(vecAData);
+
+    double vecSum = DVOps::vecSum(vecA);
+
+    EXPECT_EQ(vecSum, 10);
+}
+
+TEST(DVOpsTest, DVMOpsMatMul) {
+
+    std::vector<std::vector<double>> matData{{1,2,3,4}, {5,6,7,8}, {9,10,11,12}, {13,14,15,16}};
+    std::vector<double> vecData{1,2,3,4};
+
+    DenseMatrix mat(matData);
+    DenseVector vec(vecData);
+
+    DenseVector vecResults = DVOps::DVMOps::matMul(mat, vec);
+
+    EXPECT_EQ(vecResults.getData()[0], 30);
+    EXPECT_EQ(vecResults.getData()[1], 70);
+    EXPECT_EQ(vecResults.getData()[2], 110);
+    EXPECT_EQ(vecResults.getData()[3], 150);
 }
