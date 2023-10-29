@@ -141,3 +141,38 @@ double DVOps::dot(const DenseVector& vecA, const DenseVector& vecB) {
     // need to actually put it as a vector of vector for the correct initialisation
     return dotResult;
 }
+
+double DVOps::vecSum(const DenseVector& vec){
+
+    const std::vector<double>& vecData = vec.getData();
+
+    return std::accumulate(vecData.begin(), vecData.end(), 0);
+
+}
+
+DenseVector DVOps::DVMOps::matMul(const DenseMatrix& mat, const DenseVector& vec) {
+
+    const int matRows = mat.numRows();
+    const int matCols = mat.numCols();
+
+    const int vecLen = vec.getLen();
+
+    if (matCols != vecLen){
+        throw DenseVectorExceptions("Error: Matrix vector dimensions do not match!");
+    }
+
+    const std::vector<double>& matData = mat.getData();
+    const std::vector<double>& vecData = vec.getData();
+
+    // needs to be a vector of vectors
+    std::vector<double> resultVec (matRows, 0);
+
+    for (int i=0; i<matRows; i++){
+        for (int j=0; j<matCols; j++){
+            // make this look prettier (make sure it's correct)
+            resultVec[i] += matData[i*matCols+j]*vecData[j];
+        }
+    }
+    // need to actually put it as a vector of vector for the correct initialisation
+    return DenseVector(resultVec);
+}

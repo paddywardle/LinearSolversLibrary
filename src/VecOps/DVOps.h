@@ -3,7 +3,9 @@
 
 #include <vector>
 #include <cmath>
+#include <numeric>
 
+#include "../Matrix/DenseMatrix.h"
 #include "../Vector/DenseVector.h"
 #include "../Exceptions/DenseVectorExceptions.h"
 
@@ -22,6 +24,14 @@ namespace DVOps {
     double norm(const DenseVector & vecA, const double ord=2);
 
     double dot(const DenseVector& vecA, const DenseVector& vecB);
+
+    double vecSum(const DenseVector& vec);
+
+    namespace DVMOps{
+        
+        DenseVector matMul(const DenseMatrix& mat, const DenseVector& vec);
+
+    };
 
 };
 
