@@ -13,9 +13,9 @@ namespace GaussSeidel {
 
     double residual(const DenseMatrix& A, const DenseVector& b, const DenseVector& x);
 
-    void forwardSweep(const DenseMatrix& A, const DenseVector& b, std::vector<double>& x);
+    void forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x);
 
-    void backwardSweep(const DenseMatrix& A, const DenseVector& b, std::vector<double>& x);
+    void backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x);
 
 }
 

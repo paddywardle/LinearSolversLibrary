@@ -2,7 +2,7 @@
 
 DenseVector GaussSeidel::solver(const DenseMatrix& A, DenseVector& b, int maxIts, double tol){
 
-    std::vector<double> x(b.getLen(), 0);
+    DenseVector x(std::vector<double>(b.getLen(), 0));
 
     double res = 0;
 
@@ -11,7 +11,7 @@ DenseVector GaussSeidel::solver(const DenseMatrix& A, DenseVector& b, int maxIts
         GaussSeidel::forwardSweep(A, b, x);
         GaussSeidel::backwardSweep(A, b, x);
 
-        res = GaussSeidel::residual(A, b, DenseVector(x));
+        res = GaussSeidel::residual(A, b, x);
 
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";
@@ -30,43 +30,37 @@ double GaussSeidel::residual(const DenseMatrix& A, const DenseVector& b, const D
 
 }
 
-void GaussSeidel::forwardSweep(const DenseMatrix& A, const DenseVector& b, std::vector<double>& x){
+void GaussSeidel::forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x){
 
     int ARows = A.numRows();
     int ACols = A.numCols();
     int bLen = b.getLen();
 
-    const std::vector<double>& AData = A.getData();
-    const std::vector<double>& bData = b.getData();
-
     for (int i=0; i<ARows; i++){
-        double uNew = bData[i];
+        double uNew = b(i);
         for (int j=0; j<ACols; j++){
             if (j!=i){
-                uNew -= AData[i*ACols +j] * x[j];
+                uNew -= A(i, j) * x(i);
             }
         }
-        x[i] = uNew / AData[i*ACols+i];
+        x(i) = uNew / A(i,i);
     }
 
 }
 
-void GaussSeidel::backwardSweep(const DenseMatrix& A, const DenseVector& b, std::vector<double>& x){
+void GaussSeidel::backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x){
 
     int ARows = A.numRows();
     int ACols = A.numCols();
     int bLen = b.getLen();
 
-    const std::vector<double>& AData = A.getData();
-    const std::vector<double>& bData = b.getData();
-
     for (int i=ARows-1; i<=0; i--){
-        double uNew = bData[i];
+        double uNew = b(i);
         for (int j=ACols-1; j<=0; j--){
             if (j!=i){
-                uNew -= AData[i*ACols +j] * x[j];
+                uNew -= A(i,j) * x(j);
             }
         }
-        x[i] = uNew / AData[i*ACols+i];
+        x(i) = uNew / A(i,i);
     }
 }
