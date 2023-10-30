@@ -17,6 +17,22 @@ std::vector<double> DenseVector::getData() const{
     return *data_;
 }
 
+double& DenseVector::operator()(int i){
+
+    if (i < 0 || i > this->getLen()){
+        throw DenseVectorExceptions("Index Error: Out of bounds!");
+    }
+    return (*data_)[i];
+}
+
+const double& DenseVector::operator()(int i) const{
+
+    if (i < 0 || i > this->getLen()){
+        throw DenseVectorExceptions("Index Error: Out of bounds!");
+    }
+    return (*data_)[i];
+}
+
 std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec){
     
     int vecLen = denseVec.getLen();

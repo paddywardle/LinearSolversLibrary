@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Vector.h"
+#include "../Exceptions/DenseVectorExceptions.h"
 
 class DenseVector: public Vector {
 
@@ -23,7 +24,9 @@ class DenseVector: public Vector {
         std::vector<double> getData() const override;
 
         // Overloads
-        friend std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec);  
+        double& operator()(int i);
+        const double& operator()(int i) const;
+        friend std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec); 
 
 };
 
