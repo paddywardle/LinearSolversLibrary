@@ -96,13 +96,12 @@ TEST(DVOpsTest, ScalarMultiplication) {
 
 TEST(DVOpsTest, VectorNorm) {
 
-    std::vector<double> vecAData{1,2,3,4};
+    std::vector<double> vecAData{-0.933333, 0.3733333};
 
     DenseVector vecA(vecAData);
 
-    double normResult = DVOps::norm(vecA);
-
-    EXPECT_NEAR(normResult, 5.477225575051661, 1e-5);
+    double normResult = DVOps::norm(vecA, 1);
+    EXPECT_NEAR(normResult, 10, 1e-5);
 }
 
 TEST(DVOpsTest, VectorSum) {
