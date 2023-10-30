@@ -17,7 +17,7 @@ std::vector<double> DenseVector::getData() const{
     return *data_;
 }
 
-double DenseVector::operator()(int i){
+double& DenseVector::operator()(int i){
 
     // Setting overload
     if ((i < 0) || (i >= this->getLen())){
@@ -26,7 +26,7 @@ double DenseVector::operator()(int i){
     return (*data_)[i];
 }
 
-const double DenseVector::operator()(int i) const{
+const double& DenseVector::operator()(int i) const{
 
     // Access overload
     if ((i < 0) || (i >= this->getLen())){
