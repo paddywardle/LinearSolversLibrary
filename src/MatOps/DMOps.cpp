@@ -12,22 +12,18 @@ DenseMatrix DMOps::matMul(const DenseMatrix& matA, const DenseMatrix& matB) {
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    const std::vector<double>& matAData = matA.getData();
-    const std::vector<double>& matBData = matB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matBCols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             for (int k=0; k<matACols; k++){
                 // make this look prettier (make sure it's correct)
-                resultMat[i][j] += matAData[i*matACols+k]*matBData[k*matBCols+j];
+                resultMat(i,j) += matA(i,k)*matB(k,j);
             }
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }
 
 DenseMatrix DMOps::elemMult(const DenseMatrix& matA, const DenseMatrix& matB){
@@ -42,19 +38,15 @@ DenseMatrix DMOps::elemMult(const DenseMatrix& matA, const DenseMatrix& matB){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    const std::vector<double>& matAData = matA.getData();
-    const std::vector<double>& matBData = matB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matACols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
-            resultMat[i][j] =  matAData[i*matACols+j] * matBData[i*matBCols+j];
+            resultMat(i,j) =  matA(i,j) * matB(i,j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }
 
 DenseMatrix DMOps::elemAdd(const DenseMatrix& matA, const DenseMatrix& matB){
@@ -69,19 +61,15 @@ DenseMatrix DMOps::elemAdd(const DenseMatrix& matA, const DenseMatrix& matB){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    const std::vector<double>& matAData = matA.getData();
-    const std::vector<double>& matBData = matB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matACols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
-            resultMat[i][j] =  matAData[i*matACols+j] + matBData[i*matBCols+j];
+            resultMat(i,j) =  matA(i,j) + matB(i,j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }
 
 DenseMatrix DMOps::elemSub(const DenseMatrix& matA, const DenseMatrix& matB){
@@ -96,19 +84,15 @@ DenseMatrix DMOps::elemSub(const DenseMatrix& matA, const DenseMatrix& matB){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    const std::vector<double>& matAData = matA.getData();
-    const std::vector<double>& matBData = matB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matACols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
-            resultMat[i][j] =  matAData[i*matACols+j] - matBData[i*matBCols+j];
+            resultMat(i,j) =  matA(i,j) - matB(i,j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }
 
 DenseMatrix DMOps::elemDiv(const DenseMatrix& matA, const DenseMatrix& matB){
@@ -123,19 +107,15 @@ DenseMatrix DMOps::elemDiv(const DenseMatrix& matA, const DenseMatrix& matB){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    const std::vector<double>& matAData = matA.getData();
-    const std::vector<double>& matBData = matB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matACols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
-            resultMat[i][j] =  matAData[i*matACols+j] / matBData[i*matBCols+j];
+            resultMat(i,j) =  matA(i,j) / matB(i,j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }
 
 DenseMatrix DMOps::scalarMult(const DenseMatrix& matA, const double val) {
@@ -143,17 +123,14 @@ DenseMatrix DMOps::scalarMult(const DenseMatrix& matA, const double val) {
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
 
-    const std::vector<double>& matAData = matA.getData();
-
-    // needs to be a vector of vectors
-    std::vector<std::vector<double>>resultMat (matARows,std::vector<double>(matACols,0));
+    DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matACols,0)));
 
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
 
-            resultMat[i][j] = val * matAData[i*matACols+j];
+            resultMat(i,j) = val * matA(i,j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseMatrix(resultMat);
+    return resultMat;
 }

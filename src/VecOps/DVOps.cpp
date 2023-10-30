@@ -9,17 +9,13 @@ DenseVector DVOps::elemMult(const DenseVector& vecA, const DenseVector& vecB) {
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    const std::vector<double>& vecAData = vecA.getData();
-    const std::vector<double>& vecBData = vecB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double>resultVec (vecALen, 0);
+    DenseVector resultVec(std::vector<double>(vecALen, 0));
 
     for (int i=0; i<vecALen; i++){
-        resultVec[i] += vecAData[i] * vecBData[i];
+        resultVec(i) += vecA(i) * vecB(i);
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
 
 DenseVector DVOps::elemAdd(const DenseVector& vecA, const DenseVector& vecB) {
@@ -31,17 +27,13 @@ DenseVector DVOps::elemAdd(const DenseVector& vecA, const DenseVector& vecB) {
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    const std::vector<double>& vecAData = vecA.getData();
-    const std::vector<double>& vecBData = vecB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double>resultVec (vecALen, 0);
+    DenseVector resultVec(std::vector<double>(vecALen, 0));
 
     for (int i=0; i<vecALen; i++){
-        resultVec[i] += vecAData[i] + vecBData[i];
+        resultVec(i) += vecA(i) + vecB(i);
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
 
 DenseVector DVOps::elemSub(const DenseVector& vecA, const DenseVector& vecB) {
@@ -53,17 +45,13 @@ DenseVector DVOps::elemSub(const DenseVector& vecA, const DenseVector& vecB) {
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    const std::vector<double>& vecAData = vecA.getData();
-    const std::vector<double>& vecBData = vecB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double>resultVec (vecALen, 0);
+    DenseVector resultVec(std::vector<double>(vecALen, 0));
 
     for (int i=0; i<vecALen; i++){
-        resultVec[i] += (vecAData[i] - vecBData[i]);
+        resultVec(i) += (vecA(i) - vecB(i));
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
 
 DenseVector DVOps::elemDiv(const DenseVector& vecA, const DenseVector& vecB) {
@@ -75,33 +63,26 @@ DenseVector DVOps::elemDiv(const DenseVector& vecA, const DenseVector& vecB) {
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    const std::vector<double>& vecAData = vecA.getData();
-    const std::vector<double>& vecBData = vecB.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double>resultVec (vecALen, 0);
+    DenseVector resultVec(std::vector<double>(vecALen, 0));
 
     for (int i=0; i<vecALen; i++){
-        resultVec[i] += (vecAData[i] / vecBData[i]);
+        resultVec(i) += (vecA(i) / vecB(i));
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
 
 DenseVector DVOps::scalarMult(const DenseVector& vecA, const double val) {
 
     int vecALen = vecA.getLen();
 
-    const std::vector<double>& vecAData = vecA.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double>resultVec (vecALen, 0);
+    DenseVector resultVec(std::vector<double>(vecALen, 0));
 
     for (int i=0; i<vecALen; i++){
-        resultVec[i] += val * vecAData[i];
+        resultVec(i) += val * vecA(i);
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
 
 double DVOps::norm(const DenseVector& vecA, const double ord) {
@@ -161,18 +142,14 @@ DenseVector DVOps::DVMOps::matMul(const DenseMatrix& mat, const DenseVector& vec
         throw DenseVectorExceptions("Error: Matrix vector dimensions do not match!");
     }
 
-    const std::vector<double>& matData = mat.getData();
-    const std::vector<double>& vecData = vec.getData();
-
-    // needs to be a vector of vectors
-    std::vector<double> resultVec (matRows, 0);
+    DenseVector resultVec(std::vector<double>(matRows, 0));
 
     for (int i=0; i<matRows; i++){
         for (int j=0; j<matCols; j++){
             // make this look prettier (make sure it's correct)
-            resultVec[i] += matData[i*matCols+j]*vecData[j];
+            resultVec(i) += mat(i,j)*vec(j);
         }
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return DenseVector(resultVec);
+    return resultVec;
 }
