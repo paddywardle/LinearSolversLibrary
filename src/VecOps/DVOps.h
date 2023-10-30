@@ -21,7 +21,7 @@ namespace DVOps {
 
     DenseVector scalarMult(const DenseVector& vecA, const double val);
 
-    double norm(const DenseVector & vecA, const double ord=2);
+    double norm(const DenseVector& vecA, const double ord=2.0);
 
     double dot(const DenseVector& vecA, const DenseVector& vecB);
 

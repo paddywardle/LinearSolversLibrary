@@ -2,33 +2,31 @@
 
 DenseVector GaussSeidel::solver(const DenseMatrix& A, DenseVector& b, int maxIts, double tol){
 
-    std::vector<double> xPrev(b.getLen(), 0);
-    std::vector<double> xCurr(b.getLen(), 0);
+    std::vector<double> x(b.getLen(), 0);
 
     double res = 0;
 
     for (int i=0; i<maxIts; i++){
 
-        GaussSeidel::forwardSweep(A, b, xCurr);
-        GaussSeidel::backwardSweep(A, b, xCurr);
+        GaussSeidel::forwardSweep(A, b, x);
+        GaussSeidel::backwardSweep(A, b, x);
 
-        res = GaussSeidel::residual(xCurr, xPrev);
+        res = GaussSeidel::residual(A, b, DenseVector(x));
 
         if (res < tol){
-            break;
+            std::cout<<"Converged in "<<i+1<<" iterations!\n";
+            return DenseVector(x);
         }
-
-        xPrev = xCurr;
-        
     }
-    return DenseVector(xCurr);
-
+    std::cout<<"Converged in "<<maxIts<<" iterations!\n";
+    return DenseVector(x);
 }
 
-double GaussSeidel::residual(const std::vector<double>& xCurr, const std::vector<double>& xPrev){
+double GaussSeidel::residual(const DenseMatrix& A, const DenseVector& b, const DenseVector& x){
 
     // norm(b - A@x)
-    return DVOps::norm(DVOps::elemSub(DenseVector(xCurr), DenseVector(xPrev)), 1.0);
+    DenseVector sub = DVOps::elemSub(b, DVOps::DVMOps::matMul(A,x));
+    return DVOps::norm(sub, 1.0);
 
 }
 

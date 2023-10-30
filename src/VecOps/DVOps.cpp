@@ -111,13 +111,13 @@ double DVOps::norm(const DenseVector& vecA, const double ord) {
     const std::vector<double>& vecAData = vecA.getData();
 
     // needs to be a vector of vectors
-    double normResult = 0;
+    double normResult = 0.0;
 
     for (int i=0; i<vecALen; i++){
-        normResult += pow(abs(vecAData[i]), ord);
+        normResult += pow(fabs(vecAData[i]), ord);
     }
     // need to actually put it as a vector of vector for the correct initialisation
-    return pow(normResult, 1/ord);
+    return pow(normResult, 1.0/ord);
 }
 
 double DVOps::dot(const DenseVector& vecA, const DenseVector& vecB) {

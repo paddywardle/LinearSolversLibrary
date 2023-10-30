@@ -31,7 +31,7 @@ int main(){
 
         DenseVector x = GaussSeidel::solver(A, b);
 
-        std::cout<<x;
+        std::cout<<x<<"\n";
 
         // std::cout<<vec;
 
