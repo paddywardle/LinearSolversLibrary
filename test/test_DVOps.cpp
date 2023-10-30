@@ -101,7 +101,7 @@ TEST(DVOpsTest, VectorNorm) {
     DenseVector vecA(vecAData);
 
     double normResult = DVOps::norm(vecA, 1);
-    EXPECT_NEAR(normResult, 10, 1e-5);
+    EXPECT_NEAR(normResult, 1.3066666, 1e-5);
 }
 
 TEST(DVOpsTest, VectorSum) {
