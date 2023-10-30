@@ -28,10 +28,13 @@ int main(){
 
         DenseMatrix A({{3, 2},{2, 5}});
         DenseVector b({12, 15});
+        
+        std::cout<<A(1,1)<<"\n";
+        // DenseVector x = GaussSeidel::solver(A, b);
+        A(1, 1) = 55555;
+        std::cout<<A(1,5)<<"\n";
 
-        DenseVector x = GaussSeidel::solver(A, b);
-
-        std::cout<<x<<"\n";
+        // std::cout<<x<<"\n";
 
         // std::cout<<vec;
 

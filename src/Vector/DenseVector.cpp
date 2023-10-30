@@ -19,7 +19,8 @@ std::vector<double> DenseVector::getData() const{
 
 double& DenseVector::operator()(int i){
 
-    if (i < 0 || i > this->getLen()){
+    // Setting overload
+    if ((i < 0) || (i >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
     return (*data_)[i];
@@ -27,7 +28,8 @@ double& DenseVector::operator()(int i){
 
 const double& DenseVector::operator()(int i) const{
 
-    if (i < 0 || i > this->getLen()){
+    // Access overload
+    if ((i < 0) || (i >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
     return (*data_)[i];

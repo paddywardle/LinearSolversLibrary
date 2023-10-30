@@ -26,6 +26,8 @@ class DenseMatrix: public Matrix {
         std::vector<double> getData() const override;
 
         // Overloads
+        double& operator()(int row, int col);
+        const double& operator()(int row, int col) const;
         friend std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat);  
 
 };

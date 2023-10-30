@@ -43,6 +43,24 @@ std::vector<double> DenseMatrix::getData() const{
     return *data_;
 }
 
+double& DenseMatrix::operator()(int row, int col){
+
+    // Setting overload
+    if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
+        throw DenseMatrixExceptions("Index Error: Out of bounds!");
+    }
+    return (*data_)[row*this->numCols()+col];
+}
+
+const double& DenseMatrix::operator()(int row, int col) const{
+
+    // Access overload
+    if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
+        throw DenseMatrixExceptions("Index Error: Out of bounds!");
+    }
+    return (*data_)[row*this->numCols()+col];
+}
+
 std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat){
     
     int matRows = denseMat.numRows();
