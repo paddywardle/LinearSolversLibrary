@@ -1,5 +1,5 @@
-#ifndef JACOBI_H
-#define JACOBI_H
+#ifndef CONJUGATEGRADIENT_H
+#define CONJUGATEGRADIENT_H
 
 #include <vector>
 
@@ -8,13 +8,13 @@
 #include "../VecOps/DVOps.h"
 #include "../Residuals/Residuals.h"
 
-namespace Jacobi {
+namespace ConjugateGradient {
 
     DenseVector solver(const DenseMatrix& A, DenseVector& b, int maxIts=200, double tol=1e-5);
 
-    void forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x);
+    double alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p);
 
-    void backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x);
+    double beta(const DenseVector& r, const DenseVector& rPlus1);
 
 };
 

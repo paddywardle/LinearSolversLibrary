@@ -16,6 +16,6 @@ namespace GaussSeidel {
 
     void backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x);
 
-}
+};
 
 #endif
