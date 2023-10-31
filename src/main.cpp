@@ -26,10 +26,17 @@ int main(){
 
         // DenseVector vec = DVOps::elemMult(vecA, vecB);
 
-        DenseMatrix A({{3, 2},{2, 5}});
-        DenseVector b({12, 15});
+        DenseMatrix A({{5,2,1,0,0,0,0},
+                        {2,6,2,1,0,0,0},
+                        {1,2,7,2,1,0,0},
+                        {0,1,2,8,2,1,0},
+                        {0,0,1,2,9,2,1},
+                        {0,0,0,1,2,10,2},
+                        {0,0,0,0,1,2,11}});
 
-        DenseVector x = GaussSeidel::solver(A, b);
+        DenseVector b({1,2,3,4,5,6,7});
+
+        DenseVector x = GaussSeidel::solver(A, b, 1000);
 
         std::cout<<x<<"\n";
 
