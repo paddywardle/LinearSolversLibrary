@@ -123,10 +123,24 @@ TEST(DVOpsTest, DVMOpsMatMul) {
     DenseMatrix mat(matData);
     DenseVector vec(vecData);
 
-    DenseVector vecResults = DVOps::DVMOps::matMul(mat, vec);
+    DenseVector vecResults = DVOps::DVMOps::matVecMul(mat, vec);
 
     EXPECT_EQ(vecResults.getData()[0], 30);
     EXPECT_EQ(vecResults.getData()[1], 70);
     EXPECT_EQ(vecResults.getData()[2], 110);
     EXPECT_EQ(vecResults.getData()[3], 150);
+}
+
+TEST(DVOpsTest, DVMOpsVecMatMul) {
+
+    std::vector<std::vector<double>> matData{{1, 2}, {3, 4}};
+    std::vector<double> vecData{1,2};
+
+    DenseMatrix mat(matData);
+    DenseVector vec(vecData);
+
+    DenseVector vecResults = DVOps::DVMOps::vecMatMul(vec, mat);
+
+    EXPECT_EQ(vecResults.getData()[0], 7);
+    EXPECT_EQ(vecResults.getData()[1], 10);
 }
