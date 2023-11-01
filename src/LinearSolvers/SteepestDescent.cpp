@@ -19,6 +19,11 @@ DenseVector SteepestDescent::solver(const DenseMatrix& A, DenseVector& b, int ma
         xPlus1 = DVOps::elemAdd(x, alphaR).getData();
         res = Residuals::L1MatMul(A, b, xPlus1);
 
+        // getting a segmentation error (think all the numbers in the data are too big -> overflow)
+        // Look at if I should be using a positive definite test case?
+        // see if all the parts are returning what I expect
+        // look how residuals progress
+
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";
             return x;
