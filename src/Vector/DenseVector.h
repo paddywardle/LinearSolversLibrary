@@ -26,6 +26,7 @@ class DenseVector: public Vector {
         // Overloads
         double& operator()(int i);
         const double& operator()(int i) const;
+        DenseVector& operator=(const DenseVector& vec);
         friend std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec); 
 
 };

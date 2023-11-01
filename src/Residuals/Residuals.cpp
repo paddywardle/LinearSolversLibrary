@@ -2,7 +2,7 @@
 
 DenseVector Residuals::residual(const DenseMatrix& A, const DenseVector& b, const DenseVector& x){
 
-    return DVOps::elemSub(b, DVOps::DVMOps::matMul(A,x));
+    return DVOps::elemSub(b, DVOps::DVMOps::matVecMul(A,x));
 
 }
 

@@ -35,6 +35,17 @@ const double& DenseVector::operator()(int i) const{
     return (*data_)[i];
 }
 
+DenseVector& DenseVector::operator=(const DenseVector& vec){
+
+    if (this != &vec){
+        (*data_) = vec.getData();
+        length = vec.getLen();
+    }
+
+    return *this;
+
+} 
+
 std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec){
     
     int vecLen = denseVec.getLen();

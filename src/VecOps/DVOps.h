@@ -29,7 +29,8 @@ namespace DVOps {
 
     namespace DVMOps{
         
-        DenseVector matMul(const DenseMatrix& mat, const DenseVector& vec);
+        DenseVector matVecMul(const DenseMatrix& mat, const DenseVector& vec);
+        DenseVector vecMatMul(const DenseVector& vec, const DenseMatrix& mat);
 
     };
 
