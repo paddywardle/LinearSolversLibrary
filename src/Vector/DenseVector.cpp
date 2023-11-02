@@ -2,11 +2,7 @@
 
 DenseVector::DenseVector(const std::vector<double> initialData){
         length = initialData.size();
-        *data_ = initialData;
-}
-
-DenseVector::~DenseVector(){
-    delete data_;
+        data_ = initialData;
 }
 
 size_t DenseVector::getLen() const{ 
@@ -14,7 +10,7 @@ size_t DenseVector::getLen() const{
 }
 
 std::vector<double> DenseVector::getData() const{
-    return *data_;
+    return data_;
 }
 
 double& DenseVector::operator()(int i){
@@ -23,7 +19,7 @@ double& DenseVector::operator()(int i){
     if ((i < 0) || (i >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
-    return (*data_)[i];
+    return (data_)[i];
 }
 
 const double& DenseVector::operator()(int i) const{
@@ -32,14 +28,14 @@ const double& DenseVector::operator()(int i) const{
     if ((i < 0) || (i >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
-    return (*data_)[i];
+    return (data_)[i];
 }
 
 DenseVector& DenseVector::operator=(const DenseVector& vec){
 
     if (this != &vec){
-        (*data_) = vec.getData();
-        length = vec.getLen();
+        this->data_ = vec.getData();
+        this->length = vec.getLen();
     }
 
     return *this;

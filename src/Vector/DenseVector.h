@@ -11,13 +11,13 @@ class DenseVector: public Vector {
 
     private:
         size_t length;
-        std::vector<double>* data_;
+        std::vector<double> data_;
 
     public:
         
         // Instantiation
         DenseVector(const std::vector<double> data_={});
-        ~DenseVector();
+        ~DenseVector(){};
         
         // Access functions
         size_t getLen() const override;
