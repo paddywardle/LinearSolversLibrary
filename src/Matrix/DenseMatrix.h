@@ -12,13 +12,13 @@ class DenseMatrix: public Matrix {
     private:
         size_t rows;
         size_t cols;
-        std::vector<double>* data_;
+        std::vector<double> data_;
 
     public:
         
         // Instantiation
         DenseMatrix(const std::vector<std::vector<double>> data_={});
-        ~DenseMatrix();
+        ~DenseMatrix(){};
         
         // Access functions
         size_t numRows() const override;
@@ -26,8 +26,9 @@ class DenseMatrix: public Matrix {
         std::vector<double> getData() const override;
 
         // Overloads
-        double& operator()(int row, int col);
-        const double& operator()(int row, int col) const;
+        double& operator()(const int row, const int col);
+        const double& operator()(const  int row, const int col) const;
+        DenseMatrix& operator=(const DenseMatrix& mat);
         friend std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat);  
 
 };

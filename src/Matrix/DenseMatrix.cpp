@@ -23,13 +23,9 @@ DenseMatrix::DenseMatrix(const std::vector<std::vector<double>> initialData){
         for (const std::vector<double>& iRow: initialData){
             flattenedData.insert(flattenedData.end(), iRow.begin(), iRow.end());
         }
-        *data_ = flattenedData;
+        data_ = flattenedData;
     }
 };
-
-DenseMatrix::~DenseMatrix(){
-    delete data_;
-}
 
 size_t DenseMatrix::numRows() const{ 
     return this->rows;
@@ -40,25 +36,38 @@ size_t DenseMatrix::numCols() const{
 }
 
 std::vector<double> DenseMatrix::getData() const{
-    return *data_;
+    return data_;
 }
 
-double& DenseMatrix::operator()(int row, int col){
+double& DenseMatrix::operator()(const int row, const int col){
 
     // Setting overload
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
-    return (*data_)[row*this->numCols()+col];
+    return (data_)[row*this->numCols()+col];
 }
 
-const double& DenseMatrix::operator()(int row, int col) const{
+const double& DenseMatrix::operator()(const int row, const int col) const{
 
     // Access overload
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
-    return (*data_)[row*this->numCols()+col];
+    return (data_)[row*this->numCols()+col];
+}
+
+DenseMatrix& DenseMatrix::operator=(const DenseMatrix& mat){
+
+    // guard clause for if this = mat (matrix being fed in)
+    // avoids unnecessary reallocation
+    if (this != &mat){
+        this->rows = mat.numRows();
+        this->cols = mat.numCols();
+        this->data_ = mat.getData();
+    }
+    
+    return *this;
 }
 
 std::ostream& operator<<(std::ostream& os, const DenseMatrix& denseMat){
