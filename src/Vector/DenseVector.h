@@ -11,7 +11,7 @@ class DenseVector: public Vector {
 
     private:
         size_t length;
-        std::vector<double>* data_ = new std::vector<double>;
+        std::vector<double>* data_;
 
     public:
         

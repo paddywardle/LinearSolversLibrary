@@ -12,7 +12,7 @@ class DenseMatrix: public Matrix {
     private:
         size_t rows;
         size_t cols;
-        std::vector<double>* data_ = new std::vector<double>;
+        std::vector<double>* data_;
 
     public:
         
