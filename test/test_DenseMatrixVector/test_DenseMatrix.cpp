@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../src/Matrix/DenseMatrix.h"
+#include "../../src/Matrix/DenseMatrix.h"
 
 TEST(DenseMatrixTest, numRowsCols) {
 

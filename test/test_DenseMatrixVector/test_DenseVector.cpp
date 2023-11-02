@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../src/Vector/DenseVector.h"
-#include "../src/VecOps/DVOps.h"
+#include "../../src/Vector/DenseVector.h"
+#include "../../src/VecOps/DVOps.h"
 
 TEST(DenseVectorTest, numRowsCols) {
 

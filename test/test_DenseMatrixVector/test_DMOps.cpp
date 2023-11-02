@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../src/Matrix/DenseMatrix.h"
-#include "../src/MatOps/DMOps.h"
+#include "../../src/Matrix/DenseMatrix.h"
+#include "../../src/MatOps/DMOps.h"
 
 TEST(DMOpsTest, MatrixMultiplication) {
 
