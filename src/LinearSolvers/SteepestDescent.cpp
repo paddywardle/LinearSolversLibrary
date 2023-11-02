@@ -28,16 +28,15 @@ DenseVector SteepestDescent::solver(const DenseMatrix& A, DenseVector& b, int ma
             std::cout<<"Converged in "<<i+1<<" iterations!\n";
             return x;
         }
-
         x = xPlus1;
-
+        std::cout<<x<<"\n";
     }
+
     std::cout<<"Converged in "<<maxIts<<" iterations!\n";
     return x;
 }
 
 double SteepestDescent::alpha(const DenseMatrix& A, const DenseVector& r){
-
     DenseVector rADen = DVOps::DVMOps::vecMatMul(r, A);
     double alphaNum = DVOps::dot(r, r);
     double alphaDen = DVOps::dot(rADen,r);

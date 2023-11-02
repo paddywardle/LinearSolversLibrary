@@ -7,6 +7,7 @@
 #include "VecOps/DVOps.h"
 #include "LinearSolvers/GaussSeidel.h"
 #include "Exceptions/DenseMatrixExceptions.h"
+#include "LinearSolvers/SteepestDescent.h"
 
 int main(){
     try {
@@ -36,9 +37,10 @@ int main(){
 
         DenseVector b({1,2,3,4,5,6,7});
 
-        DenseVector x = GaussSeidel::solver(A, b, 1000);
-
-        std::cout<<x<<"\n";
+        DenseVector x = SteepestDescent::solver(A, b, 1);
+        std::cout<<"hellllllloooooo\n";
+        // std::cout<<x.getData()[0]<<"\n";
+        // std::cout<<x<<"\n";
 
     }
     catch (const DenseMatrixExceptions& e){
