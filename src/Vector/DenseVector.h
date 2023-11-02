@@ -24,8 +24,8 @@ class DenseVector: public Vector {
         std::vector<double> getData() const override;
 
         // Overloads
-        double& operator()(int i);
-        const double& operator()(int i) const;
+        double& operator()(const int i);
+        const double& operator()(const int i) const;
         DenseVector& operator=(const DenseVector& vec);
         friend std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec); 
 
