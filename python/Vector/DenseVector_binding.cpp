@@ -4,7 +4,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(LinSol, handle){
+void matrix_submodule_binding(py::module handle){
 
     handle.doc() = "This is the docs.";
     
@@ -14,3 +14,14 @@ PYBIND11_MODULE(LinSol, handle){
     .def("getData",  &DenseVector::getData)
     ;
 }
+
+// PYBIND11_MODULE(Vector, handle){
+
+//     handle.doc() = "This is the docs.";
+    
+//     py::class_<DenseVector>(handle, "DenseVector")
+//     .def(py::init<std::vector<double>>())
+//     .def("getLen",  &DenseVector::getLen)
+//     .def("getData",  &DenseVector::getData)
+//     ;
+// }
