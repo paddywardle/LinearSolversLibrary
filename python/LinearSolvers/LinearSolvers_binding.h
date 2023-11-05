@@ -5,6 +5,7 @@
 #include "../../src/LinearSolvers/Jacobi.h"
 #include "../../src/LinearSolvers/SteepestDescent.h"
 #include "../../src/LinearSolvers/ConjugateGradient.h"
+#include "../../src/Vector/DenseVector.h"
 
 namespace py = pybind11;
 
@@ -13,15 +14,15 @@ void solvers_submodule_binding(py::module handle){
     auto solvers = handle.def_submodule("Solvers");
     
     auto GaussSeidel = solvers.def_submodule("GS");
-    GaussSeidel.def("solver", &GaussSeidel::solver, py::arg("A"), py::arg("b"), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+    GaussSeidel.def("solver", &GaussSeidel::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
     auto Jacobi = solvers.def_submodule("Jac");
-    Jacobi.def("solver", &Jacobi::solver, py::arg("A"), py::arg("b"), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+    Jacobi.def("solver", &Jacobi::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
     auto SteepestDescent = solvers.def_submodule("SD");
-    SteepestDescent.def("solver", &SteepestDescent::solver, py::arg("A"), py::arg("b"), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+    SteepestDescent.def("solver", &SteepestDescent::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
     auto ConjugateGradient = solvers.def_submodule("CG");
-    ConjugateGradient.def("solver", &ConjugateGradient::solver, py::arg("A"), py::arg("b"), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+    ConjugateGradient.def("solver", &ConjugateGradient::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
 }
