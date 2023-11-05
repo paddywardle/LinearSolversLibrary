@@ -10,7 +10,7 @@
 
 namespace SteepestDescent {
 
-    DenseVector solver(const DenseMatrix& A, DenseVector& b, int maxIts=200, double tol=1e-5);
+    DenseVector solver(const DenseMatrix& A, DenseVector& b, DenseVector x=DenseVector(), int maxIts=200, double tol=1e-5);
 
     double alpha(const DenseMatrix& A, const DenseVector& r);
     

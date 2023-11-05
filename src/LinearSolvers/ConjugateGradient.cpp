@@ -1,8 +1,12 @@
 #include "ConjugateGradient.h"
 
-DenseVector ConjugateGradient::solver(const DenseMatrix& A, DenseVector& b, int maxIts, double tol){
+DenseVector ConjugateGradient::solver(const DenseMatrix& A, DenseVector& b, DenseVector x, int maxIts, double tol){
 
-    DenseVector x(std::vector<double>(b.getLen(), 0));
+    if (x.getData().empty()){
+        DenseVector x0(std::vector<double>(b.getLen(), 0));
+        x = x0;
+    }
+
     DenseVector r = Residuals::residual(A, b, x);
     DenseVector rPlus1 = r;
     DenseVector p = r;

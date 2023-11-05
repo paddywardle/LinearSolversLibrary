@@ -16,7 +16,8 @@ class DenseVector: public Vector {
     public:
         
         // Instantiation
-        DenseVector(const std::vector<double> data_={});
+        DenseVector(const std::vector<double> data_);
+        DenseVector();
         ~DenseVector(){};
         
         // Access functions

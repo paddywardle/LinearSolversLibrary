@@ -1,8 +1,13 @@
 #include "DenseVector.h"
 
 DenseVector::DenseVector(const std::vector<double> initialData){
-        length = initialData.size();
-        data_ = initialData;
+    length = initialData.size();
+    data_ = initialData;
+}
+
+DenseVector::DenseVector(){
+    length = 0;
+    data_ = {};
 }
 
 size_t DenseVector::getLen() const{ 

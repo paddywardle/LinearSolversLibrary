@@ -1,8 +1,11 @@
 #include "GaussSeidel.h"
 
-DenseVector GaussSeidel::solver(const DenseMatrix& A, DenseVector& b, int maxIts, double tol){
+DenseVector GaussSeidel::solver(const DenseMatrix& A, DenseVector& b, DenseVector x, int maxIts, double tol){
 
-    DenseVector x(std::vector<double>(b.getLen(), 0));
+    if (x.getData().empty()){
+        DenseVector x0(std::vector<double>(b.getLen(), 0));
+        x = x0;
+    }
 
     double res = 0;
 

@@ -1,10 +1,13 @@
 #include "SteepestDescent.h"
 
-DenseVector SteepestDescent::solver(const DenseMatrix& A, DenseVector& b, int maxIts, double tol){
+DenseVector SteepestDescent::solver(const DenseMatrix& A, DenseVector& b, DenseVector x, int maxIts, double tol){
 
-    DenseVector x(std::vector<double>(b.getLen(), 0));
+    if (x.getData().empty()){
+        DenseVector x0(std::vector<double>(b.getLen(), 0));
+        x = x0;
+    }
+
     DenseVector r = Residuals::residual(A, b, x);
-    
     DenseVector alphaR;
     double res = 0;
     double alp = 0;

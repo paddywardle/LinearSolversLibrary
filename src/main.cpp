@@ -15,9 +15,8 @@ int main(){
 
         DenseVector b({1,2,3,4,5,6,7});
 
-        DenseVector x = ConjugateGradient::solver(A, b, 1000);
+        DenseVector x = ConjugateGradient::solver(A, b);
         std::cout<<x<<"\n";
-        std::cout<<"Hello me\n";
 
     }
     catch (const DenseMatrixExceptions& e){
