@@ -1,11 +1,4 @@
-#include <pybind11/pybind11.h>
-#include <pybind11/stl.h>
-#include "Matrix/DenseMatrix_binding.cpp"
-#include "Vector/DenseVector_binding.cpp"
-#include "VecOps/DVOps_binding.cpp"
-#include "MatOps/DMOps_binding.cpp"
-
-namespace py = pybind11;
+#include "LinSol_binding.h"
 
 PYBIND11_MODULE(LinSol, handle){
 
@@ -15,5 +8,7 @@ PYBIND11_MODULE(LinSol, handle){
     vector_submodule_binding(handle);
     dvops_submodule_binding(handle);
     dmops_submodule_binding(handle);
+    res_submodule_binding(handle);
+    solvers_submodule_binding(handle);
     
 }

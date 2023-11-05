@@ -1,6 +1,8 @@
-#include "../../src/Matrix/DenseMatrix.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <sstream>
+
+#include "../../src/Matrix/DenseMatrix.h"
 
 namespace py = pybind11;
 
@@ -11,6 +13,11 @@ void vector_submodule_binding(py::module handle){
     .def("numRows",  &DenseMatrix::numRows)
     .def("numCols", &DenseMatrix::numCols)
     .def("getData",  &DenseMatrix::getData)
+    .def("__str__", [](const DenseMatrix& mat){
+        std::ostringstream ss;
+        ss<<mat;
+        return ss.str();
+    })
     ;
 }
 
