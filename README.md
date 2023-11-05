@@ -4,3 +4,4 @@ Linear Solver Library:
 - Matrix and vector linear algebra operations.
 - Linear solvers for linear systems.
 - Unit testing for functions.
+- python bindings to use C++ code in python
