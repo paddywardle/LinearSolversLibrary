@@ -4,6 +4,10 @@ DenseVector GaussianElimination::solver(DenseMatrix& A, DenseVector& b){
     
     elimination(A, b);
 
+    std::cout<<A<<"\n\n";
+
+    std::cout<<b<<"\n\n";
+
     return backsub(A, b);
     
 }
@@ -14,13 +18,13 @@ void GaussianElimination::elimination(DenseMatrix& A, DenseVector& b){
     int ACols = A.numCols();
     int bLen = b.getLen();
 
-    for (int i=0; i<ARows-2; i++){
-        for (int j=i; j<ARows-1; j++){
+    for (int i=0; i<ARows; i++){
+        for (int j=i+1; j<ARows; j++){
             double ratio = A(j,i) / A(i,i);
-            for (int k=i; k<ACols-1; k++){
-                A(j,k) -= ratio*A(i,k);
-                b(j) -= ratio*b(i);
+            for (int k=i; k<ACols; k++){
+                A(j,k) = A(j,k) - ratio*A(i,k);
             }
+            b(j) = b(j) - ratio*b(i);
         }
     }
 }
