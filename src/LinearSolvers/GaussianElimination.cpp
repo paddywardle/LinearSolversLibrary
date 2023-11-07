@@ -4,10 +4,6 @@ DenseVector GaussianElimination::solver(DenseMatrix& A, DenseVector& b){
     
     elimination(A, b);
 
-    std::cout<<A<<"\n\n";
-
-    std::cout<<b<<"\n\n";
-
     return backsub(A, b);
     
 }
