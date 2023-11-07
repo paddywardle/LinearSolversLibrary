@@ -16,7 +16,8 @@ set (LinearSolversSrc
     "../src/LinearSolvers/GaussSeidel.cpp"
     "../src/LinearSolvers/Jacobi.cpp"
     "../src/LinearSolvers/SteepestDescent.cpp"
-    "../src/LinearSolvers/ConjugateGradient.cpp")
+    "../src/LinearSolvers/ConjugateGradient.cpp"
+    "../src/LinearSolvers/GaussianElimination.cpp")
 
 set (LinSol "LinSol_binding.cpp")
 

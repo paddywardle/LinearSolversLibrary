@@ -5,6 +5,7 @@
 #include "../../src/LinearSolvers/Jacobi.h"
 #include "../../src/LinearSolvers/SteepestDescent.h"
 #include "../../src/LinearSolvers/ConjugateGradient.h"
+#include "../../src/LinearSolvers/GaussianElimination.h"
 #include "../../src/Vector/DenseVector.h"
 
 namespace py = pybind11;
@@ -24,5 +25,8 @@ void solvers_submodule_binding(py::module handle){
 
     auto ConjugateGradient = solvers.def_submodule("CG");
     ConjugateGradient.def("solver", &ConjugateGradient::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+
+    auto GaussianElimination = solvers.def_submodule("GE");
+    GaussianElimination.def("solver", &GaussianElimination::solver);
 
 }
