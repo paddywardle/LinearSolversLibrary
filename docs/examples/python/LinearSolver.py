@@ -30,3 +30,7 @@ print(x)
 print("Conjugate Gradient")
 x = LinSol.Solvers.CG.solver(A, b)
 print(x)
+
+print("Gaussian Elimination")
+x = LinSol.Solvers.GE.solver(A, b)
+print(x)
