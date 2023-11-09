@@ -35,7 +35,7 @@ void GaussSeidelOMP::forwardSweep(const DenseMatrix& A, const DenseVector& b, De
         double uNew = b(i);
 
         // this is the only loop that can be parallelised (columns)
-        #pragma omp parallel for
+        #pragma omp parallel for reduction(-:uNew)
         for (int j=0; j<ACols; j++){
             if (j!=i){
                 uNew -= A(i,j) * x(j);
@@ -55,7 +55,7 @@ void GaussSeidelOMP::backwardSweep(const DenseMatrix& A, const DenseVector& b, D
         double uNew = b(i);
 
         // this is the only loop that can be parallelised (columns)
-        #pragma omp parallel for
+        #pragma omp parallel for reduction(-:uNew)
         for (int j=ACols-1; j>=0; j--){
             if (j!=i){
                 uNew -= A(i,j) * x(j);
