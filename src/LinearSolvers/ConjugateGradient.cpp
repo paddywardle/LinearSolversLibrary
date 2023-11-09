@@ -7,6 +7,7 @@ DenseVector ConjugateGradient::solver(const DenseMatrix& A, DenseVector& b, Dens
         x = x0;
     }
 
+
     DenseVector r = Residuals::residual(A, b, x);
     DenseVector rPlus1 = r;
     DenseVector p = r;

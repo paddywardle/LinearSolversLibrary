@@ -19,6 +19,11 @@ namespace DMOps {
     DenseMatrix elemDiv(const DenseMatrix& matA, const DenseMatrix& matB);
 
     DenseMatrix scalarMult(const DenseMatrix& matA, const double val);
+
+    DenseMatrix partialPivot(DenseMatrix& A);
+
+    DenseMatrix fullPivot(DenseMatrix& A);
+
     
 };
 

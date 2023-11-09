@@ -15,7 +15,7 @@ int main(){
 
         DenseVector b({1,2,3,4,5,6,7});
 
-        DenseVector x = ConjugateGradient::solver(A, b);
+        DenseVector x = GaussSeidel::solver(A, b);
         std::cout<<x<<"\n";
 
     }

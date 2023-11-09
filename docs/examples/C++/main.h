@@ -10,3 +10,4 @@
 #include "../../../src/Exceptions/DenseVectorExceptions.h"
 #include "../../../src/LinearSolvers/SteepestDescent.h"
 #include "../../../src/LinearSolvers/ConjugateGradient.h"
+#include "../../../src/LinearSolversOMP/GaussSeidelOMP.h"
