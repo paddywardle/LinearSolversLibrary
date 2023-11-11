@@ -12,3 +12,4 @@
 #include "../../../src/LinearSolvers/ConjugateGradient.h"
 #include "../../../src/LinearSolversOMP/GaussSeidelOMP.h"
 #include "../../../src/LinearSolversOMP/JacobiOMP.h"
+#include "../../../src/LinearSolversOMP/GaussianEliminationOMP.h"
