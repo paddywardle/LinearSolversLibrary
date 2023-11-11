@@ -14,8 +14,8 @@ int main(){
         });
 
         DenseVector b({1,2,3,4,5,6,7});
-
-        DenseVector x = GaussSeidelOMP::solver(A, b);
+        std::cout<<"Jac\n";
+        DenseVector x = JacobiOMP::solver(A, b);
         std::cout<<x<<"\n";
 
     }
