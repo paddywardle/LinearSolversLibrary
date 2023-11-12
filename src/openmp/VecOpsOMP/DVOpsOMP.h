@@ -1,15 +1,15 @@
-#ifndef DVOPS_H
-#define DVOPS_H
+#ifndef DVOPSOMP_H
+#define DVOPSOMP_H
 
 #include <vector>
 #include <cmath>
 #include <numeric>
 
-#include "../Matrix/DenseMatrix.h"
-#include "../Vector/DenseVector.h"
-#include "../Exceptions/DenseVectorExceptions.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Vector/DenseVector.h"
+#include "../../Exceptions/DenseVectorExceptions.h"
 
-namespace DVOps {
+namespace DVOpsOMP {
 
     DenseVector elemMult(const DenseVector& vecA, const DenseVector& vecB);
 

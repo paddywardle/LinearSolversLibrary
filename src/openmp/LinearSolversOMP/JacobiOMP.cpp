@@ -14,7 +14,7 @@ DenseVector JacobiOMP::solver(const DenseMatrix& A, DenseVector& b, DenseVector 
         JacobiOMP::forwardSweep(A, b, x);
         JacobiOMP::backwardSweep(A, b, x);
 
-        res = Residuals::L1MatMul(A, b, x);
+        res = ResidualsOMP::L1MatMul(A, b, x);
 
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";

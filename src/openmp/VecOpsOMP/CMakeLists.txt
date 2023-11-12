@@ -1,0 +1,4 @@
+set (DVOPSOMP_FILES
+    ${CMAKE_CURRENT_SOURCE_DIR}/DVOpsOMP.cpp)
+
+target_sources(LinSol PRIVATE ${DVOPSOMP_FILES})

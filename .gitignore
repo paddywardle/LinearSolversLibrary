@@ -3,6 +3,7 @@ bin/
 .vscode
 python/pybind11
 python/build
+build
 
 # Prerequisites
 *.d

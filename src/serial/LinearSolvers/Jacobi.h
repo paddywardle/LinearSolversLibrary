@@ -1,15 +1,14 @@
-#ifndef JACOBIOMP_H
-#define JACOBIOMP_H
+#ifndef JACOBI_H
+#define JACOBI_H
 
 #include <vector>
-#include <omp.h>
 
-#include "../Matrix/DenseMatrix.h"
-#include "../Vector/DenseVector.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Vector/DenseVector.h"
 #include "../VecOps/DVOps.h"
 #include "../Residuals/Residuals.h"
 
-namespace JacobiOMP {
+namespace Jacobi {
 
     DenseVector solver(const DenseMatrix& A, DenseVector& b, DenseVector x=DenseVector(), int maxIts=200, double tol=1e-5);
 

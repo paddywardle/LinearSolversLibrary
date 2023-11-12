@@ -1,0 +1,4 @@
+add_subdirectory(MatOps)
+add_subdirectory(Residuals)
+add_subdirectory(VecOps)
+add_subdirectory(LinearSolvers)

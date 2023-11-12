@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "../Matrix/DenseMatrix.h"
-#include "../Vector/DenseVector.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Vector/DenseVector.h"
 #include "../VecOps/DVOps.h"
 
 namespace GaussianElimination {

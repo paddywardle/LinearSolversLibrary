@@ -4,10 +4,9 @@
 #include <vector>
 #include <omp.h>
 
-
-#include "../Matrix/DenseMatrix.h"
-#include "../Vector/DenseVector.h"
-#include "../VecOps/DVOps.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Vector/DenseVector.h"
+#include "../VecOpsOMP/DVOpsOMP.h"
 
 namespace GaussianEliminationOMP {
 

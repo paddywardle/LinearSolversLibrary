@@ -1,15 +1,14 @@
-#ifndef GAUSSSEIDELOMP_H
-#define GAUSSSEIDELOMP_H
+#ifndef GAUSSSEIDEL_H
+#define GAUSSSEIDEL_H
 
 #include <vector>
-#include <omp.h>
 
-#include "../Matrix/DenseMatrix.h"
-#include "../Vector/DenseVector.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Vector/DenseVector.h"
 #include "../VecOps/DVOps.h"
 #include "../Residuals/Residuals.h"
 
-namespace GaussSeidelOMP {
+namespace GaussSeidel {
 
     DenseVector solver(const DenseMatrix& A, DenseVector& b, DenseVector x=DenseVector(), int maxIts=200, double tol=1e-5);
 

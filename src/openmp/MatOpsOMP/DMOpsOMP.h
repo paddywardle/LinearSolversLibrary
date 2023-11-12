@@ -1,12 +1,12 @@
-#ifndef DMOPS_H
-#define DMOPS_H
+#ifndef DMOPSOMP_H
+#define DMOPSOMP_H
 
 #include <vector>
 
-#include "../Matrix/DenseMatrix.h"
-#include "../Exceptions/DenseMatrixExceptions.h"
+#include "../../Matrix/DenseMatrix.h"
+#include "../../Exceptions/DenseMatrixExceptions.h"
 
-namespace DMOps {
+namespace DMOpsOMP {
 
     DenseMatrix matMul(const DenseMatrix& matA, const DenseMatrix& matB);
 
