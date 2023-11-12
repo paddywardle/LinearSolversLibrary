@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "../../src/MatOps/DMOps.h"
+#include "../../src/serial/MatOps/DMOps.h"
 
 namespace py = pybind11;
 

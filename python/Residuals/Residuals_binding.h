@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "../../src/Residuals/Residuals.h"
+#include "../../src/serial/Residuals/Residuals.h"
 
 namespace py = pybind11;
 

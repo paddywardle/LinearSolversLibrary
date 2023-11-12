@@ -6,18 +6,18 @@ set (DenseVectorSrc "../src/Vector/DenseVector.cpp")
 
 set (DenseMatrixSrc "../src/Matrix/DenseMatrix.cpp")
 
-set (DVOpsSrc "../src/VecOps/DVOps.cpp")
+set (DVOpsSrc "../src/serial/VecOps/DVOps.cpp")
 
-set (DMOpsSrc "../src/MatOps/DMOps.cpp")
+set (DMOpsSrc "../src/serial/MatOps/DMOps.cpp")
 
-set (ResidualsSrc "../src/Residuals/Residuals.cpp")
+set (ResidualsSrc "../src/serial/Residuals/Residuals.cpp")
 
 set (LinearSolversSrc 
-    "../src/LinearSolvers/GaussSeidel.cpp"
-    "../src/LinearSolvers/Jacobi.cpp"
-    "../src/LinearSolvers/SteepestDescent.cpp"
-    "../src/LinearSolvers/ConjugateGradient.cpp"
-    "../src/LinearSolvers/GaussianElimination.cpp")
+    "../src/serial/LinearSolvers/GaussSeidel.cpp"
+    "../src/serial/LinearSolvers/Jacobi.cpp"
+    "../src/serial/LinearSolvers/SteepestDescent.cpp"
+    "../src/serial/LinearSolvers/ConjugateGradient.cpp"
+    "../src/serial/LinearSolvers/GaussianElimination.cpp")
 
 set (LinSol "LinSol_binding.cpp")
 

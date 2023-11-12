@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-#include "../../src/VecOps/DVOps.h"
+#include "../../src/serial/VecOps/DVOps.h"
 
 namespace py = pybind11;
 
