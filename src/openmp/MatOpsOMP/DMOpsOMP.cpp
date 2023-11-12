@@ -14,6 +14,7 @@ DenseMatrix DMOpsOMP::matMul(const DenseMatrix& matA, const DenseMatrix& matB) {
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             for (int k=0; k<matACols; k++){
@@ -39,7 +40,8 @@ DenseMatrix DMOpsOMP::elemMult(const DenseMatrix& matA, const DenseMatrix& matB)
     }
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
-
+    
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             resultMat(i,j) =  matA(i,j) * matB(i,j);
@@ -63,6 +65,7 @@ DenseMatrix DMOpsOMP::elemAdd(const DenseMatrix& matA, const DenseMatrix& matB){
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             resultMat(i,j) =  matA(i,j) + matB(i,j);
@@ -86,6 +89,7 @@ DenseMatrix DMOpsOMP::elemSub(const DenseMatrix& matA, const DenseMatrix& matB){
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             resultMat(i,j) =  matA(i,j) - matB(i,j);
@@ -109,6 +113,7 @@ DenseMatrix DMOpsOMP::elemDiv(const DenseMatrix& matA, const DenseMatrix& matB){
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matBCols,0)));
 
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             resultMat(i,j) =  matA(i,j) / matB(i,j);
@@ -125,6 +130,7 @@ DenseMatrix DMOpsOMP::scalarMult(const DenseMatrix& matA, const double val) {
 
     DenseMatrix resultMat(std::vector<std::vector<double>>(matARows,std::vector<double>(matACols,0)));
 
+    #pragma omp parallel for
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
 

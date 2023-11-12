@@ -4,6 +4,7 @@
 #include <vector>
 #include <cmath>
 #include <numeric>
+#include <omp.h>
 
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"

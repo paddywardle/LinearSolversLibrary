@@ -2,6 +2,7 @@
 #define DMOPSOMP_H
 
 #include <vector>
+#include <omp.h>
 
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Exceptions/DenseMatrixExceptions.h"

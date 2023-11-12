@@ -10,7 +10,8 @@ DenseVector DVOpsOMP::elemMult(const DenseVector& vecA, const DenseVector& vecB)
     }
 
     DenseVector resultVec(std::vector<double>(vecALen, 0));
-
+    
+    #pragma omp parallel for
     for (int i=0; i<vecALen; i++){
         resultVec(i) += vecA(i) * vecB(i);
     }
@@ -29,6 +30,7 @@ DenseVector DVOpsOMP::elemAdd(const DenseVector& vecA, const DenseVector& vecB) 
 
     DenseVector resultVec(std::vector<double>(vecALen, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<vecALen; i++){
         resultVec(i) += vecA(i) + vecB(i);
     }
@@ -47,6 +49,7 @@ DenseVector DVOpsOMP::elemSub(const DenseVector& vecA, const DenseVector& vecB) 
 
     DenseVector resultVec(std::vector<double>(vecALen, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<vecALen; i++){
         resultVec(i) += (vecA(i) - vecB(i));
     }
@@ -65,6 +68,7 @@ DenseVector DVOpsOMP::elemDiv(const DenseVector& vecA, const DenseVector& vecB) 
 
     DenseVector resultVec(std::vector<double>(vecALen, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<vecALen; i++){
         resultVec(i) += (vecA(i) / vecB(i));
     }
@@ -78,6 +82,7 @@ DenseVector DVOpsOMP::scalarMult(const DenseVector& vecA, const double val) {
 
     DenseVector resultVec(std::vector<double>(vecALen, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<vecALen; i++){
         resultVec(i) += val * vecA(i);
     }
@@ -94,6 +99,7 @@ double DVOpsOMP::norm(const DenseVector& vecA, const double ord) {
     // needs to be a vector of vectors
     double normResult = 0.0;
 
+    #pragma omp parallel for reduction(+:normResult)
     for (int i=0; i<vecALen; i++){
         normResult += pow(fabs(vecAData[i]), ord);
     }
@@ -116,6 +122,7 @@ double DVOpsOMP::dot(const DenseVector& vecA, const DenseVector& vecB) {
     // needs to be a vector of vectors
     double dotResult = 0;
 
+    #pragma omp parallel for reduction(+:dotResult)
     for (int i=0; i<vecALen; i++){
         dotResult += vecAData[i] * vecBData[i];
     }
@@ -144,6 +151,7 @@ DenseVector DVOpsOMP::DVMOps::matVecMul(const DenseMatrix& mat, const DenseVecto
 
     DenseVector resultVec(std::vector<double>(matRows, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<matRows; i++){
         for (int j=0; j<matCols; j++){
             // make this look prettier (make sure it's correct)
@@ -167,6 +175,7 @@ DenseVector DVOpsOMP::DVMOps::vecMatMul(const DenseVector& vec, const DenseMatri
 
     DenseVector resultVec(std::vector<double>(matRows, 0));
 
+    #pragma omp parallel for
     for (int i=0; i<matCols; i++){
         for (int j=0; j<matRows; j++){
             // make this look prettier (make sure it's correct)
