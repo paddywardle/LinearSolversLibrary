@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p python/build
+cd python/build
+cmake ..
+make

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-mkdir build
-mkdir build/Examples
-mkdir build/Tests
+mkdir -p build
+mkdir -p build/Examples
+mkdir -p build/Tests
