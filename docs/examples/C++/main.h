@@ -1,5 +1,9 @@
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+#include "../../../src/utils/file_reader.h"
 
 #include "../../../src/Matrix/DenseMatrix.h"
 #include "../../../src/serial/MatOps/DMOps.h"

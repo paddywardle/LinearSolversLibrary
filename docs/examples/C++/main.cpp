@@ -2,19 +2,19 @@
 
 int main(){
     try {
+        std::string matrix_path = "files/Ax.txt";
+        std::string vector_path = "files/bx.txt";
 
-        DenseMatrix A({
-            {10, 1, 0, 0, 0, 0, 0},
-            {1, 11, 1, 0, 0, 0, 0},
-            {0, 1, 12, 1, 0, 0, 0},
-            {0, 0, 1, 13, 1, 0, 0},
-            {0, 0, 0, 1, 14, 1, 0},
-            {0, 0, 0, 0, 1, 15, 1},
-            {0, 0, 0, 0, 0, 1, 16}
-        });
+        std::vector<std::vector<double>> Ax = read_matrix(matrix_path);
+        std::vector<double> bx = read_vector(vector_path);
 
-        DenseVector b({1,2,3,4,5,6,7});
-        DenseVector x = GaussianEliminationOMP::solver(A, b);
+        DenseMatrix A(Ax);
+
+        DenseVector b(bx);
+
+        std::cout<<b<<"\n";
+
+        DenseVector x = GaussSeidelOMP::solver(A, b);
         std::cout<<x<<"\n";
 
     }

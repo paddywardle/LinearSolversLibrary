@@ -4,6 +4,7 @@ bin/
 python/pybind11
 python/build
 build
+files/
 
 # Prerequisites
 *.d
