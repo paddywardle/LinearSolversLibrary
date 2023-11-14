@@ -15,7 +15,7 @@ std::vector<std::vector<double>> read_matrix(std::string path){
             std::istringstream iss(line);
             std::vector<double> row;
             
-            int value;
+            double value;
 
             while (iss >> value){
                 row.push_back(value);
@@ -50,7 +50,7 @@ std::vector<double> read_vector(std::string path){
 
             std::istringstream iss(line);
                 
-            int value;
+            double value;
 
             while (iss >> value){
                 b.push_back(value);
