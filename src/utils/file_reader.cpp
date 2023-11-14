@@ -44,8 +44,6 @@ std::vector<double> read_vector(std::string path){
             return std::vector<double>(1, 0);
         }
 
-        std::getline(file, line);
-
         while(std::getline(file, line)){
 
             std::istringstream iss(line);
