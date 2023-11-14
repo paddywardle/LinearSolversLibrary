@@ -10,6 +10,7 @@
 #include "../../../src/Vector/Vector.h"
 #include "../../../src/serial/VecOps/DVOps.h"
 #include "../../../src/serial/LinearSolvers/GaussSeidel.h"
+#include "../../../src/serial/LinearSolvers/Jacobi.h"
 #include "../../../src/Exceptions/DenseMatrixExceptions.h"
 #include "../../../src/Exceptions/DenseVectorExceptions.h"
 #include "../../../src/serial/LinearSolvers/SteepestDescent.h"
@@ -17,3 +18,4 @@
 #include "../../../src/openmp/LinearSolversOMP/GaussSeidelOMP.h"
 #include "../../../src/openmp/LinearSolversOMP/JacobiOMP.h"
 #include "../../../src/openmp/LinearSolversOMP/GaussianEliminationOMP.h"
+#include "../../../src/openmp/LinearSolversOMP/ConjugateGradientOMP.h"

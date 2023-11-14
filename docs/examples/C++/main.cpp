@@ -12,10 +12,8 @@ int main(){
 
         DenseVector b(bx);
 
-        std::cout<<b<<"\n";
-
-        DenseVector x = GaussSeidelOMP::solver(A, b);
-        std::cout<<x<<"\n";
+        DenseVector x = ConjugateGradient::solver(A, b);
+        std::cout<<x(0)<<"\n";
 
     }
     catch (const DenseMatrixExceptions& e){
