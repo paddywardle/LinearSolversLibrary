@@ -1,7 +1,5 @@
 add_library(LinSol)
 
-find_package(OpenMP)
-
 add_subdirectory(serial)
 
 add_subdirectory(openmp)
