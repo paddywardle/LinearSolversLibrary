@@ -1,8 +1,14 @@
 add_library(LinSol)
 
+find_package(OpenMP REQUIRED)
+
+find_package(MPI REQUIRED)
+
 add_subdirectory(serial)
 
 add_subdirectory(openmp)
+
+add_subdirectory(mpi)
 
 add_subdirectory(Vector)
 
