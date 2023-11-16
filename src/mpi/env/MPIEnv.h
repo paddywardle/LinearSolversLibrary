@@ -16,10 +16,6 @@ class MPIEnv{
         
         virtual void finalise() const=0;
 
-        virtual int rank() const=0;
-
-        virtual int size() const=0;
-
 };
 
 #endif

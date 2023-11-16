@@ -13,10 +13,6 @@ class MPIBasicEnv: public MPIEnv {
 
         void finalise() const override;
 
-        int rank() const override;
-
-        int size() const override;
-
 };
 
 #endif
