@@ -9,6 +9,7 @@
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
 #include "../../Exceptions/DenseVectorExceptions.h"
+#include "../MPIOps/MPIOps.h"
 
 namespace DVOpsMPI {
 
