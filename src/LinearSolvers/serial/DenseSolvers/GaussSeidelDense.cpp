@@ -1,5 +1,10 @@
 #include "GaussSeidelDense.h"
 
+static GaussSeidelDense::GaussSeidelDense& getInstance() {
+    static GaussSeidelDense instance;
+    return instance;
+}
+
 DenseVector& GaussSeidelDense::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
     if (x.getData().empty()){

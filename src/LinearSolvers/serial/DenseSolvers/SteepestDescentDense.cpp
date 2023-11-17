@@ -1,6 +1,6 @@
 #include "SteepestDescentDense.h"
 
-static SteepestDescentDense& getInstance() {
+static SteepestDescentDense::SteepestDescentDense& getInstance() {
     static SteepestDescentDense instance;
     return instance;
 }

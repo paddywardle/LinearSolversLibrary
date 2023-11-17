@@ -1,11 +1,6 @@
-#include "JacobiDense.h"
+#include "Jacobi.h"
 
-static JacobiDense::JacobiDense& getInstance() {
-    static JacobiDense instance;
-    return instance;
-}
-
-DenseVector& JacobiDense::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
+DenseVector& Jacobi<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
@@ -16,8 +11,8 @@ DenseVector& JacobiDense::solver(const DenseMatrix& A, const DenseVector& b, Den
 
     for (int i=0; i<maxIts; i++){
 
-        JacobiDense::forwardSweep(A, b, x);
-        JacobiDense::backwardSweep(A, b, x);
+        Jacobi<DenseMatrix, DenseVector>::forwardSweep(A, b, x);
+        Jacobi<DenseMatrix, DenseVector>::backwardSweep(A, b, x);
 
         res = Residuals::L1MatMul(A, b, x);
 
@@ -30,7 +25,7 @@ DenseVector& JacobiDense::solver(const DenseMatrix& A, const DenseVector& b, Den
     return x;
 }
 
-void JacobiDense::forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const{
+void Jacobi<DenseMatrix, DenseVector>::forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const{
 
     int ARows = A.numRows();
     int ACols = A.numCols();
@@ -49,7 +44,7 @@ void JacobiDense::forwardSweep(const DenseMatrix& A, const DenseVector& b, Dense
     }
 }
 
-void JacobiDense::backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const{
+void Jacobi<DenseMatrix, DenseVector>::backwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const{
 
     int ARows = A.numRows();
     int ACols = A.numCols();

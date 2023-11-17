@@ -1,12 +1,16 @@
 #include "ConjugateGradientDense.h"
 
+static ConjugateGradientDense::ConjugateGradientDense& getInstance() {
+    static ConjugateGradientDense instance;
+    return instance;
+}
+
 DenseVector& ConjugateGradientDense::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
         x = x0;
     }
-
 
     DenseVector r = Residuals::residual(A, b, x);
     DenseVector rPlus1 = r;
