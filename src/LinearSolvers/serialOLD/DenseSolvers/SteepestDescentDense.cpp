@@ -1,11 +1,11 @@
-#include "SteepestDescentDense.h"
+#include "SteepestDescent.h"
 
-static SteepestDescentDense::SteepestDescentDense& getInstance() {
-    static SteepestDescentDense instance;
+static SteepestDescent::SteepestDescent& getInstance() {
+    static SteepestDescent instance;
     return instance;
 }
 
-DenseVector& SteepestDescentDense::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts, const double tol) const{
+DenseVector& SteepestDescent::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts, const double tol) const{
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
@@ -20,7 +20,7 @@ DenseVector& SteepestDescentDense::solver(const DenseMatrix& A, const DenseVecto
     for (int i=0; i<maxIts; i++){
 
         // line search step value
-        alp = SteepestDescentDense::alpha(A, r);
+        alp = SteepestDescent::alpha(A, r);
 
         alphaR = DVOps::scalarMult(r, alp);
 
@@ -41,7 +41,7 @@ DenseVector& SteepestDescentDense::solver(const DenseMatrix& A, const DenseVecto
     return x;
 }
 
-double SteepestDescentDense::alpha(const DenseMatrix& A, const DenseVector& r) const{
+double SteepestDescent::alpha(const DenseMatrix& A, const DenseVector& r) const{
 
     // alpha = dot(r, r)/ r^T A r
     DenseVector rADen = DVOps::DVMOps::vecMatMul(r, A);
