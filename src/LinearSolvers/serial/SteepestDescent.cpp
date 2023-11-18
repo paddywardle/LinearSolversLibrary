@@ -1,13 +1,16 @@
 #include "SteepestDescent.h"
 
-DenseVector& SteepestDescent<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts, const double tol) const{
+DenseVector SteepestDescent<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
+
+    Residuals<DenseMatrix, DenseVector>& Residual=Residuals<DenseMatrix, DenseVector>::getInstance();
+    DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
         x = x0;
     }
 
-    DenseVector r = Residuals::residual(A, b, x);
+    DenseVector r = Residual.residual(A, b, x);
     DenseVector alphaR;
     double res = 0;
     double alp = 0;
@@ -17,14 +20,14 @@ DenseVector& SteepestDescent<DenseMatrix, DenseVector>::solver(const DenseMatrix
         // line search step value
         alp = SteepestDescent<DenseMatrix, DenseVector>::alpha(A, r);
 
-        alphaR = DVOps::scalarMult(r, alp);
+        alphaR = VecOps.scalarMult(r, alp);
 
         // updated x and r
-        x = DVOps::elemAdd(x, alphaR).getData();
-        r = Residuals::residual(A, b, x);
+        x = VecOps.elemAdd(x, alphaR).getData();
+        r = Residual.residual(A, b, x);
         
         // new residual
-        res = Residuals::L1MatMul(A, b, x);
+        res = Residual.L1MatMul(A, b, x);
 
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";
@@ -38,10 +41,12 @@ DenseVector& SteepestDescent<DenseMatrix, DenseVector>::solver(const DenseMatrix
 
 double SteepestDescent<DenseMatrix, DenseVector>::alpha(const DenseMatrix& A, const DenseVector& r) const{
 
+    DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
+
     // alpha = dot(r, r)/ r^T A r
-    DenseVector rADen = DVOps::DVMOps::vecMatMul(r, A);
-    double alphaNum = DVOps::dot(r, r);
-    double alphaDen = DVOps::dot(rADen,r);
+    DenseVector rADen = VecOps.vecMatMul(r, A);
+    double alphaNum = VecOps.dot(r, r);
+    double alphaDen = VecOps.dot(rADen,r);
     
     return alphaNum/alphaDen;
 

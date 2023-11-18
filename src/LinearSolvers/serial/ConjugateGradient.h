@@ -1,5 +1,7 @@
-#ifndef CONJUGATEGRADIENTDENSE_H
-#define CONJUGATEGRADIENTDENSE_H
+#ifndef CONJUGATEGRADIENT_H
+#define CONJUGATEGRADIENT_H
+
+#include <vector>
 
 #include "../LinearSolver.h"
 #include "../../Matrix/DenseMatrix.h"
@@ -7,12 +9,12 @@
 #include "../../Ops/serial/DVOps.h"
 #include "../../Residuals/Residuals.h"
 
-template<Matrix, Vector>
-class ConjugateGradientDense: public LinearSolver<Matrix, Vector>{
+template<typename Matrix, typename Vector>
+class ConjugateGradient: public LinearSolver<Matrix, Vector>{
 
     public:
 
-        Vector& solver(const Matrix& A, const Vector& b, Vector x, const int maxIts, const double tol) const override;
+        Vector solver(const Matrix& A, const Vector& b, Vector x, const int maxIts, const double tol) const override;
 
         double alpha(const Matrix& A, const Vector& r, const Vector& p) const;
         
@@ -21,15 +23,26 @@ class ConjugateGradientDense: public LinearSolver<Matrix, Vector>{
 };
 
 template<>
-class ConjugateGradientDense<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix, DenseVector>{
+class ConjugateGradient<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix, DenseVector>{
 
     public:
 
-        DenseVector& solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts, const double tol) const override;
+        static ConjugateGradient<DenseMatrix, DenseVector>& getInstance(){
+            static ConjugateGradient<DenseMatrix, DenseVector> instance;
+            return instance;
+        }
+
+        DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         double alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p) const;
         
         double beta(const DenseVector& r, const DenseVector& rPlus1) const;
+
+    private:
+        ConjugateGradient(){}
+        ~ConjugateGradient(){}
+        ConjugateGradient(const ConjugateGradient<DenseMatrix, DenseVector>&) = delete;
+        ConjugateGradient<DenseMatrix, DenseVector>& operator=(const ConjugateGradient<DenseMatrix, DenseVector>&) = delete;
 
 };
 

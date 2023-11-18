@@ -1,6 +1,8 @@
 #ifndef STEEPESTDESCENT_H
 #define STEEPESTDESCENT_H
 
+#include <vector>
+
 #include "../LinearSolver.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
@@ -12,7 +14,7 @@ class SteepestDescent : public LinearSolver<Matrix, Vector>{
 
     public:
 
-        Vector& solver(const Matrix& A, const Vector& b, Vector x, const int maxIts, const double tol) const override;
+        Vector solver(const Matrix& A, const Vector& b, Vector x, const int maxIts, const double tol) const override;
 
         double alpha(const Matrix& A, const Vector& r) const;
 
@@ -23,9 +25,20 @@ class SteepestDescent<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix
     
     public:
 
-        DenseVector& solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts, const double tol) const override;
+        static SteepestDescent<DenseMatrix, DenseVector>& getInstance(){
+            static SteepestDescent<DenseMatrix, DenseVector> instance;
+            return instance;
+        }
+
+        DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         double alpha(const DenseMatrix& A, const DenseVector& r) const;
+
+    private:
+        SteepestDescent(){}
+        ~SteepestDescent(){}
+        SteepestDescent(const SteepestDescent<DenseMatrix, DenseVector>&) = delete;
+        SteepestDescent<DenseMatrix, DenseVector>& operator=(const SteepestDescent<DenseMatrix, DenseVector>&) = delete;
 
 };
 

@@ -15,10 +15,10 @@
 
 #include "../../../src/serial/VecOps/DVOps.h"
 #include "../../../src/serial/MatOps/DMOps.h"
-#include "../../../src/serial/LinearSolvers/GaussSeidel.h"
-#include "../../../src/serial/LinearSolvers/Jacobi.h"
-#include "../../../src/serial/LinearSolvers/SteepestDescent.h"
-#include "../../../src/serial/LinearSolvers/ConjugateGradient.h"
+#include "../../../src/LinearSolvers/serial/GaussSeidel.h"
+#include "../../../src/LinearSolvers/serial/Jacobi.h"
+#include "../../../src/LinearSolvers/serial/SteepestDescent.h"
+#include "../../../src/LinearSolvers/serial/ConjugateGradient.h"
 
 #include "../../../src/openmp/LinearSolversOMP/GaussSeidelOMP.h"
 #include "../../../src/openmp/LinearSolversOMP/JacobiOMP.h"

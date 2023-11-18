@@ -18,23 +18,22 @@ class DVOps : public Ops<Vector>{
 
         Vector& elemDiv(const Vector& matA, const Vector& matB) const override;
 
-        Vector& scalarMult(const Vector& vecA, const double val) const;
+        Vector& scalarMult(const Vector& vecA, const double val) const override;;
 
-        Vector& matVecMul(const Matrix& mat, const Vector& vec) const;
+        Vector& matVecMul(const Matrix& mat, const Vector& vec) const override;;
 
-        Vector& vecMatMul(const Vector& vec, const Matrix& mat) const;
+        Vector& vecMatMul(const Vector& vec, const Matrix& mat) const override;;
 
-        double norm(const Vector& vecA, const double ord=2.0) const;
+        double norm(const Vector& vecA, const double ord=2.0) const override;;
 
-        double dot(const Vector& vecA, const Vector& vecB) const;
+        double dot(const Vector& vecA, const Vector& vecB) const override;;
 
-        double vecSum(const Vector& vec) const;
+        double vecSum(const Vector& vec) const override;;
 
 };
 
-
 template<>
-class DVOps<DenseMatrix, DenseVector> : public Ops<DenseMatrix>{
+class DVOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
 
     public:
     
@@ -43,8 +42,6 @@ class DVOps<DenseMatrix, DenseVector> : public Ops<DenseMatrix>{
             return instance;
         }
         
-        DenseVector& elemMult(const DenseVector& matA, const DenseVector& matB) const override;
-
         DenseVector& elemMult(const DenseVector& matA, const DenseVector& matB) const override;
 
         DenseVector& elemAdd(const DenseVector& matA, const DenseVector& matB) const override;

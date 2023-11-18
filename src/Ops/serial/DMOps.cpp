@@ -1,6 +1,6 @@
 #include "DMOps.h"
 
-DenseMatrix DMOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatrix& matB) {
+DenseMatrix& DMOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatrix& matB) const {
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -26,7 +26,7 @@ DenseMatrix DMOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatri
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::elemMult(const DenseMatrix& matA, const DenseMatrix& matB){
+DenseMatrix& DMOps<DenseMatrix>::elemMult(const DenseMatrix& matA, const DenseMatrix& matB) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();

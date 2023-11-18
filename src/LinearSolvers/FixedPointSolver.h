@@ -10,9 +10,9 @@ class FixedPointSolver : public LinearSolver<Matrix, Vector>{
 
         ~FixedPointSolver() = default;
 
-        virtual void forwardSweep(const Matrix& A, const Vector& b, Vector& x) const;
+        virtual void forwardSweep(const Matrix& A, const Vector& b, Vector& x) const=0;
 
-        virtual void backwardSweep(const Matrix& A, const Vector& b, Vector& x) const;
+        virtual void backwardSweep(const Matrix& A, const Vector& b, Vector& x) const=0;
 
 };
 

@@ -1,18 +1,16 @@
-#include "ConjugateGradientDense.h"
+#include "ConjugateGradient.h"
 
-static ConjugateGradientDense::ConjugateGradientDense& getInstance() {
-    static ConjugateGradientDense instance;
-    return instance;
-}
+DenseVector ConjugateGradient<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
-DenseVector& ConjugateGradientDense::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
+    Residuals<DenseMatrix, DenseVector>& Residual=Residuals<DenseMatrix, DenseVector>::getInstance();
+    DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
         x = x0;
     }
-
-    DenseVector r = Residuals::residual(A, b, x);
+    
+    DenseVector r = Residual.residual(A, b, x);
     DenseVector rPlus1 = r;
     DenseVector p = r;
 
@@ -23,21 +21,21 @@ DenseVector& ConjugateGradientDense::solver(const DenseMatrix& A, const DenseVec
     for (int i=0; i<maxIts; i++){
 
         // line search step value
-        alp = ConjugateGradientDense::alpha(A, r, p);
+        alp = ConjugateGradient::alpha(A, r, p);
         
         // new x and r based on p
-        x = DVOps::elemAdd(x, DVOps::scalarMult(p, alp));
-        rPlus1 = DVOps::elemSub(r, DVOps::scalarMult(DVOps::DVMOps::matVecMul(A, p), alp));
+        x = VecOps.elemAdd(x, VecOps.scalarMult(p, alp));
+        rPlus1 = VecOps.elemSub(r, VecOps.scalarMult(VecOps.matVecMul(A, p), alp));
 
         // calculate beta
-        bet = ConjugateGradientDense::beta(r, rPlus1);
+        bet = ConjugateGradient::beta(r, rPlus1);
 
         // updated x and r
-        p = DVOps::elemAdd(rPlus1, DVOps::scalarMult(p, bet));
+        p = VecOps.elemAdd(rPlus1, VecOps.scalarMult(p, bet));
         
         r = rPlus1;
         // new residual
-        res = Residuals::L1MatMul(A, b, x);
+        res = Residual.L1MatMul(A, b, x);
 
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";
@@ -49,21 +47,25 @@ DenseVector& ConjugateGradientDense::solver(const DenseMatrix& A, const DenseVec
     return x;
 }
 
-double ConjugateGradientDense::alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p) const{
-    
+double ConjugateGradient<DenseMatrix, DenseVector>::alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p) const{
+
+    DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
+
     // alpha = dot(r, r)/ p^T A p
-    DenseVector pADen = DVOps::DVMOps::vecMatMul(p, A);
-    double alphaNum = DVOps::dot(r, r);
-    double alphaDen = DVOps::dot(pADen,p);
+    DenseVector pADen = VecOps.vecMatMul(p, A);
+    double alphaNum = VecOps.dot(r, r);
+    double alphaDen = VecOps.dot(pADen,p);
     
     return alphaNum/alphaDen;
 
 }
 
-double ConjugateGradientDense::beta(const DenseVector& r, const DenseVector& rPlus1) const{
+double ConjugateGradient<DenseMatrix, DenseVector>::beta(const DenseVector& r, const DenseVector& rPlus1) const{
 
-    double betaNum = DVOps::dot(rPlus1, rPlus1);
-    double betaDen = DVOps::dot(r, r);
+    DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
+
+    double betaNum = VecOps.dot(rPlus1, rPlus1);
+    double betaDen = VecOps.dot(r, r);
 
     return betaNum/betaDen;
 

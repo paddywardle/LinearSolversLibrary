@@ -8,7 +8,7 @@ class LinearSolver{
 
         ~LinearSolver() = default;
 
-        virtual Vector& solver(const Matrix& A, const Vector& b, Vector x, const int maxIts=200, const double tol=1e-5) const;
+        virtual Vector solver(const Matrix& A, const Vector& b, Vector x, const int maxIts=200, const double tol=1e-5) const=0;
         
 };
 

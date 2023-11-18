@@ -1,6 +1,8 @@
 #include "Jacobi.h"
 
-DenseVector& Jacobi<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
+DenseVector Jacobi<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
+
+    Residuals<DenseMatrix, DenseVector>& Residual=Residuals<DenseMatrix, DenseVector>::getInstance();
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
@@ -14,7 +16,7 @@ DenseVector& Jacobi<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, cons
         Jacobi<DenseMatrix, DenseVector>::forwardSweep(A, b, x);
         Jacobi<DenseMatrix, DenseVector>::backwardSweep(A, b, x);
 
-        res = Residuals::L1MatMul(A, b, x);
+        res = Residual.L1MatMul(A, b, x);
 
         if (res < tol){
             std::cout<<"Converged in "<<i+1<<" iterations!\n";

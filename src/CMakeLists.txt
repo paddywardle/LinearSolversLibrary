@@ -4,9 +4,9 @@ find_package(OpenMP REQUIRED)
 
 find_package(MPI REQUIRED)
 
-add_subdirectory(serial)
+add_subdirectory(LinearSolvers)
 
-add_subdirectory(openmp)
+# add_subdirectory(openmp)
 
 add_subdirectory(mpi)
 
