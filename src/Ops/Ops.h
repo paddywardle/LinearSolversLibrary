@@ -6,15 +6,15 @@ class Ops{
 
     public:
 
-        LinearObject& elemMult(const LinearObject& matA, const LinearObject& matB) const;
+        virtual LinearObject& elemMult(const LinearObject& matA, const LinearObject& matB) const=0;
 
-        LinearObject& elemAdd(const LinearObject& matA, const LinearObject& matB) const;
+        virtual LinearObject& elemAdd(const LinearObject& matA, const LinearObject& matB) const=0;
 
-        LinearObject& elemSub(const LinearObject& matA, const LinearObject& matB) const;
+        virtual LinearObject& elemSub(const LinearObject& matA, const LinearObject& matB) const=0;
 
-        LinearObject& elemDiv(const LinearObject& matA, const LinearObject& matB) const;
+        virtual LinearObject& elemDiv(const LinearObject& matA, const LinearObject& matB) const=0;
 
-        LinearObject& scalarMult(const LinearObject& matA, const double val) const;
+        virtual LinearObject& scalarMult(const LinearObject& matA, const double val) const=0;
 
 };
 
