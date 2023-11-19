@@ -1,9 +1,0 @@
-/usr/bin/ld: ../../../src/libLinSol.a(ConjugateGradient.cpp.o):(.data.rel.ro._ZTV3OpsI11DenseVectorE[_ZTV3OpsI11DenseVectorE]+0x10): undefined reference to `Ops<DenseVector>::elemMult(DenseVector const&, DenseVector const&) const'
-/usr/bin/ld: ../../../src/libLinSol.a(ConjugateGradient.cpp.o):(.data.rel.ro._ZTV3OpsI11DenseVectorE[_ZTV3OpsI11DenseVectorE]+0x18): undefined reference to `Ops<DenseVector>::elemAdd(DenseVector const&, DenseVector const&) const'
-/usr/bin/ld: ../../../src/libLinSol.a(ConjugateGradient.cpp.o):(.data.rel.ro._ZTV3OpsI11DenseVectorE[_ZTV3OpsI11DenseVectorE]+0x20): undefined reference to `Ops<DenseVector>::elemSub(DenseVector const&, DenseVector const&) const'
-/usr/bin/ld: ../../../src/libLinSol.a(ConjugateGradient.cpp.o):(.data.rel.ro._ZTV3OpsI11DenseVectorE[_ZTV3OpsI11DenseVectorE]+0x28): undefined reference to `Ops<DenseVector>::elemDiv(DenseVector const&, DenseVector const&) const'
-/usr/bin/ld: ../../../src/libLinSol.a(ConjugateGradient.cpp.o):(.data.rel.ro._ZTV3OpsI11DenseVectorE[_ZTV3OpsI11DenseVectorE]+0x30): undefined reference to `Ops<DenseVector>::scalarMult(DenseVector const&, double) const'
-collect2: error: ld returned 1 exit status
-make[2]: *** [docs/examples/C++/CMakeFiles/CppExample.dir/build.make:100: docs/examples/C++/CppExample] Error 1
-make[1]: *** [CMakeFiles/Makefile2:312: docs/examples/C++/CMakeFiles/CppExample.dir/all] Error 2
-make: *** [Makefile:91: all] Error 2
