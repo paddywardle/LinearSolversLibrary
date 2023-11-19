@@ -16,6 +16,9 @@ class Ops{
 
         virtual LinearObject scalarMult(const LinearObject& objA, const double val) const;
 
+        Ops() = default;
+        ~Ops() = default;
+
 };
 
 #endif
