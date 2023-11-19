@@ -6,6 +6,10 @@ find_package(MPI REQUIRED)
 
 add_subdirectory(LinearSolvers)
 
+add_subdirectory(Ops)
+
+add_subdirectory(Residuals)
+
 # add_subdirectory(openmp)
 
 add_subdirectory(mpi)
