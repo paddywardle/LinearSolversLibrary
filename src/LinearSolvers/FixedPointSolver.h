@@ -1,10 +1,10 @@
 #ifndef FIXEDPOINTSOLVER_H
 #define FIXEDPOINTSOLVER_H
 
-#include "LinearSolver.h"
+#include "IterativeSolver.h"
 
 template<typename Matrix, typename Vector>
-class FixedPointSolver : public LinearSolver<Matrix, Vector>{
+class FixedPointSolver : public IterativeSolver<Matrix, Vector>{
 
     public:
 

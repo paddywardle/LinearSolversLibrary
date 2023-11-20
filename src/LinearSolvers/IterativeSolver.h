@@ -1,15 +1,14 @@
-#ifndef LINEARSOLVER_H
-#define LINEARSOLVER_H
+#ifndef ITERATIVESOLVER_H
+#define ITERATIVESOLVER_H
 
 template<typename Matrix, typename Vector>
-class LinearSolver{
+class IterativeSolver{
 
     public:
 
-        ~LinearSolver() = default;
-
+        // iterative solver
         virtual Vector solver(const Matrix& A, const Vector& b, Vector x, const int maxIts=200, const double tol=1e-5) const=0;
-        
+
 };
 
 #endif

@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "../LinearSolver.h"
+#include "../IterativeSolver.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
 #include "../../Ops/serial/DVOps.h"
 #include "../../Residuals/Residuals.h"
 
 template<typename Matrix, typename Vector>
-class ConjugateGradient: public LinearSolver<Matrix, Vector>{
+class ConjugateGradient: public IterativeSolver<Matrix, Vector>{
 
     public:
 
@@ -23,7 +23,7 @@ class ConjugateGradient: public LinearSolver<Matrix, Vector>{
 };
 
 template<>
-class ConjugateGradient<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix, DenseVector>{
+class ConjugateGradient<DenseMatrix, DenseVector>: public IterativeSolver<DenseMatrix, DenseVector>{
 
     public:
 

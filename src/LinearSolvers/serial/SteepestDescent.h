@@ -3,14 +3,14 @@
 
 #include <vector>
 
-#include "../LinearSolver.h"
+#include "../IterativeSolver.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
 #include "../../Ops/serial/DVOps.h"
 #include "../../Residuals/Residuals.h"
 
 template<typename Matrix,  typename Vector>
-class SteepestDescent : public LinearSolver<Matrix, Vector>{
+class SteepestDescent : public IterativeSolver<Matrix, Vector>{
 
     public:
 
@@ -21,7 +21,7 @@ class SteepestDescent : public LinearSolver<Matrix, Vector>{
 };
 
 template<>
-class SteepestDescent<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix, DenseVector>{
+class SteepestDescent<DenseMatrix, DenseVector>: public IterativeSolver<DenseMatrix, DenseVector>{
     
     public:
 

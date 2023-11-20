@@ -4,14 +4,14 @@
 #include <vector>
 #include <omp.h>
 
-#include "../LinearSolver.h"
+#include "../IterativeSolver.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
 #include "../../Ops/omp/DVOpsOMP.h"
 #include "../../Residuals/ResidualsOMP.h"
 
 template<typename Matrix,  typename Vector>
-class SteepestDescentOMP : public LinearSolver<Matrix, Vector>{
+class SteepestDescentOMP : public IterativeSolver<Matrix, Vector>{
 
     public:
 
@@ -22,7 +22,7 @@ class SteepestDescentOMP : public LinearSolver<Matrix, Vector>{
 };
 
 template<>
-class SteepestDescentOMP<DenseMatrix, DenseVector>: public LinearSolver<DenseMatrix, DenseVector>{
+class SteepestDescentOMP<DenseMatrix, DenseVector>: public IterativeSolver<DenseMatrix, DenseVector>{
     
     public:
 
