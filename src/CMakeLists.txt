@@ -10,8 +10,6 @@ add_subdirectory(Ops)
 
 add_subdirectory(Residuals)
 
-# add_subdirectory(openmp)
-
 add_subdirectory(mpi)
 
 add_subdirectory(Vector)

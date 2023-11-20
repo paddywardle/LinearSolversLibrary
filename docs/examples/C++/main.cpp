@@ -12,7 +12,7 @@ int main(){
 
         DenseVector b(bx);
 
-        DenseVector x = ConjugateGradient<DenseMatrix, DenseVector>::getInstance().solver(A, b);
+        DenseVector x = GaussSeidel<DenseMatrix, DenseVector>::getInstance().solver(A, b);
         std::cout<<x(0)<<"\n";
 
     }
