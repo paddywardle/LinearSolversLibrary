@@ -1,13 +1,16 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <string>
 
-#include "../../src/serial/Residuals/Residuals.h"
+#include "../../src/Residuals/Residuals.h"
 
 namespace py = pybind11;
 
-void res_submodule_binding(py::module handle){
+template<typename Matrix, typename Vector>
+void res_submodule_binding(py::module handle, std::string type){
     
-    auto Res = handle.def_submodule("Residuals");
-    Res.def("residual", &Residuals::residual);
-    Res.def("L1", &Residuals::L1MatMul);
+    using Class = Residuals<Matrix, Vector>
+    py::class_<Class>(handle, "Residuals")
+    .def("residual", &Residuals::residual)
+    .def("L1", &Residuals::L1MatMul);
 }

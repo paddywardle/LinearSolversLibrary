@@ -1,24 +1,23 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <string>
 
-#include "../../src/serial/VecOps/DVOps.h"
+#include "../../src/Ops/serial/DVOps.h"
 
 namespace py = pybind11;
 
-void dvops_submodule_binding(py::module handle){
-    
-    auto DVOps = handle.def_submodule("DVOps");
-    DVOps.def("elemMult", &DVOps::elemMult);
-    DVOps.def("elemMult", &DVOps::elemAdd);
-    DVOps.def("elemSub", &DVOps::elemSub);
-    DVOps.def("elemDiv", &DVOps::elemDiv);
-    DVOps.def("scalarMult", &DVOps::scalarMult);
-    DVOps.def("norm", &DVOps::norm);
-    DVOps.def("dot", &DVOps::dot);
-    DVOps.def("vecSum", &DVOps::vecSum);
+template<typename Matrix, typenamee Vector>
+void dvops_submodule_binding(py::module handle, std::string type){
 
-    auto DVMOps = DVOps.def_submodule("DVMOps");
-    DVMOps.def("matVecMul", &DVOps::DVMOps::matVecMul);
-    DVMOps.def("vecMatMul", &DVOps::DVMOps::vecMatMul);
+    using Class = DVOps<Matrix, Vector>
+    py::class_<Class>(handle, "DVOps")
+    .def("elemMult", &DVOps::elemMult)
+    .def("elemMult", &DVOps::elemAdd)
+    .def("elemSub", &DVOps::elemSub)
+    .def("elemDiv", &DVOps::elemDiv)
+    .def("scalarMult", &DVOps::scalarMult)
+    .def("norm", &DVOps::norm)
+    .def("dot", &DVOps::dot)
+    .def("vecSum", &DVOps::vecSum);
 
 }

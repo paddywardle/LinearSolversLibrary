@@ -1,16 +1,19 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <string>
 
-#include "../../src/serial/MatOps/DMOps.h"
+#include "../../src/Ops/serial/DMOps.h"
 
 namespace py = pybind11;
 
-void dmops_submodule_binding(py::module handle){
+template<typename Matrix>
+void dmops_submodule_binding(py::module handle, std::string type){
     
-    auto DMOps = handle.def_submodule("DMOps");
-    DMOps.def("matMul", &DMOps::elemMult);
-    DMOps.def("elemMult", &DMOps::elemAdd);
-    DMOps.def("elemSub", &DMOps::elemSub);
-    DMOps.def("elemDiv", &DMOps::elemDiv);
-    DMOps.def("scalarMult", &DMOps::scalarMult);
+    using Class = DMOps<Matrix>
+    py::class_<Class>(handle, "DVOps")
+    .def("matMul", &DMOps::elemMult)
+    .def("elemMult", &DMOps::elemAdd)
+    .def("elemSub", &DMOps::elemSub)
+    .def("elemDiv", &DMOps::elemDiv)
+    .def("scalarMult", &DMOps::scalarMult);
 }
