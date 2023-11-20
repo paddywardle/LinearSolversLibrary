@@ -12,7 +12,7 @@ int main(){
 
         DenseVector b(bx);
 
-        DenseVector x = GaussSeidel<DenseMatrix, DenseVector>::getInstance().solver(A, b);
+        DenseVector x = GaussSeidelOMP<DenseMatrix, DenseVector>::getInstance().solver(A, b);
         std::cout<<x(0)<<"\n";
 
     }

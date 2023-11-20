@@ -13,14 +13,15 @@
 #include "../../../src/Matrix/DenseMatrix.h"
 #include "../../../src/Vector/Vector.h"
 
-#include "../../../src/serial/VecOps/DVOps.h"
-#include "../../../src/serial/MatOps/DMOps.h"
+#include "../../../src/Ops/serial/DVOps.h"
+#include "../../../src/Ops/serial/DMOps.h"
+
 #include "../../../src/LinearSolvers/serial/GaussSeidel.h"
 #include "../../../src/LinearSolvers/serial/Jacobi.h"
 #include "../../../src/LinearSolvers/serial/SteepestDescent.h"
 #include "../../../src/LinearSolvers/serial/ConjugateGradient.h"
 
-#include "../../../src/openmp/LinearSolversOMP/GaussSeidelOMP.h"
-#include "../../../src/openmp/LinearSolversOMP/JacobiOMP.h"
-#include "../../../src/openmp/LinearSolversOMP/GaussianEliminationOMP.h"
-#include "../../../src/openmp/LinearSolversOMP/ConjugateGradientOMP.h"
+#include "../../../src/LinearSolvers/omp/GaussSeidelOMP.h"
+#include "../../../src/LinearSolvers/omp/JacobiOMP.h"
+#include "../../../src/LinearSolvers/omp/SteepestDescentOMP.h"
+#include "../../../src/LinearSolvers/omp/ConjugateGradientOMP.h"
