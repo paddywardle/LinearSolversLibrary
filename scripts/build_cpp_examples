@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cd build/Examples
-cmake ../../../LinearSolversLibrary
-make
