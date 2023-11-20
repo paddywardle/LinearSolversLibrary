@@ -3,7 +3,10 @@
 
 #include "../../src/Matrix/DenseMatrix.h"
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/VecOps/DVOps.h"
+#include "../../src/Ops/serial/DVOps.h"
+
+DVOps<DenseMatrix, DenseVector>& VecOps=DVOps<DenseMatrix, DenseVector>::getInstance();
+
 
 TEST(DVOpsTest, VectorMultiplication) {
 
@@ -13,7 +16,7 @@ TEST(DVOpsTest, VectorMultiplication) {
     DenseVector vecA(vecAData);
     DenseVector vecB(vecBData);
 
-    DenseVector vec = DVOps::elemMult(vecA, vecB);
+    DenseVector vec = VecOps.elemMult(vecA, vecB);
 
     EXPECT_EQ(vec.getData()[0], 9);
     EXPECT_EQ(vec.getData()[1], 20);
@@ -29,7 +32,7 @@ TEST(DVOpsTest, DotProduct) {
     DenseVector vecA(vecAData);
     DenseVector vecB(vecBData);
 
-    double dotResult = DVOps::dot(vecA, vecB);
+    double dotResult = VecOps.dot(vecA, vecB);
 
     EXPECT_EQ(dotResult, 110);
 }
@@ -42,7 +45,7 @@ TEST(DVOpsTest, VectorAddition) {
     DenseVector vecA(vecAData);
     DenseVector vecB(vecBData);
 
-    DenseVector vec = DVOps::elemAdd(vecA, vecB);
+    DenseVector vec = VecOps.elemAdd(vecA, vecB);
 
     EXPECT_EQ(vec.getData()[0], 10);
     EXPECT_EQ(vec.getData()[1], 12);
@@ -58,7 +61,7 @@ TEST(DVOpsTest, VectorSubtraction) {
     DenseVector vecA(vecAData);
     DenseVector vecB(vecBData);
 
-    DenseVector vec = DVOps::elemSub(vecA, vecB);
+    DenseVector vec = VecOps.elemSub(vecA, vecB);
 
     EXPECT_EQ(vec.getData()[0], -8);
     EXPECT_EQ(vec.getData()[1], -8);
@@ -74,7 +77,7 @@ TEST(DVOpsTest, VectorDivision) {
     DenseVector vecA(vecAData);
     DenseVector vecB(vecBData);
 
-    DenseVector vec = DVOps::elemDiv(vecA, vecB);
+    DenseVector vec = VecOps.elemDiv(vecA, vecB);
 
     EXPECT_DOUBLE_EQ(vec.getData()[1], 0.2);
 }
@@ -86,7 +89,7 @@ TEST(DVOpsTest, ScalarMultiplication) {
 
     DenseVector vecA(vecAData);
 
-    DenseVector vec = DVOps::scalarMult(vecA, val);
+    DenseVector vec = VecOps.scalarMult(vecA, val);
 
     EXPECT_EQ(vec.getData()[0], 5);
     EXPECT_EQ(vec.getData()[1], 10);
@@ -100,7 +103,7 @@ TEST(DVOpsTest, VectorNorm) {
 
     DenseVector vecA(vecAData);
 
-    double normResult = DVOps::norm(vecA, 1);
+    double normResult = VecOps.norm(vecA, 1);
     EXPECT_NEAR(normResult, 1.3066666, 1e-5);
 }
 
@@ -110,7 +113,7 @@ TEST(DVOpsTest, VectorSum) {
 
     DenseVector vecA(vecAData);
 
-    double vecSum = DVOps::vecSum(vecA);
+    double vecSum = VecOps.vecSum(vecA);
 
     EXPECT_EQ(vecSum, 10);
 }
@@ -123,7 +126,7 @@ TEST(DVOpsTest, DVMOpsMatMul) {
     DenseMatrix mat(matData);
     DenseVector vec(vecData);
 
-    DenseVector vecResults = DVOps::DVMOps::matVecMul(mat, vec);
+    DenseVector vecResults = VecOps.matVecMul(mat, vec);
 
     EXPECT_EQ(vecResults.getData()[0], 30);
     EXPECT_EQ(vecResults.getData()[1], 70);
@@ -139,7 +142,7 @@ TEST(DVOpsTest, DVMOpsVecMatMul) {
     DenseMatrix mat(matData);
     DenseVector vec(vecData);
 
-    DenseVector vecResults = DVOps::DVMOps::vecMatMul(vec, mat);
+    DenseVector vecResults = VecOps.vecMatMul(vec, mat);
 
     EXPECT_EQ(vecResults.getData()[0], 7);
     EXPECT_EQ(vecResults.getData()[1], 10);

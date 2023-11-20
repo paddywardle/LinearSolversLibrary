@@ -2,11 +2,10 @@ CXX = g++
 TEST_FLAGS = -lgtest -lgtest_main -pthread
 
 MATRIX_FILES = $(shell find ../src/Matrix/ -name '*.cpp' -o -name '*.h')
-MATOPS_FILES = $(shell find ../src/MatOps/ -name '*.cpp' -o -name '*.h')
+MATOPS_FILES = $(shell find ../src/Ops/serial/ -name '*.cpp' -o -name '*.h')
 VECTOR_FILES = $(shell find ../src/Vector/ -name '*.cpp' -o -name '*.h')
-VECOPS_FILES = $(shell find ../src/VecOps/ -name '*.cpp' -o -name '*.h')
-LINSOL_FILES = $(shell find ../src/LinearSolvers/ -name '*.cpp' -o -name '*.h')
-RESIDUALS_FILES = $(shell find ../src/Residuals/ -name '*.cpp' -o -name '*.h')
+LINSOL_FILES = $(shell find ../src/LinearSolvers/serial -name '*.cpp' -o -name '*.h')
+RESIDUALS_FILES = ../src/Residuals/Residuals.cpp
 TEST_FILES = $(shell find . -name 'test_*.cpp')
 OUT_FILE = ../bin/test_program
 

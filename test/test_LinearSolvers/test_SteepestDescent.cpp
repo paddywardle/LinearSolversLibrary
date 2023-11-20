@@ -3,7 +3,7 @@
 
 #include "../../src/Matrix/DenseMatrix.h"
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/SteepestDescent.h"
+#include "../../src/LinearSolvers/serial/SteepestDescent.h"
 
 TEST(SteepestDescent, Solver) {
 
@@ -17,7 +17,7 @@ TEST(SteepestDescent, Solver) {
 
     DenseVector b({1,2,3,4,5,6,7});
 
-    DenseVector x = SteepestDescent::solver(A, b);
+    DenseVector x = SteepestDescent<DenseMatrix, DenseVector>::getInstance().solver(A, b);
 
     EXPECT_NEAR(x(0), 0.08082308, 1e-5);
     EXPECT_NEAR(x(1), 0.17884866, 1e-5);
@@ -36,7 +36,7 @@ TEST(SteepestDescent, Alpha) {
     DenseMatrix mat(matData);
     DenseVector vec(vecData);
 
-    double x = SteepestDescent::alpha(mat, vec);
+    double x = SteepestDescent<DenseMatrix, DenseVector>::getInstance().alpha(mat, vec);
 
     EXPECT_NEAR(x, 0.185185185, 1e-5);
 }

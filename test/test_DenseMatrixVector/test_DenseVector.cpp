@@ -2,7 +2,6 @@
 #include <vector>
 
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/VecOps/DVOps.h"
 
 TEST(DenseVectorTest, numRowsCols) {
 

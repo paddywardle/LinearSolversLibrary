@@ -3,7 +3,7 @@
 
 #include "../../src/Matrix/DenseMatrix.h"
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/Jacobi.h"
+#include "../../src/LinearSolvers/serial/Jacobi.h"
 
 TEST(Jacobi, Solver) {
 
@@ -17,7 +17,7 @@ TEST(Jacobi, Solver) {
 
     DenseVector b({1,2,3,4,5,6,7});
 
-    DenseVector x = Jacobi::solver(A, b);
+    DenseVector x = Jacobi<DenseMatrix, DenseVector>::getInstance().solver(A, b);
 
     EXPECT_NEAR(x(0), 0.08082308, 1e-5);
     EXPECT_NEAR(x(1), 0.17884866, 1e-5);

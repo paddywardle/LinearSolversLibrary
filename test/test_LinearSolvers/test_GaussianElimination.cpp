@@ -4,7 +4,7 @@
 
 #include "../../src/Matrix/DenseMatrix.h"
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/GaussianElimination.h"
+#include "../../src/LinearSolvers/serial/GaussianElimination.h"
 
 TEST(GaussianElimination, Solver) {
 
@@ -18,7 +18,7 @@ TEST(GaussianElimination, Solver) {
 
     DenseVector b({1,2,3,4,5,6,7});
 
-    DenseVector x = GaussianElimination::solver(A, b);
+    DenseVector x = GaussianElimination<DenseMatrix, DenseVector>::getInstance().solver(A, b);
 
     EXPECT_NEAR(x(0), 0.08082308, 1e-5);
     EXPECT_NEAR(x(1), 0.17884866, 1e-5);

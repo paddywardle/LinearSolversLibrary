@@ -4,7 +4,7 @@
 
 #include "../../src/Matrix/DenseMatrix.h"
 #include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/ConjugateGradient.h"
+#include "../../src/LinearSolvers/serial/ConjugateGradient.h"
 
 TEST(ConjugateGradient, Alpha) {
 
@@ -14,7 +14,7 @@ TEST(ConjugateGradient, Alpha) {
     DenseMatrix mat(matData);
     DenseVector vec(vecData);
 
-    double x = ConjugateGradient::alpha(mat, vec, vec);
+    double x = ConjugateGradient<DenseMatrix, DenseVector>::getInstance().alpha(mat, vec, vec);
 
     EXPECT_NEAR(x, 0.185185185, 1e-5);
 }
@@ -27,7 +27,7 @@ TEST(ConjugateGradient, Beta) {
     DenseVector r({1, 2});
     DenseVector rPlus1({3, 4});
 
-    double x = ConjugateGradient::beta(r, rPlus1);
+    double x = ConjugateGradient<DenseMatrix, DenseVector>::getInstance().beta(r, rPlus1);
 
     EXPECT_EQ(x, 5);
 }
@@ -44,7 +44,7 @@ TEST(ConjugateGradient, Solver) {
 
     DenseVector b({1,2,3,4,5,6,7});
 
-    DenseVector x = ConjugateGradient::solver(A, b);
+    DenseVector x = ConjugateGradient<DenseMatrix, DenseVector>::getInstance().solver(A, b);
 
     EXPECT_NEAR(x(0), 0.08082308, 1e-5);
     EXPECT_NEAR(x(1), 0.17884866, 1e-5);
