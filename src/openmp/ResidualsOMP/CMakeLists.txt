@@ -1,4 +1,0 @@
-set (RESIUALSOMP_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/ResidualsOMP.cpp)
-
-target_sources(LinSol PRIVATE ${RESIUALSOMP_FILES})

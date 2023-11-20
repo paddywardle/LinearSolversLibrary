@@ -1,4 +1,0 @@
-set (DMOPSOMP_FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/DMOpsOMP.cpp)
-
-target_sources(LinSol PRIVATE ${DMOPSOMP_FILES})
