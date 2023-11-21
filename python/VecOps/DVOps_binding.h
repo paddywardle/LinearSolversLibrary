@@ -6,18 +6,19 @@
 
 namespace py = pybind11;
 
-template<typename Matrix, typenamee Vector>
+template<typename Matrix, typename Vector>
 void dvops_submodule_binding(py::module handle, std::string type){
 
-    using Class = DVOps<Matrix, Vector>
-    py::class_<Class>(handle, "DVOps")
-    .def("elemMult", &DVOps::elemMult)
-    .def("elemMult", &DVOps::elemAdd)
-    .def("elemSub", &DVOps::elemSub)
-    .def("elemDiv", &DVOps::elemDiv)
-    .def("scalarMult", &DVOps::scalarMult)
-    .def("norm", &DVOps::norm)
-    .def("dot", &DVOps::dot)
-    .def("vecSum", &DVOps::vecSum);
+    std::string name_DVOps = std::string("DVOps") + type;
+    using Class = DVOps<Matrix, Vector>;
+    py::class_<Class>(handle, name_DVOps)
+    .def("elemMult", &DVOps<Matrix, Vector>::elemMult)
+    .def("elemMult", &DVOps<Matrix, Vector>::elemAdd)
+    .def("elemSub", &DVOps<Matrix, Vector>::elemSub)
+    .def("elemDiv", &DVOps<Matrix, Vector>::elemDiv)
+    .def("scalarMult", &DVOps<Matrix, Vector>::scalarMult)
+    .def("norm", &DVOps<Matrix, Vector>::norm)
+    .def("dot", &DVOps<Matrix, Vector>::dot)
+    .def("vecSum", &DVOps<Matrix, Vector>::vecSum);
 
 }

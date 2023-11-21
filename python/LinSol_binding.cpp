@@ -6,9 +6,9 @@ PYBIND11_MODULE(LinSol, handle){
     
     matrix_submodule_binding(handle);
     vector_submodule_binding(handle);
-    dvops_submodule_binding(handle);
-    dmops_submodule_binding(handle);
-    res_submodule_binding(handle);
-    solvers_submodule_binding(handle);
+    dvops_submodule_binding<DenseMatrix,DenseVector>(handle, "Dense");
+    dmops_submodule_binding<DenseMatrix>(handle, "Dense");
+    res_submodule_binding<DenseMatrix,DenseVector>(handle, "Dense");
+    solvers_submodule_binding<DenseMatrix,DenseVector>(handle, "Dense");
     
 }

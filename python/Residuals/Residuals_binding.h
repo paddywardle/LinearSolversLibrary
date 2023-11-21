@@ -9,8 +9,9 @@ namespace py = pybind11;
 template<typename Matrix, typename Vector>
 void res_submodule_binding(py::module handle, std::string type){
     
-    using Class = Residuals<Matrix, Vector>
-    py::class_<Class>(handle, "Residuals")
-    .def("residual", &Residuals::residual)
-    .def("L1", &Residuals::L1MatMul);
+    std::string name_Res = std::string("Residuals") + type;
+    using Class = Residuals<Matrix, Vector>;
+    py::class_<Class>(handle, name_Res)
+    .def("residual", &Residuals<Matrix, Vector>::residual)
+    .def("L1", &Residuals<Matrix, Vector>::L1MatMul);
 }
