@@ -31,6 +31,8 @@ class GaussSeidel<DenseMatrix, DenseVector> : public FixedPointSolver<DenseMatri
             return instance;
         }
 
+        ~GaussSeidel(){}
+        
         DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         void forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const override;
@@ -39,7 +41,6 @@ class GaussSeidel<DenseMatrix, DenseVector> : public FixedPointSolver<DenseMatri
 
     private:
         GaussSeidel(){}
-        ~GaussSeidel(){}
         GaussSeidel(const GaussSeidel<DenseMatrix, DenseVector>&) = delete;
         GaussSeidel<DenseMatrix, DenseVector>& operator=(const GaussSeidel<DenseMatrix, DenseVector>&) = delete;
 

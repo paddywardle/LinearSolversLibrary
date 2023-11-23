@@ -45,6 +45,8 @@ class DVOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
             return instance;
         }
         
+        ~DVOps(){}
+        
         DenseVector elemMult(const DenseVector& matA, const DenseVector& matB) const override;
 
         DenseVector elemAdd(const DenseVector& matA, const DenseVector& matB) const override;
@@ -67,7 +69,6 @@ class DVOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
 
     private:
         DVOps(){}
-        ~DVOps(){}
         DVOps(const DVOps<DenseMatrix, DenseVector>&) = delete;
         DVOps<DenseMatrix, DenseVector>& operator=(const DVOps<DenseMatrix, DenseVector>&) = delete;
 

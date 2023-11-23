@@ -6,5 +6,7 @@
 #include "MatOps/DMOps_binding.h"
 #include "Residuals/Residuals_binding.h"
 #include "LinearSolvers/LinearSolvers_binding.h"
+#include "../src/Vector/DenseVector.h"
+#include "../src/Matrix/DenseMatrix.h"
 
 namespace py = pybind11;

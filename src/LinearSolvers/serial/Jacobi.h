@@ -30,7 +30,9 @@ class Jacobi<DenseMatrix, DenseVector> : public FixedPointSolver<DenseMatrix, De
             static Jacobi<DenseMatrix, DenseVector> instance;
             return instance;
         }
-
+        
+        ~Jacobi(){}
+        
         DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         void forwardSweep(const DenseMatrix& A, const DenseVector& b, DenseVector& x) const override;
@@ -39,7 +41,6 @@ class Jacobi<DenseMatrix, DenseVector> : public FixedPointSolver<DenseMatrix, De
     
     private:
         Jacobi(){}
-        ~Jacobi(){}
         Jacobi(const Jacobi<DenseMatrix, DenseVector>&) = delete;
         Jacobi<DenseMatrix, DenseVector>& operator=(const Jacobi<DenseMatrix, DenseVector>&) = delete;
 };

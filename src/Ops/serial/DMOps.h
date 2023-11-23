@@ -8,6 +8,7 @@ template<typename Matrix>
 class DMOps : public Ops<Matrix> {
 
     public:
+
         Matrix matMul(const Matrix& matA, const Matrix& matB) const;
 
         Matrix elemMult(const Matrix& matA, const Matrix& matB) const override;
@@ -32,6 +33,8 @@ class DMOps<DenseMatrix> : public Ops<DenseMatrix> {
             return instance;
         }
 
+        ~DMOps(){}
+
         DenseMatrix matMul(const DenseMatrix& matA, const DenseMatrix& matB) const;
 
         DenseMatrix elemMult(const DenseMatrix& matA, const DenseMatrix& matB) const override;
@@ -46,7 +49,6 @@ class DMOps<DenseMatrix> : public Ops<DenseMatrix> {
 
     private:
         DMOps(){}
-        ~DMOps(){}
         DMOps(const DMOps<DenseMatrix>&) = delete;
         DMOps<DenseMatrix>& operator=(const DMOps<DenseMatrix>&) = delete;
 

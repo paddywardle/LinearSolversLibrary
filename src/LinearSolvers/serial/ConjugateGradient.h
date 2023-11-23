@@ -32,6 +32,8 @@ class ConjugateGradient<DenseMatrix, DenseVector>: public IterativeSolver<DenseM
             return instance;
         }
 
+        ~ConjugateGradient(){}
+
         DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         double alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p) const;
@@ -40,7 +42,6 @@ class ConjugateGradient<DenseMatrix, DenseVector>: public IterativeSolver<DenseM
 
     private:
         ConjugateGradient(){}
-        ~ConjugateGradient(){}
         ConjugateGradient(const ConjugateGradient<DenseMatrix, DenseVector>&) = delete;
         ConjugateGradient<DenseMatrix, DenseVector>& operator=(const ConjugateGradient<DenseMatrix, DenseVector>&) = delete;
 

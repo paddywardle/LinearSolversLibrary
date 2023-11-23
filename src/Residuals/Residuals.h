@@ -26,13 +26,14 @@ class Residuals<DenseMatrix, DenseVector> {
             return instance;
         }
 
+        ~Residuals(){}
+
         DenseVector residual(const DenseMatrix& A, const DenseVector& b, const DenseVector& x);
 
         double L1MatMul(const DenseMatrix& A, const DenseVector& b, const DenseVector& x);
     
     private:
         Residuals(){}
-        ~Residuals(){}
         Residuals(const Residuals<DenseMatrix, DenseVector>&) = delete;
         Residuals<DenseMatrix, DenseVector>& operator=(const Residuals<DenseMatrix, DenseVector>&) = delete;
 };

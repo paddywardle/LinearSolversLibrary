@@ -30,13 +30,14 @@ class SteepestDescent<DenseMatrix, DenseVector>: public IterativeSolver<DenseMat
             return instance;
         }
 
+        ~SteepestDescent(){}
+
         DenseVector solver(const DenseMatrix& A, const DenseVector& b, DenseVector x=DenseVector(), const int maxIts=200, const double tol=1e-5) const override;
 
         double alpha(const DenseMatrix& A, const DenseVector& r) const;
 
     private:
         SteepestDescent(){}
-        ~SteepestDescent(){}
         SteepestDescent(const SteepestDescent<DenseMatrix, DenseVector>&) = delete;
         SteepestDescent<DenseMatrix, DenseVector>& operator=(const SteepestDescent<DenseMatrix, DenseVector>&) = delete;
 

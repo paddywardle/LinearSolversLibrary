@@ -16,35 +16,36 @@ void solvers_submodule_binding(py::module handle, std::string type){
     
     auto solvers = handle.def_submodule("Solvers");
 
-    std::string GS = std::string("GaussSeidel") + type;
+    //pybind11::return_value_policy::reference_internal makes it so that the objects lifetime is managed by C++ rather than python
+    std::string GS = std::string("GS") + type;
     using Class_GS = GaussSeidel<Matrix, Vector>;
-    py::class_<Class_GS>(solvers, GS)
-    .def("getInstance", &Class_GS::getInstance)
-    .def("solver", &Class_GS::getInstance.solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
+    py::class_<Class_GS>(solvers, GS.c_str())
+    .def_static("getInstance", &Class_GS::getInstance, pybind11::return_value_policy::reference_internal)
+    .def("solver", &Class_GS::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
-    std::string Jac = std::string("Jacobi") + type;
+    std::string Jac = std::string("Jac") + type;
     using Class_Jac = Jacobi<Matrix, Vector>;
-    py::class_<Class_Jac>(solvers, Jac)
-    .def("getInstance", &Class_Jac::getInstance)
+    py::class_<Class_Jac>(solvers, Jac.c_str())
+    .def_static("getInstance", &Class_Jac::getInstance, pybind11::return_value_policy::reference_internal)
     .def("solver", &Class_Jac::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
-    std::string CG = std::string("ConjugateGradient") + type;
+    std::string CG = std::string("CG") + type;
     using Class_CG = ConjugateGradient<Matrix, Vector>;
-    py::class_<Class_CG>(solvers, CG)
-    .def("getInstance", &Class_CG::getInstance)
+    py::class_<Class_CG>(solvers, CG.c_str())
+    .def_static("getInstance", &Class_CG::getInstance, pybind11::return_value_policy::reference_internal)
     .def("solver", &Class_CG::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
-    std::string SD = std::string("SteepestDescent") + type;
+    std::string SD = std::string("SD") + type;
     using Class_SD = SteepestDescent<Matrix, Vector>;
-    py::class_<Class_SD>(solvers, SD)
-    .def("getInstance", &Class_SD::getInstance)
+    py::class_<Class_SD>(solvers, SD.c_str())
+    .def_static("getInstance", &Class_SD::getInstance, pybind11::return_value_policy::reference_internal)
     .def("solver", &Class_SD::solver, py::arg("A"), py::arg("b"), py::arg("x") = DenseVector(), py::arg("maxIts")=200, py::arg("tol")=1e-5);
 
-    // std::string GE = std::string("GaussianElimination") + type;
-    // using Class_GE = GaussianElimination<Matrix, Vector>;
-    // py::class_<Class_GE>(solvers, GE)
-    // .def("getInstance", &Class_GE::getInstance)
-    // .def("solver", &Class_GE::solver, py::arg("A"), py::arg("b"));
+    std::string GE = std::string("GE") + type;
+    using Class_GE = GaussianElimination<Matrix, Vector>;
+    py::class_<Class_GE>(solvers, GE.c_str())
+    .def_static("getInstance", &Class_GE::getInstance, pybind11::return_value_policy::reference_internal)
+    .def("solver", &Class_GE::solver, py::arg("A"), py::arg("b"));
 
 
 }

@@ -11,7 +11,8 @@ void dmops_submodule_binding(py::module handle, std::string type){
     
     std::string name_DMOps = std::string("DMOps") + type;
     using Class = DMOps<Matrix>;
-    py::class_<Class>(handle, name_DMOps)
+    py::class_<Class>(handle, name_DMOps.c_str())
+    .def_static("getInstance", &DMOps<Matrix>::getInstance, pybind11::return_value_policy::reference_internal)
     .def("matMul", &DMOps<Matrix>::elemMult)
     .def("elemMult", &DMOps<Matrix>::elemAdd)
     .def("elemSub", &DMOps<Matrix>::elemSub)

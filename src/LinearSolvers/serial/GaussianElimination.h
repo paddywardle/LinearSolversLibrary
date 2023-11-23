@@ -1,5 +1,5 @@
-#ifndef GAUSSSEIDEL_H
-#define GAUSSSEIDEL_H
+#ifndef GAUSSIANELIMINATION_H
+#define GAUSSIANELIMINATION_H
 
 #include <vector>
 
@@ -30,6 +30,8 @@ class GaussianElimination<DenseMatrix, DenseVector> : public DirectSolver<DenseM
             return instance;
         }
 
+        ~GaussianElimination(){}
+        
         DenseVector solver(DenseMatrix& A, DenseVector& b) const override;
 
         void elimination(DenseMatrix& A, DenseVector& b) const;
@@ -38,7 +40,6 @@ class GaussianElimination<DenseMatrix, DenseVector> : public DirectSolver<DenseM
 
     private:
         GaussianElimination(){}
-        ~GaussianElimination(){}
         GaussianElimination(const GaussianElimination<DenseMatrix, DenseVector>&) = delete;
         GaussianElimination<DenseMatrix, DenseVector>& operator=(const GaussianElimination<DenseMatrix, DenseVector>&) = delete;
 
