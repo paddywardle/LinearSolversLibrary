@@ -1,0 +1,1 @@
+set (VectorBindings "Vector/vector.cpp" PARENT_SCOPE)

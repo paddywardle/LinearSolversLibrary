@@ -13,8 +13,8 @@
 #include "../../../src/Matrix/DenseMatrix.h"
 #include "../../../src/Vector/Vector.h"
 
-#include "../../../src/Ops/serial/DVOps.h"
-#include "../../../src/Ops/serial/DMOps.h"
+#include "../../../src/Ops/serial/VecOps.h"
+#include "../../../src/Ops/serial/MatOps.h"
 
 #include "../../../src/LinearSolvers/serial/GaussSeidel.h"
 #include "../../../src/LinearSolvers/serial/Jacobi.h"
