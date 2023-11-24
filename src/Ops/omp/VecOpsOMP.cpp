@@ -1,6 +1,6 @@
-#include "DVOpsOMP.h"
+#include "VecOpsOMP.h"
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemMult(const DenseVector& vecA, const DenseVector& vecB) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::elemMult(const DenseVector& vecA, const DenseVector& vecB) const{
 
     int vecALen = vecA.getLen();
     int vecBLen = vecB.getLen();
@@ -19,7 +19,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemMult(const DenseVector& vecA
     return resultVec;
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemAdd(const DenseVector& vecA, const DenseVector& vecB) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::elemAdd(const DenseVector& vecA, const DenseVector& vecB) const{
 
     int vecALen = vecA.getLen();
     int vecBLen = vecB.getLen();
@@ -38,7 +38,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemAdd(const DenseVector& vecA,
     return resultVec;
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemSub(const DenseVector& vecA, const DenseVector& vecB) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::elemSub(const DenseVector& vecA, const DenseVector& vecB) const{
 
     int vecALen = vecA.getLen();
     int vecBLen = vecB.getLen();
@@ -57,7 +57,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemSub(const DenseVector& vecA,
     return resultVec;
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemDiv(const DenseVector& vecA, const DenseVector& vecB) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::elemDiv(const DenseVector& vecA, const DenseVector& vecB) const{
 
     int vecALen = vecA.getLen();
     int vecBLen = vecB.getLen();
@@ -76,7 +76,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::elemDiv(const DenseVector& vecA,
     return resultVec;
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::scalarMult(const DenseVector& vecA, const double val) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::scalarMult(const DenseVector& vecA, const double val) const{
 
     int vecALen = vecA.getLen();
 
@@ -90,7 +90,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::scalarMult(const DenseVector& ve
     return resultVec;
 }
 
-double DVOpsOMP<DenseMatrix, DenseVector>::norm(const DenseVector& vecA, const double ord) const{
+double VecOpsOMP<DenseMatrix, DenseVector>::norm(const DenseVector& vecA, const double ord) const{
 
     int vecALen = vecA.getLen();
 
@@ -107,7 +107,7 @@ double DVOpsOMP<DenseMatrix, DenseVector>::norm(const DenseVector& vecA, const d
     return pow(normResult, 1.0/ord);
 }
 
-double DVOpsOMP<DenseMatrix, DenseVector>::dot(const DenseVector& vecA, const DenseVector& vecB) const{
+double VecOpsOMP<DenseMatrix, DenseVector>::dot(const DenseVector& vecA, const DenseVector& vecB) const{
 
     int vecALen = vecA.getLen();
     int vecBLen = vecB.getLen();
@@ -130,7 +130,7 @@ double DVOpsOMP<DenseMatrix, DenseVector>::dot(const DenseVector& vecA, const De
     return dotResult;
 }
 
-double DVOpsOMP<DenseMatrix, DenseVector>::vecSum(const DenseVector& vec) const{
+double VecOpsOMP<DenseMatrix, DenseVector>::vecSum(const DenseVector& vec) const{
 
     const std::vector<double>& vecData = vec.getData();
 
@@ -138,7 +138,7 @@ double DVOpsOMP<DenseMatrix, DenseVector>::vecSum(const DenseVector& vec) const{
 
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::matVecMul(const DenseMatrix& mat, const DenseVector& vec) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::matVecMul(const DenseMatrix& mat, const DenseVector& vec) const{
 
     const int matRows = mat.numRows();
     const int matCols = mat.numCols();
@@ -162,7 +162,7 @@ DenseVector DVOpsOMP<DenseMatrix, DenseVector>::matVecMul(const DenseMatrix& mat
     return resultVec;
 }
 
-DenseVector DVOpsOMP<DenseMatrix, DenseVector>::vecMatMul(const DenseVector& vec, const DenseMatrix& mat) const{
+DenseVector VecOpsOMP<DenseMatrix, DenseVector>::vecMatMul(const DenseVector& vec, const DenseMatrix& mat) const{
 
     const int matRows = mat.numRows();
     const int matCols = mat.numCols();

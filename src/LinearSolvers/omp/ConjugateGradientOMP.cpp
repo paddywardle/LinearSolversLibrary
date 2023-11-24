@@ -3,7 +3,7 @@
 DenseVector ConjugateGradientOMP<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
     ResidualsOMP<DenseMatrix, DenseVector>& Residual=ResidualsOMP<DenseMatrix, DenseVector>::getInstance();
-    DVOpsOMP<DenseMatrix, DenseVector>& VecOps=DVOpsOMP<DenseMatrix, DenseVector>::getInstance();
+    VecOpsOMP<DenseMatrix, DenseVector>& Ops=VecOpsOMP<DenseMatrix, DenseVector>::getInstance();
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
@@ -24,14 +24,14 @@ DenseVector ConjugateGradientOMP<DenseMatrix, DenseVector>::solver(const DenseMa
         alp = ConjugateGradientOMP::alpha(A, r, p);
         
         // new x and r based on p
-        x = VecOps.elemAdd(x, VecOps.scalarMult(p, alp));
-        rPlus1 = VecOps.elemSub(r, VecOps.scalarMult(VecOps.matVecMul(A, p), alp));
+        x = Ops.elemAdd(x, Ops.scalarMult(p, alp));
+        rPlus1 = Ops.elemSub(r, Ops.scalarMult(Ops.matVecMul(A, p), alp));
 
         // calculate beta
         bet = ConjugateGradientOMP::beta(r, rPlus1);
 
         // updated x and r
-        p = VecOps.elemAdd(rPlus1, VecOps.scalarMult(p, bet));
+        p = Ops.elemAdd(rPlus1, Ops.scalarMult(p, bet));
         
         r = rPlus1;
         // new residual
@@ -49,12 +49,12 @@ DenseVector ConjugateGradientOMP<DenseMatrix, DenseVector>::solver(const DenseMa
 
 double ConjugateGradientOMP<DenseMatrix, DenseVector>::alpha(const DenseMatrix& A, const DenseVector& r, const DenseVector& p) const{
 
-    DVOpsOMP<DenseMatrix, DenseVector>& VecOps=DVOpsOMP<DenseMatrix, DenseVector>::getInstance();
+    VecOpsOMP<DenseMatrix, DenseVector>& Ops=VecOpsOMP<DenseMatrix, DenseVector>::getInstance();
 
     // alpha = dot(r, r)/ p^T A p
-    DenseVector pADen = VecOps.vecMatMul(p, A);
-    double alphaNum = VecOps.dot(r, r);
-    double alphaDen = VecOps.dot(pADen,p);
+    DenseVector pADen = Ops.vecMatMul(p, A);
+    double alphaNum = Ops.dot(r, r);
+    double alphaDen = Ops.dot(pADen,p);
     
     return alphaNum/alphaDen;
 
@@ -62,10 +62,10 @@ double ConjugateGradientOMP<DenseMatrix, DenseVector>::alpha(const DenseMatrix& 
 
 double ConjugateGradientOMP<DenseMatrix, DenseVector>::beta(const DenseVector& r, const DenseVector& rPlus1) const{
 
-    DVOpsOMP<DenseMatrix, DenseVector>& VecOps=DVOpsOMP<DenseMatrix, DenseVector>::getInstance();
+    VecOpsOMP<DenseMatrix, DenseVector>& Ops=VecOpsOMP<DenseMatrix, DenseVector>::getInstance();
 
-    double betaNum = VecOps.dot(rPlus1, rPlus1);
-    double betaDen = VecOps.dot(r, r);
+    double betaNum = Ops.dot(rPlus1, rPlus1);
+    double betaDen = Ops.dot(r, r);
 
     return betaNum/betaDen;
 

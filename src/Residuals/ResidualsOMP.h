@@ -3,7 +3,7 @@
 
 #include "../Matrix/DenseMatrix.h"
 #include "../Vector/DenseVector.h"
-#include "../Ops/omp/DVOpsOMP.h"
+#include "../Ops/omp/VecOpsOMP.h"
 
 template<typename Matrix, typename Vector>
 class ResidualsOMP {

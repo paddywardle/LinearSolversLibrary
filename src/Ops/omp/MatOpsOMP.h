@@ -1,5 +1,5 @@
-#ifndef DMOPSOMP_H
-#define DMOPSOMP_H
+#ifndef MATOPSOMP_H
+#define MATOPSOMP_H
 
 #include <omp.h>
 
@@ -7,7 +7,7 @@
 #include "../../Matrix/DenseMatrix.h"
 
 template<typename Matrix>
-class DMOpsOMP : public Ops<Matrix> {
+class MatOpsOMP : public Ops<Matrix> {
 
     public:
         Matrix matMul(const Matrix& matA, const Matrix& matB) const;
@@ -25,12 +25,12 @@ class DMOpsOMP : public Ops<Matrix> {
 };
 
 template<>
-class DMOpsOMP<DenseMatrix> : public Ops<DenseMatrix> {
+class MatOpsOMP<DenseMatrix> : public Ops<DenseMatrix> {
 
     public:
 
-        static DMOpsOMP<DenseMatrix>& getInstance(){
-            static DMOpsOMP<DenseMatrix> instance;
+        static MatOpsOMP<DenseMatrix>& getInstance(){
+            static MatOpsOMP<DenseMatrix> instance;
             return instance;
         }
 
@@ -47,10 +47,10 @@ class DMOpsOMP<DenseMatrix> : public Ops<DenseMatrix> {
         DenseMatrix scalarMult(const DenseMatrix& vecA, const double val) const override;
 
     private:
-        DMOpsOMP(){}
-        ~DMOpsOMP(){}
-        DMOpsOMP(const DMOpsOMP<DenseMatrix>&) = delete;
-        DMOpsOMP<DenseMatrix>& operator=(const DMOpsOMP<DenseMatrix>&) = delete;
+        MatOpsOMP(){}
+        ~MatOpsOMP(){}
+        MatOpsOMP(const MatOpsOMP<DenseMatrix>&) = delete;
+        MatOpsOMP<DenseMatrix>& operator=(const MatOpsOMP<DenseMatrix>&) = delete;
 
 };
 

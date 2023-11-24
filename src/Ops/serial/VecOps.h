@@ -1,5 +1,5 @@
-#ifndef DVOPS_H
-#define DVOPS_H
+#ifndef VECOPS_H
+#define VECOPS_H
 
 #include <numeric>
 #include <cmath>
@@ -9,7 +9,7 @@
 #include "../../Vector/DenseVector.h"
 
 template<typename Matrix, typename Vector>
-class DVOps : public Ops<Vector>{
+class VecOps : public Ops<Vector>{
 
     public:
 
@@ -36,16 +36,16 @@ class DVOps : public Ops<Vector>{
 };
 
 template<>
-class DVOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
+class VecOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
 
     public:
     
-        static DVOps<DenseMatrix, DenseVector>& getInstance(){
-            static DVOps<DenseMatrix, DenseVector> instance;
+        static VecOps<DenseMatrix, DenseVector>& getInstance(){
+            static VecOps<DenseMatrix, DenseVector> instance;
             return instance;
         }
         
-        ~DVOps(){}
+        ~VecOps(){}
         
         DenseVector elemMult(const DenseVector& matA, const DenseVector& matB) const override;
 
@@ -68,9 +68,9 @@ class DVOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
         double vecSum(const DenseVector& vec) const;
 
     private:
-        DVOps(){}
-        DVOps(const DVOps<DenseMatrix, DenseVector>&) = delete;
-        DVOps<DenseMatrix, DenseVector>& operator=(const DVOps<DenseMatrix, DenseVector>&) = delete;
+        VecOps(){}
+        VecOps(const VecOps<DenseMatrix, DenseVector>&) = delete;
+        VecOps<DenseMatrix, DenseVector>& operator=(const VecOps<DenseMatrix, DenseVector>&) = delete;
 
 };
 

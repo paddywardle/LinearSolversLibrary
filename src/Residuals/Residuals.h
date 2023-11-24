@@ -3,7 +3,7 @@
 
 #include "../Matrix/DenseMatrix.h"
 #include "../Vector/DenseVector.h"
-#include "../Ops/serial/DVOps.h"
+#include "../Ops/serial/VecOps.h"
 
 template<typename Matrix, typename Vector>
 class Residuals {

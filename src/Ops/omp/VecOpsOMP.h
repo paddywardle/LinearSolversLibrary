@@ -1,5 +1,5 @@
-#ifndef DVOPSOMP_H
-#define DVOPSOMP_H
+#ifndef VECOPSOMP_H
+#define VECOPSOMP_H
 
 #include <numeric>
 #include <cmath>
@@ -10,7 +10,7 @@
 #include "../../Vector/DenseVector.h"
 
 template<typename Matrix, typename Vector>
-class DVOpsOMP : public Ops<Vector>{
+class VecOpsOMP : public Ops<Vector>{
 
     public:
 
@@ -37,12 +37,12 @@ class DVOpsOMP : public Ops<Vector>{
 };
 
 template<>
-class DVOpsOMP<DenseMatrix, DenseVector> : public Ops<DenseVector>{
+class VecOpsOMP<DenseMatrix, DenseVector> : public Ops<DenseVector>{
 
     public:
     
-        static DVOpsOMP<DenseMatrix, DenseVector>& getInstance(){
-            static DVOpsOMP<DenseMatrix, DenseVector> instance;
+        static VecOpsOMP<DenseMatrix, DenseVector>& getInstance(){
+            static VecOpsOMP<DenseMatrix, DenseVector> instance;
             return instance;
         }
         
@@ -67,10 +67,10 @@ class DVOpsOMP<DenseMatrix, DenseVector> : public Ops<DenseVector>{
         double vecSum(const DenseVector& vec) const;
 
     private:
-        DVOpsOMP(){}
-        ~DVOpsOMP(){}
-        DVOpsOMP(const DVOpsOMP<DenseMatrix, DenseVector>&) = delete;
-        DVOpsOMP<DenseMatrix, DenseVector>& operator=(const DVOpsOMP<DenseMatrix, DenseVector>&) = delete;
+        VecOpsOMP(){}
+        ~VecOpsOMP(){}
+        VecOpsOMP(const VecOpsOMP<DenseMatrix, DenseVector>&) = delete;
+        VecOpsOMP<DenseMatrix, DenseVector>& operator=(const VecOpsOMP<DenseMatrix, DenseVector>&) = delete;
 
 };
 

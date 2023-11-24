@@ -1,6 +1,6 @@
-#include "DMOps.h"
+#include "MatOps.h"
 
-DenseMatrix DMOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatrix& matB) const {
+DenseMatrix MatOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatrix& matB) const {
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -26,7 +26,7 @@ DenseMatrix DMOps<DenseMatrix>::matMul(const DenseMatrix& matA, const DenseMatri
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::elemMult(const DenseMatrix& matA, const DenseMatrix& matB) const{
+DenseMatrix MatOps<DenseMatrix>::elemMult(const DenseMatrix& matA, const DenseMatrix& matB) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -49,7 +49,7 @@ DenseMatrix DMOps<DenseMatrix>::elemMult(const DenseMatrix& matA, const DenseMat
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::elemAdd(const DenseMatrix& matA, const DenseMatrix& matB) const{
+DenseMatrix MatOps<DenseMatrix>::elemAdd(const DenseMatrix& matA, const DenseMatrix& matB) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -72,7 +72,7 @@ DenseMatrix DMOps<DenseMatrix>::elemAdd(const DenseMatrix& matA, const DenseMatr
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::elemSub(const DenseMatrix& matA, const DenseMatrix& matB) const{
+DenseMatrix MatOps<DenseMatrix>::elemSub(const DenseMatrix& matA, const DenseMatrix& matB) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -95,7 +95,7 @@ DenseMatrix DMOps<DenseMatrix>::elemSub(const DenseMatrix& matA, const DenseMatr
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::elemDiv(const DenseMatrix& matA, const DenseMatrix& matB) const{
+DenseMatrix MatOps<DenseMatrix>::elemDiv(const DenseMatrix& matA, const DenseMatrix& matB) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
@@ -118,7 +118,7 @@ DenseMatrix DMOps<DenseMatrix>::elemDiv(const DenseMatrix& matA, const DenseMatr
     return resultMat;
 }
 
-DenseMatrix DMOps<DenseMatrix>::scalarMult(const DenseMatrix& matA, const double val) const{
+DenseMatrix MatOps<DenseMatrix>::scalarMult(const DenseMatrix& matA, const double val) const{
 
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();

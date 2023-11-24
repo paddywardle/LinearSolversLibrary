@@ -3,7 +3,7 @@
 DenseVector SteepestDescentOMP<DenseMatrix, DenseVector>::solver(const DenseMatrix& A, const DenseVector& b, DenseVector x, const int maxIts, const double tol) const{
 
     ResidualsOMP<DenseMatrix, DenseVector>& Residual=ResidualsOMP<DenseMatrix, DenseVector>::getInstance();
-    DVOpsOMP<DenseMatrix, DenseVector>& VecOps=DVOpsOMP<DenseMatrix, DenseVector>::getInstance();
+    VecOpsOMP<DenseMatrix, DenseVector>& Ops=VecOpsOMP<DenseMatrix, DenseVector>::getInstance();
 
     if (x.getData().empty()){
         DenseVector x0(std::vector<double>(b.getLen(), 0));
@@ -20,10 +20,10 @@ DenseVector SteepestDescentOMP<DenseMatrix, DenseVector>::solver(const DenseMatr
         // line search step value
         alp = SteepestDescentOMP<DenseMatrix, DenseVector>::alpha(A, r);
 
-        alphaR = VecOps.scalarMult(r, alp);
+        alphaR = Ops.scalarMult(r, alp);
 
         // updated x and r
-        x = VecOps.elemAdd(x, alphaR).getData();
+        x = Ops.elemAdd(x, alphaR).getData();
         r = Residual.residual(A, b, x);
         
         // new residual
@@ -41,12 +41,12 @@ DenseVector SteepestDescentOMP<DenseMatrix, DenseVector>::solver(const DenseMatr
 
 double SteepestDescentOMP<DenseMatrix, DenseVector>::alpha(const DenseMatrix& A, const DenseVector& r) const{
 
-    DVOpsOMP<DenseMatrix, DenseVector>& VecOps=DVOpsOMP<DenseMatrix, DenseVector>::getInstance();
+    VecOpsOMP<DenseMatrix, DenseVector>& Ops=VecOpsOMP<DenseMatrix, DenseVector>::getInstance();
 
     // alpha = dot(r, r)/ r^T A r
-    DenseVector rADen = VecOps.vecMatMul(r, A);
-    double alphaNum = VecOps.dot(r, r);
-    double alphaDen = VecOps.dot(rADen,r);
+    DenseVector rADen = Ops.vecMatMul(r, A);
+    double alphaNum = Ops.dot(r, r);
+    double alphaDen = Ops.dot(rADen,r);
     
     return alphaNum/alphaDen;
 

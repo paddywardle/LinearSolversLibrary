@@ -7,7 +7,7 @@
 #include "../IterativeSolver.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Vector/DenseVector.h"
-#include "../../Ops/omp/DVOpsOMP.h"
+#include "../../Ops/omp/VecOpsOMP.h"
 #include "../../Residuals/ResidualsOMP.h"
 
 template<typename Matrix, typename Vector>

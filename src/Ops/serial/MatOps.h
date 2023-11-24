@@ -1,11 +1,11 @@
-#ifndef DMOPS_H
-#define DMOPS_H
+#ifndef MATOPS_H
+#define MATOPS_H
 
 #include "../Ops.h"
 #include "../../Matrix/DenseMatrix.h"
 
 template<typename Matrix>
-class DMOps : public Ops<Matrix> {
+class MatOps : public Ops<Matrix> {
 
     public:
 
@@ -24,16 +24,16 @@ class DMOps : public Ops<Matrix> {
 };
 
 template<>
-class DMOps<DenseMatrix> : public Ops<DenseMatrix> {
+class MatOps<DenseMatrix> : public Ops<DenseMatrix> {
 
     public:
 
-        static DMOps<DenseMatrix>& getInstance(){
-            static DMOps<DenseMatrix> instance;
+        static MatOps<DenseMatrix>& getInstance(){
+            static MatOps<DenseMatrix> instance;
             return instance;
         }
 
-        ~DMOps(){}
+        ~MatOps(){}
 
         DenseMatrix matMul(const DenseMatrix& matA, const DenseMatrix& matB) const;
 
@@ -48,9 +48,9 @@ class DMOps<DenseMatrix> : public Ops<DenseMatrix> {
         DenseMatrix scalarMult(const DenseMatrix& vecA, const double val) const override;
 
     private:
-        DMOps(){}
-        DMOps(const DMOps<DenseMatrix>&) = delete;
-        DMOps<DenseMatrix>& operator=(const DMOps<DenseMatrix>&) = delete;
+        MatOps(){}
+        MatOps(const MatOps<DenseMatrix>&) = delete;
+        MatOps<DenseMatrix>& operator=(const MatOps<DenseMatrix>&) = delete;
 
 };
 
