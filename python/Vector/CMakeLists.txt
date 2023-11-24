@@ -1,1 +1,1 @@
-set (VectorBindings "Vector/vector.cpp" PARENT_SCOPE)
+set (VectorBindings "Vector/vector.h" PARENT_SCOPE)

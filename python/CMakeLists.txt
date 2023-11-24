@@ -3,29 +3,27 @@ project(pybindTest)
 
 add_subdirectory(pybind11)
 
-add_subdirectory(LinearSolvers)
-add_subdirectory(MatOps)
-add_subdirectory(Matrix)
-add_subdirectory(Residuals)
-add_subdirectory(VecOps)
-add_subdirectory(Vector)
-add_subdirectory(subLibrary)
+set (ResidualsSrc "../src/Residuals/Residuals.cpp")
+
+set (MatOpsSrc "../src/Ops/serial/MatOps.cpp")
+
+set (VecOpsSrc "../src/Ops/serial/VecOps.cpp")
 
 set (DenseVectorSrc "../src/Vector/DenseVector.cpp")
 
-set (DenseMatrixSrc "../src/Vector/DenseVector.cpp")
+set (DenseMatrixSrc "../src/Matrix/DenseMatrix.cpp")
+
+set (LinearSolversSrc 
+    "../src/LinearSolvers/serial/GaussSeidel.cpp"
+    "../src/LinearSolvers/serial/Jacobi.cpp"
+    "../src/LinearSolvers/serial/SteepestDescent.cpp"
+    "../src/LinearSolvers/serial/ConjugateGradient.cpp"
+    "../src/LinearSolvers/serial/GaussianElimination.cpp")
 
 set (LinSol "linSol.cpp")
 
 pybind11_add_module(LinSol 
                     ${LinSol}
-                    ${VectorBindings} 
-                    ${MatrixBindings} 
-                    ${MatOpsBindings} 
-                    ${VecOpsBindings} 
-                    ${ResidualsBindings} 
-                    ${LinearSolversBindings}
-
                     ${DenseVectorSrc} 
                     ${DenseMatrixSrc} 
                     ${MatOpsSrc} 

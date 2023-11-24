@@ -1,1 +1,1 @@
-set(MatrixBindings "Matrix/matrix.cpp" PARENT_SCOPE)
+set(MatrixBindings "Matrix/matrix.h" PARENT_SCOPE)

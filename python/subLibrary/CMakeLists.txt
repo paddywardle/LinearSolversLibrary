@@ -1,1 +1,1 @@
-set (SubLinSolBindings "subLibrary/subLinSol.cpp" PARENT_SCOPE)
+set (SubLinSolBindings "subLibrary/subLinSol.h" PARENT_SCOPE)
