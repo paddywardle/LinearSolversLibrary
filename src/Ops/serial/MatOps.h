@@ -21,6 +21,12 @@ class MatOps : public Ops<Matrix> {
 
         Matrix scalarMult(const Matrix& vecA, const double val) const override;
 
+        Matrix zeros(const int numRows, const int numCols) const override;
+
+        Matrix ones(const int numRows, const int numCols) const override;
+
+        Matrix rands(const int numRows, const int numCols) const override;
+
 };
 
 template<>
