@@ -19,6 +19,8 @@ void declareVecOps(py::module handle){
     .def("scalarMult", &Class::scalarMult)
     .def("matVecMul", &Class::matVecMul)
     .def("vecMatMul", &Class::vecMatMul)
+    .def("zeros", &Class::zeros)
+    .def("ones", &Class::ones)
     .def("norm", &Class::norm)
     .def("dot", &Class::dot)
     .def("vecSum", &Class::vecSum);

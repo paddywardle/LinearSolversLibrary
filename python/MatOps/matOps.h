@@ -16,5 +16,7 @@ void declareMatOps(py::module handle){
     .def("elemMult", &Class::elemAdd)
     .def("elemSub", &Class::elemSub)
     .def("elemDiv", &Class::elemDiv)
-    .def("scalarMult", &Class::scalarMult);
+    .def("scalarMult", &Class::scalarMult)
+    .def("zeros", &Class::zeros)
+    .def("ones", &Class::ones);
 }
