@@ -22,6 +22,10 @@ class MatOpsOMP : public Ops<Matrix> {
 
         Matrix scalarMult(const Matrix& vecA, const double val) const override;
 
+        Matrix zeros(const int numRows, const int numCols) const;
+
+        Matrix ones(const int numRows, const int numCols) const;
+
 };
 
 template<>
@@ -45,6 +49,10 @@ class MatOpsOMP<DenseMatrix> : public Ops<DenseMatrix> {
         DenseMatrix elemDiv(const DenseMatrix& matA, const DenseMatrix& matB) const override;
 
         DenseMatrix scalarMult(const DenseMatrix& vecA, const double val) const override;
+
+        DenseMatrix zeros(const int numRows, const int numCols) const;
+
+        DenseMatrix ones(const int numRows, const int numCols) const;
 
     private:
         MatOpsOMP(){}

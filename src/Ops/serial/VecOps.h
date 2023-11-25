@@ -27,11 +27,15 @@ class VecOps : public Ops<Vector>{
 
         Vector vecMatMul(const Vector& vec, const Matrix& mat) const override;
 
-        double norm(const Vector& vecA, const double ord=2.0) const override;
+        Vector zeros(const int len) const;
 
-        double dot(const Vector& vecA, const Vector& vecB) const override;
+        Vector ones(const int len) const;
 
-        double vecSum(const Vector& vec) const override;;
+        double norm(const Vector& vecA, const double ord=2.0) const;
+
+        double dot(const Vector& vecA, const Vector& vecB) const;
+
+        double vecSum(const Vector& vec) const;
 
 };
 
@@ -54,6 +58,10 @@ class VecOps<DenseMatrix, DenseVector> : public Ops<DenseVector>{
         DenseVector elemSub(const DenseVector& matA, const DenseVector& matB) const override;
 
         DenseVector elemDiv(const DenseVector& matA, const DenseVector& matB) const override;
+        
+        DenseVector zeros(const int len) const;
+
+        DenseVector ones(const int len) const;
 
         DenseVector scalarMult(const DenseVector& vecA, const double val) const;
 

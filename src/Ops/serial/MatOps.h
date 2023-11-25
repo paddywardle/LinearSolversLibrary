@@ -1,6 +1,8 @@
 #ifndef MATOPS_H
 #define MATOPS_H
 
+#include <vector>
+
 #include "../Ops.h"
 #include "../../Matrix/DenseMatrix.h"
 
@@ -21,11 +23,9 @@ class MatOps : public Ops<Matrix> {
 
         Matrix scalarMult(const Matrix& vecA, const double val) const override;
 
-        Matrix zeros(const int numRows, const int numCols) const override;
+        Matrix zeros(const int numRows, const int numCols) const;
 
-        Matrix ones(const int numRows, const int numCols) const override;
-
-        Matrix rands(const int numRows, const int numCols) const override;
+        Matrix ones(const int numRows, const int numCols) const;
 
 };
 
@@ -52,6 +52,10 @@ class MatOps<DenseMatrix> : public Ops<DenseMatrix> {
         DenseMatrix elemDiv(const DenseMatrix& matA, const DenseMatrix& matB) const override;
 
         DenseMatrix scalarMult(const DenseMatrix& vecA, const double val) const override;
+
+        DenseMatrix zeros(const int numRows, const int numCols) const;
+
+        DenseMatrix ones(const int numRows, const int numCols) const;
 
     private:
         MatOps(){}

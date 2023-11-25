@@ -140,3 +140,15 @@ DenseMatrix MatOpsOMP<DenseMatrix>::scalarMult(const DenseMatrix& matA, const do
     // need to actually put it as a vector of vector for the correct initialisation
     return resultMat;
 }
+
+DenseMatrix MatOpsOMP<DenseMatrix>::zeros(const int numRows, const int numCols) const{
+    
+    return DenseMatrix(std::vector<std::vector<double>>(numRows, std::vector<double>(numCols,0)));
+
+}
+
+DenseMatrix MatOpsOMP<DenseMatrix>::ones(const int numRows, const int numCols) const{
+    
+    return DenseMatrix(std::vector<std::vector<double>>(numRows, std::vector<double>(numCols,1)));
+
+}

@@ -185,3 +185,15 @@ DenseVector VecOpsOMP<DenseMatrix, DenseVector>::vecMatMul(const DenseVector& ve
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
+
+DenseVector VecOpsOMP<DenseMatrix,DenseVector>::zeros(const int len) const{
+    
+    return DenseVector(std::vector<double>(len,0));
+
+}
+
+DenseVector VecOpsOMP<DenseMatrix,DenseVector>::ones(const int len) const{
+    
+    return DenseVector(std::vector<double>(len,0));
+
+}

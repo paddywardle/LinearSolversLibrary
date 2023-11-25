@@ -176,3 +176,15 @@ DenseVector VecOps<DenseMatrix, DenseVector>::vecMatMul(const DenseVector& vec, 
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
+
+DenseVector VecOps<DenseMatrix,DenseVector>::zeros(const int len) const{
+    
+    return DenseVector(std::vector<double>(len,0));
+
+}
+
+DenseVector VecOps<DenseMatrix,DenseVector>::ones(const int len) const{
+    
+    return DenseVector(std::vector<double>(len,0));
+
+}

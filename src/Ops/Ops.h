@@ -16,12 +16,6 @@ class Ops{
 
         virtual LinearObject scalarMult(const LinearObject& objA, const double val) const=0;
 
-        virtual LinearObject zeros(const int numRows, const int numCols) const=0;
-
-        virtual LinearObject ones(const int numRows, const int numCols) const=0;
-
-        virtual LinearObject rands(const int numRows, const int numCols) const=0;
-
         Ops() = default;
         ~Ops() = default;
 
