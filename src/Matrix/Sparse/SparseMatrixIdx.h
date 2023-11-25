@@ -4,8 +4,8 @@
 #include <vector>
 #include <iostream>
 
-#include "Matrix.h"
-#include "../Exceptions/DenseMatrixExceptions.h"
+#include "../Matrix.h"
+#include "../../Exceptions/DenseMatrixExceptions.h"
 
 class SparseMatrixIdx: public Matrix {
 

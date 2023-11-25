@@ -17,13 +17,20 @@ SparseMatrixIdx::SparseMatrixIdx(const std::vector<std::vector<double>> initialD
     cols = colTmp;
     
     if (!initialData.empty()){
-        // would probably be good to add a check that column and rows are equal
-        // throw a custom exception here if the number of rows in the data don't match the data
-        std::vector<double> flattenedData;
-        for (const std::vector<double>& iRow: initialData){
-            flattenedData.insert(flattenedData.end(), iRow.begin(), iRow.end());
+        for (int i=0; i<rows; i++){
+            for (int j=0; j<cols; j++){
+
+                data_.emplace_back();
+                rowIdx.emplace_back();
+                colIdx.emplace_back();
+
+                if (initialData[i][j] == 0.0){
+                    data_.push_back(initialData[i][j]);
+                    rowIdx.push_back(i);
+                    colIdx.push_back(j);
+                }
+            }
         }
-        data_ = flattenedData;
     }
 };
 
