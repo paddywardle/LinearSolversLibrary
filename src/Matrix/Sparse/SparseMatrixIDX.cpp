@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "SparseMatrixIdx.h"
+#include "SparseMatrix.h"
 
-SparseMatrixIdx::SparseMatrixIdx(const std::vector<std::vector<double>> initialData){
+SparseMatrix<SparseTypes::IDX>::SparseMatrix(const std::vector<std::vector<double>> initialData){
 
     rows = initialData.size();
 
@@ -34,28 +34,39 @@ SparseMatrixIdx::SparseMatrixIdx(const std::vector<std::vector<double>> initialD
     }
 };
 
-size_t SparseMatrixIdx::numRows() const{ 
+size_t SparseMatrix<SparseTypes::IDX>::numRows() const{ 
     return this->rows;
 }
 
-size_t SparseMatrixIdx::numCols() const{
+size_t SparseMatrix<SparseTypes::IDX>::numCols() const{
     return this->cols;
 }
 
-std::vector<double> SparseMatrixIdx::getData() const{
+std::vector<double> SparseMatrix<SparseTypes::IDX>::getData() const{
     return data_;
 }
 
-double& SparseMatrixIdx::operator()(const int row, const int col){
+double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){
 
     // Setting overload
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
-    return (data_)[row*this->numCols()+col];
+
+    for (int i=0; i<this->data_.size(); i++){
+        if (rowIdx[i] == row && colIdx[i] == col){
+            return data_[i];
+        }
+    }
+    
+    rowIdx.push_back(row);
+    colIdx.push_back(col);
+    data_.push_back(0.0);
+
+    return data_.back();
 }
 
-const double& SparseMatrixIdx::operator()(const int row, const int col) const{
+const double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col) const{
 
     // Access overload
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
@@ -67,10 +78,10 @@ const double& SparseMatrixIdx::operator()(const int row, const int col) const{
             return data_[i];
         }
     }
-    return 0;
+    return 0.0;
 }
 
-SparseMatrixIdx& SparseMatrixIdx::operator=(const SparseMatrixIdx& mat){
+SparseMatrix<SparseTypes::IDX>& SparseMatrix<SparseTypes::IDX>::operator=(const SparseMatrix<SparseTypes::IDX>& mat){
 
     // guard clause for if this = mat (matrix being fed in)
     // avoids unnecessary reallocation
@@ -83,7 +94,7 @@ SparseMatrixIdx& SparseMatrixIdx::operator=(const SparseMatrixIdx& mat){
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const SparseMatrixIdx& denseMat){
+std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& denseMat){
     
     int matRows = denseMat.numRows();
     int matCols = denseMat.numCols();

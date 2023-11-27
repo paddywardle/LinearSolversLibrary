@@ -1,0 +1,5 @@
+set(SPARSE_MATRIX_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/SparseMatrixIDX.cpp
+)
+
+target_sources(LinSol PRIVATE ${SPARSE_MATRIX_FILES})
