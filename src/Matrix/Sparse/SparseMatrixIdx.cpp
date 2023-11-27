@@ -61,7 +61,13 @@ const double& SparseMatrixIdx::operator()(const int row, const int col) const{
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
-    return (data_)[row*this->numCols()+col];
+
+    for (int i=0; i<this->data_.size(); i++){
+        if (rowIdx[i] == row && colIdx[i] == col){
+            return data_[i];
+        }
+    }
+    return 0;
 }
 
 SparseMatrixIdx& SparseMatrixIdx::operator=(const SparseMatrixIdx& mat){

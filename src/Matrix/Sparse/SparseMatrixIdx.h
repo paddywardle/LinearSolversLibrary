@@ -2,6 +2,7 @@
 #define SparseMatrixIdx_H
 
 #include <vector>
+#include <algorithm>
 #include <iostream>
 
 #include "../Matrix.h"
