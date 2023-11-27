@@ -61,7 +61,7 @@ double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col)
     
     rowIdx.push_back(row);
     colIdx.push_back(col);
-    data_.push_back(0.0);
+    data_.push_back(this->defaultZero);
 
     return data_.back();
 }
@@ -78,13 +78,14 @@ const double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const in
             return data_[i];
         }
     }
-    return 0.0;
+    return this->defaultZero;
 }
 
 SparseMatrix<SparseTypes::IDX>& SparseMatrix<SparseTypes::IDX>::operator=(const SparseMatrix<SparseTypes::IDX>& mat){
 
     // guard clause for if this = mat (matrix being fed in)
     // avoids unnecessary reallocation
+    // CHANGE - need to put indices here!
     if (this != &mat){
         this->rows = mat.numRows();
         this->cols = mat.numCols();

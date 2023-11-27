@@ -13,6 +13,7 @@ template<SparseTypes sparseType>
 class SparseMatrix: public Matrix {
 
     private:
+        int defaultZero = 0;
         size_t rows;
         size_t cols;
         std::vector<double> data_;
@@ -42,6 +43,7 @@ template<>
 class SparseMatrix<SparseTypes::IDX>: public Matrix {
 
     private:
+        double defaultZero = 0;
         size_t rows;
         size_t cols;
         std::vector<double> data_;
@@ -63,6 +65,7 @@ class SparseMatrix<SparseTypes::IDX>: public Matrix {
         double& operator()(const int row, const int col);
         const double& operator()(const  int row, const int col) const;
         SparseMatrix<SparseTypes::IDX>& operator=(const SparseMatrix& mat);
+
         friend std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& sparseMat);
 
 };
