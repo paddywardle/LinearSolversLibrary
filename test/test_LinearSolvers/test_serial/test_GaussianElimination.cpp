@@ -2,9 +2,9 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../../src/Matrix/DenseMatrix.h"
-#include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/serial/GaussianElimination.h"
+#include "../../../src/Matrix/DenseMatrix.h"
+#include "../../../src/Vector/DenseVector.h"
+#include "../../../src/LinearSolvers/serial/GaussianElimination.h"
 
 TEST(GaussianElimination, Solver) {
 

@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../../src/Matrix/DenseMatrix.h"
-#include "../../src/Vector/DenseVector.h"
-#include "../../src/LinearSolvers/serial/SteepestDescent.h"
+#include "../../../src/Matrix/DenseMatrix.h"
+#include "../../../src/Vector/DenseVector.h"
+#include "../../../src/LinearSolvers/serial/SteepestDescent.h"
 
 TEST(SteepestDescent, Solver) {
 

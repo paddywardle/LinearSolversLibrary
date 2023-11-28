@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <vector>
 
-#include "../../src/Matrix/DenseMatrix.h"
-#include "../../src/Vector/DenseVector.h"
-#include "../../src/Residuals/Residuals.h"
+#include "../../../src/Matrix/DenseMatrix.h"
+#include "../../../src/Vector/DenseVector.h"
+#include "../../../src/Residuals/Residuals.h"
 
 Residuals<DenseMatrix, DenseVector>& Residual=Residuals<DenseMatrix, DenseVector>::getInstance();
 
