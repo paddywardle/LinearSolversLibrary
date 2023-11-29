@@ -2,9 +2,11 @@
 #define MATOPS_H
 
 #include <vector>
+#include <algorithm>
 
 #include "../Ops.h"
 #include "../../Matrix/DenseMatrix.h"
+#include "../../Matrix/Sparse/SparseMatrix.h"
 
 template<typename Matrix>
 class MatOps : public Ops<Matrix> {
@@ -61,6 +63,41 @@ class MatOps<DenseMatrix> : public Ops<DenseMatrix> {
         MatOps(){}
         MatOps(const MatOps<DenseMatrix>&) = delete;
         MatOps<DenseMatrix>& operator=(const MatOps<DenseMatrix>&) = delete;
+
+};
+
+template<>
+class MatOps<SparseMatrix<SparseTypes::IDX>> : public Ops<SparseMatrix<SparseTypes::IDX>> {
+
+    public:
+
+        static MatOps<SparseMatrix<SparseTypes::IDX>>& getInstance(){
+            static MatOps<SparseMatrix<SparseTypes::IDX>> instance;
+            return instance;
+        }
+
+        ~MatOps(){}
+
+        SparseMatrix<SparseTypes::IDX> matMul(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const;
+
+        SparseMatrix<SparseTypes::IDX> elemMult(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const override;
+
+        SparseMatrix<SparseTypes::IDX> elemAdd(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const override;
+
+        SparseMatrix<SparseTypes::IDX> elemSub(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const override;
+
+        SparseMatrix<SparseTypes::IDX> elemDiv(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const override;
+
+        SparseMatrix<SparseTypes::IDX> scalarMult(const SparseMatrix<SparseTypes::IDX>& vecA, const double val) const override;
+
+        SparseMatrix<SparseTypes::IDX> zeros(const int numRows, const int numCols) const;
+
+        SparseMatrix<SparseTypes::IDX> ones(const int numRows, const int numCols) const;
+
+    private:
+        MatOps(){}
+        MatOps(const MatOps<SparseMatrix<SparseTypes::IDX>>&) = delete;
+        MatOps<SparseMatrix<SparseTypes::IDX>>& operator=(const MatOps<SparseMatrix<SparseTypes::IDX>>&) = delete;
 
 };
 

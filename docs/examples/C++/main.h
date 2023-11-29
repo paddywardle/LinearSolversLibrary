@@ -11,6 +11,7 @@
 #include "../../../src/Exceptions/DenseVectorExceptions.h"
 
 #include "../../../src/Matrix/DenseMatrix.h"
+#include "../../../src/Matrix/Sparse/SparseMatrix.h"
 #include "../../../src/Vector/Vector.h"
 
 #include "../../../src/Ops/serial/VecOps.h"

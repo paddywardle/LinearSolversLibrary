@@ -20,14 +20,10 @@ SparseMatrix<SparseTypes::IDX>::SparseMatrix(const std::vector<std::vector<doubl
         for (int i=0; i<rows; i++){
             for (int j=0; j<cols; j++){
 
-                data_.emplace_back();
-                rowIdx.emplace_back();
-                colIdx.emplace_back();
-
-                if (initialData[i][j] == 0.0){
-                    data_.push_back(initialData[i][j]);
-                    rowIdx.push_back(i);
-                    colIdx.push_back(j);
+                if (initialData[i][j] != 0.0){
+                    data_.emplace_back(initialData[i][j]);
+                    rowIdx.emplace_back(i);
+                    colIdx.emplace_back(j);
                 }
             }
         }
@@ -43,7 +39,15 @@ size_t SparseMatrix<SparseTypes::IDX>::numCols() const{
 }
 
 std::vector<double> SparseMatrix<SparseTypes::IDX>::getData() const{
-    return data_;
+    return this->data_;
+}
+
+std::vector<int> SparseMatrix<SparseTypes::IDX>::getColIdx() const{
+    return this->colIdx;
+}
+
+std::vector<int> SparseMatrix<SparseTypes::IDX>::getRowIdx() const{
+    return this->rowIdx;
 }
 
 double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){

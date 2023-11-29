@@ -35,6 +35,7 @@ class SparseMatrix: public Matrix {
         double& operator()(const int row, const int col);
         const double& operator()(const  int row, const int col) const;
         SparseMatrix<sparseType>& operator=(const SparseMatrix<sparseType>& mat);
+        SparseMatrix<sparseType> operator*(const SparseMatrix<sparseType>& mat);
         friend std::ostream& operator<<(std::ostream& os, const SparseMatrix<sparseType>& sparseMat);
 
 };
@@ -60,12 +61,14 @@ class SparseMatrix<SparseTypes::IDX>: public Matrix {
         size_t numRows() const override;
         size_t numCols() const override;
         std::vector<double> getData() const override;
+        std::vector<int> getColIdx() const;
+        std::vector<int> getRowIdx() const;
 
         // Overloads
         double& operator()(const int row, const int col);
         const double& operator()(const  int row, const int col) const;
         SparseMatrix<SparseTypes::IDX>& operator=(const SparseMatrix& mat);
-
+        SparseMatrix<SparseTypes::IDX> operator*(const SparseMatrix<SparseTypes::IDX>& mat);
         friend std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& sparseMat);
 
 };
