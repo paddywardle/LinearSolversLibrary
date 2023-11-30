@@ -12,6 +12,33 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
+    std::vector<std::vector<double>> mat(matARows, std::vector<double>(matBCols, 0));
+
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            for(int k=0; k<matBRows; k++){
+                mat[i][j] += matA(i,k)*matB(k,j);
+            }
+        }
+    }
+
+    SparseMatrix<SparseTypes::IDX> resultMat(mat);
+
+    return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemMult(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const {
+
+    const int matARows = matA.numRows();
+    const int matACols = matA.numCols();
+
+    const int matBRows = matB.numRows();
+    const int matBCols = matB.numCols();
+
+    if (matACols != matBRows){
+        throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
+    }
+
     SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
     std::vector<double> matAData = matA.getData();
@@ -41,6 +68,62 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
         }
 
     }
-    // need to actually put it as a vector of vector for the correct initialisation
+
+    return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemAdd(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const {
+
+    const int matARows = matA.numRows();
+    const int matACols = matA.numCols();
+
+    const int matBRows = matB.numRows();
+    const int matBCols = matB.numCols();
+
+    if (matACols != matBRows){
+        throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
+    }
+
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
+
+    std::vector<double> matBData = matB.getData();
+    std::vector<int> matBColIdx = matB.getColIdx();
+    std::vector<int> matBRowIdx = matB.getRowIdx();
+
+
+    // this will only do it one way - what if there is one in matB that isn't in matA
+    // And can't just do the same for loop in reverse as that would mean some were done twice!
+    for (int i=0; i<matBData.size(); i++){
+        resultMat(matBRowIdx[i], matBColIdx[i]) += matBData[i];
+    }
+    
+    return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemSub(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const {
+
+    const int matARows = matA.numRows();
+    const int matACols = matA.numCols();
+
+    const int matBRows = matB.numRows();
+    const int matBCols = matB.numCols();
+
+    if (matACols != matBRows){
+        throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
+    }
+
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
+
+    std::vector<double> matBData = matB.getData();
+    std::vector<int> matBColIdx = matB.getColIdx();
+    std::vector<int> matBRowIdx = matB.getRowIdx();
+
+
+    // this will only do it one way - what if there is one in matB that isn't in matA
+    // And can't just do the same for loop in reverse as that would mean some were done twice!
+    for (int i=0; i<matBData.size(); i++){
+        resultMat(matBRowIdx[i], matBColIdx[i]) -= matBData[i];
+    }
+    
     return resultMat;
 }
