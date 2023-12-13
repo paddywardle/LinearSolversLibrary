@@ -4,10 +4,12 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <unordered_map>
 
 #include "../Matrix.h"
 #include "SparseTypes.h"
 #include "../../Exceptions/DenseMatrixExceptions.h"
+#include "../../utils/VectorHasher.h"
 
 template<SparseTypes sparseType>
 class SparseMatrix: public Matrix {
@@ -16,9 +18,6 @@ class SparseMatrix: public Matrix {
         int defaultZero = 0;
         size_t rows;
         size_t cols;
-        std::vector<double> data_;
-        std::vector<int> rowIdx;
-        std::vector<int> colIdx; 
 
     public:
         
@@ -47,9 +46,7 @@ class SparseMatrix<SparseTypes::IDX>: public Matrix {
         double defaultZero = 0;
         size_t rows;
         size_t cols;
-        std::vector<double> data_;
-        std::vector<int> rowIdx;
-        std::vector<int> colIdx; 
+        std::unordered_map<std::vector<int>,double,VectorHasher> data_;
 
     public:
         
@@ -63,6 +60,7 @@ class SparseMatrix<SparseTypes::IDX>: public Matrix {
         std::vector<double> getData() const override;
         std::vector<int> getColIdx() const;
         std::vector<int> getRowIdx() const;
+        std::unordered_map<std::vector<int>,double,VectorHasher> getDataMap() const;
 
         // Overloads
         double& operator()(const int row, const int col);

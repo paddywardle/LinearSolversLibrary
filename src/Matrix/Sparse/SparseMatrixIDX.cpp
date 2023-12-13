@@ -21,9 +21,7 @@ SparseMatrix<SparseTypes::IDX>::SparseMatrix(const std::vector<std::vector<doubl
             for (int j=0; j<cols; j++){
 
                 if (initialData[i][j] != 0.0){
-                    data_.emplace_back(initialData[i][j]);
-                    rowIdx.emplace_back(i);
-                    colIdx.emplace_back(j);
+                    data_[{i,j}] = initialData[i][j];
                 }
             }
         }
@@ -39,15 +37,34 @@ size_t SparseMatrix<SparseTypes::IDX>::numCols() const{
 }
 
 std::vector<double> SparseMatrix<SparseTypes::IDX>::getData() const{
-    return this->data_;
+
+    std::vector<double> values;
+    for (const auto& value: this->data_){
+        values.push_back(value.second);
+    }
+    return values;
 }
 
 std::vector<int> SparseMatrix<SparseTypes::IDX>::getColIdx() const{
-    return this->colIdx;
+
+    std::vector<int> colIndices;
+    for (const auto& value: this->data_){
+        colIndices.push_back(value.first[1]);
+    }
+    return colIndices;
 }
 
 std::vector<int> SparseMatrix<SparseTypes::IDX>::getRowIdx() const{
-    return this->rowIdx;
+
+    std::vector<int> rowIndices;
+    for (const auto& value: this->data_){
+        rowIndices.push_back(value.first[0]);
+    }
+    return rowIndices;
+}
+
+std::unordered_map<std::vector<int>,double,VectorHasher> SparseMatrix<SparseTypes::IDX>::getDataMap() const{
+    return this->data_;
 }
 
 double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){
@@ -57,17 +74,13 @@ double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col)
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
 
-    for (int i=0; i<this->data_.size(); i++){
-        if (rowIdx[i] == row && colIdx[i] == col){
-            return data_[i];
-        }
+    auto it = this->data_.find({row, col});
+
+    if (it != this->data_.end()){
+        return it->second;
     }
     
-    rowIdx.push_back(row);
-    colIdx.push_back(col);
-    data_.push_back(this->defaultZero);
-
-    return data_.back();
+    return this->data_[{row, col}];
 }
 
 const double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col) const{
@@ -77,11 +90,12 @@ const double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const in
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
 
-    for (int i=0; i<this->data_.size(); i++){
-        if (rowIdx[i] == row && colIdx[i] == col){
-            return data_[i];
-        }
+    auto it = this->data_.find({row, col});
+
+    if (it != this->data_.end()){
+        return it->second;
     }
+
     return this->defaultZero;
 }
 
@@ -91,9 +105,7 @@ SparseMatrix<SparseTypes::IDX>& SparseMatrix<SparseTypes::IDX>::operator=(const 
     // avoids unnecessary reallocation
     // CHANGE - need to put indices here!
     if (this != &mat){
-        this->rows = mat.numRows();
-        this->cols = mat.numCols();
-        this->data_ = mat.getData();
+        this->data_ = mat.getDataMap();
     }
     
     return *this;
