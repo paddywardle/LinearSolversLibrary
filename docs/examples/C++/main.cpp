@@ -14,11 +14,23 @@ int main(){
 
         // DenseVector x = GaussSeidelOMP<DenseMatrix, DenseVector>::getInstance().solver(A, b);
         // std::cout<<x(0)<<"\n";
+
+        MatOps<SparseMatrix<SparseTypes::IDX>>& Ops=MatOps<SparseMatrix<SparseTypes::IDX>>::getInstance();
         std::vector<std::vector<double>> matrix{{9, 0, 3}, {4, 0, 0}, {1, 0, 7}};
 
         SparseMatrix<SparseTypes::IDX> sparseMat(matrix);
+        SparseMatrix<SparseTypes::IDX> sparseMat2 = Ops.elemSub(sparseMat, sparseMat);
 
-        std::cout<<sparseMat.getData()[0]<<std::endl;
+        std::vector<double> sparseData = sparseMat2.getData();
+        std::vector<int> sparseColIdx = sparseMat2.getColIdx();
+        std::vector<int> sparseRowIdx = sparseMat2.getRowIdx();
+
+        for (int i=0; i<sparseData.size(); i++){
+            std::cout<<sparseData[i]<<" "<<sparseRowIdx[i]<<" "<<sparseColIdx[i]<<"\n";
+        }
+        std::cout<<"\n";
+
+        std::cout<<sparseMat2<<std::endl;
 
     }
     catch (const DenseMatrixExceptions& e){

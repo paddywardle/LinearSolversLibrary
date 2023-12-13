@@ -17,7 +17,10 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
     for (int i=0; i<matARows; i++){
         for (int j=0; j<matACols; j++){
             for(int k=0; k<matBRows; k++){
-                mat[i][j] += matA(i,k)*matB(k,j);
+                double val = matA(i,k)*matB(k,j);
+                if (val != 0.0){
+                    mat[i][j] += val;
+                }
             }
         }
     }
@@ -35,38 +38,21 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemMult(
     const int matBRows = matB.numRows();
     const int matBCols = matB.numCols();
 
-    if (matACols != matBRows){
+    if (matARows != matBRows && matACols != matBCols){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
     SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
-    std::vector<double> matAData = matA.getData();
-    std::vector<double> matBData = matB.getData();
-
-    std::vector<int> matAColIdx = matA.getColIdx();
-    std::vector<int> matBColIdx = matB.getColIdx();
-
-    std::vector<int> matARowIdx = matA.getRowIdx();
-    std::vector<int> matBRowIdx = matB.getRowIdx();
-
-
     // this will only do it one way - what if there is one in matB that isn't in matA
     // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matAData.size(); i++){
-
-        auto itColIdx = std::find(matBColIdx.begin(), matBColIdx.end(), matAColIdx[i]);
-
-        if (itColIdx == matBColIdx.end()){
-            resultMat(matARowIdx[i], matAColIdx[i]) = 0.0;
-        }
-        else {
-            int colIdx = std::distance(matBColIdx.begin(), itColIdx);
-            if (matARowIdx[i] == matBRowIdx[colIdx]){
-                resultMat(matARowIdx[i], matAColIdx[i]) = matA(matARowIdx[i], matAColIdx[i]) * matB(matARowIdx[i], matAColIdx[i]);
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            double val = matA(i,j) * matB(i,j);
+            if (val != 0.0){
+                resultMat(i,j) = val;
             }
         }
-
     }
 
     return resultMat;
@@ -80,21 +66,21 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemAdd(c
     const int matBRows = matB.numRows();
     const int matBCols = matB.numCols();
 
-    if (matACols != matBRows){
+    if (matARows != matBRows && matACols != matBCols){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat = matA;
-
-    std::vector<double> matBData = matB.getData();
-    std::vector<int> matBColIdx = matB.getColIdx();
-    std::vector<int> matBRowIdx = matB.getRowIdx();
-
+    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
 
     // this will only do it one way - what if there is one in matB that isn't in matA
     // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matBData.size(); i++){
-        resultMat(matBRowIdx[i], matBColIdx[i]) += matBData[i];
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            double val = matA(i,j) + matB(i,j);
+            if (val != 0.0){
+                resultMat(i,j) = val;
+            }
+        }
     }
     
     return resultMat;
@@ -108,22 +94,79 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemSub(c
     const int matBRows = matB.numRows();
     const int matBCols = matB.numCols();
 
-    if (matACols != matBRows){
+    if (matARows != matBRows && matACols != matBCols){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat = matA;
-
-    std::vector<double> matBData = matB.getData();
-    std::vector<int> matBColIdx = matB.getColIdx();
-    std::vector<int> matBRowIdx = matB.getRowIdx();
-
+    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
 
     // this will only do it one way - what if there is one in matB that isn't in matA
     // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matBData.size(); i++){
-        resultMat(matBRowIdx[i], matBColIdx[i]) -= matBData[i];
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            double val = matA(i,j) - matB(i,j);
+            if (val != 0.0){
+                resultMat(i,j) = val;
+            }
+        }
     }
     
     return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemDiv(const SparseMatrix<SparseTypes::IDX>& matA, const SparseMatrix<SparseTypes::IDX>& matB) const{
+
+    const int matARows = matA.numRows();
+    const int matACols = matA.numCols();
+
+    const int matBRows = matB.numRows();
+    const int matBCols = matB.numCols();
+
+    if (matARows != matBRows && matACols != matBCols){
+        throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
+    }
+
+    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
+
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            double val = matA(i,j) / matB(i,j);
+            if (val != 0.0){
+                resultMat(i,j) = val;
+            }
+        }
+    }
+    // need to actually put it as a vector of vector for the correct initialisation
+    return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::scalarMult(const SparseMatrix<SparseTypes::IDX>& matA, const double val) const{
+
+    const int matARows = matA.numRows();
+    const int matACols = matA.numCols();
+
+    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
+
+    for (int i=0; i<matARows; i++){
+        for (int j=0; j<matACols; j++){
+            double calc = val * matA(i,j);
+            if (calc != 0.0){
+                resultMat(i,j) = calc;
+            }
+        }
+    }
+    // need to actually put it as a vector of vector for the correct initialisation
+    return resultMat;
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(const int numRows, const int numCols) const{
+    
+    return SparseMatrix<SparseTypes::IDX>(std::vector<std::vector<double>>(numRows, std::vector<double>(numCols,0)));
+
+}
+
+SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::ones(const int numRows, const int numCols) const{
+    
+    return SparseMatrix<SparseTypes::IDX>(std::vector<std::vector<double>>(numRows, std::vector<double>(numCols,1)));
+
 }

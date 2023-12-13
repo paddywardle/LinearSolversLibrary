@@ -99,17 +99,16 @@ SparseMatrix<SparseTypes::IDX>& SparseMatrix<SparseTypes::IDX>::operator=(const 
     return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& denseMat){
+std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& sparseMat){
     
-    int matRows = denseMat.numRows();
-    int matCols = denseMat.numCols();
+    int matRows = sparseMat.numRows();
+    int matCols = sparseMat.numCols();
 
-    const std::vector<double>& matData = denseMat.getData();
+    const std::vector<double>& matData = sparseMat.getData();
 
     for (int i=0; i<matRows; i++){
         for (int j=0; j<matCols; j++){
-
-            os<<matData[i*matCols+j]<<" ";
+            os<<sparseMat(i,j)<<" ";
         }
         os<<"\n";
     }
