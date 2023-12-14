@@ -14,7 +14,7 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
     
     std::unordered_map<std::vector<int>,double,VectorHasher> matAMap = matA.getDataMap();
     std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
-    std::unordered_map<std::vector<int>,double,VectorHasher> resultMap;
+    SparseMatrix<SparseTypes::IDX> resultMat=MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows,matACols);
 
     for (const auto& matAEntry: matAMap){
         const int& matARow = matAEntry.first.front();
@@ -25,15 +25,11 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
             const int& matBCol = matBEntry.first.back();
             
             if (matACol == matBRow){
-                resultMap[{matARow, matBCol}] += matAEntry.second * matBEntry.second;
+                resultMat(matARow, matBCol) += matAEntry.second * matBEntry.second;
 
             }
         }
     }
-
-    SparseMatrix<SparseTypes::IDX> resultMat=MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows,matACols);
-
-    resultMat.setMat(matARows, matBCols, resultMap);
 
     return resultMat;
 }
