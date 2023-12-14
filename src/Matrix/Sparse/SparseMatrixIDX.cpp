@@ -67,6 +67,21 @@ std::unordered_map<std::vector<int>,double,VectorHasher> SparseMatrix<SparseType
     return this->data_;
 }
 
+void SparseMatrix<SparseTypes::IDX>::dropIdx(const std::vector<int> Idx){
+
+    auto it = this->data_.find(Idx);
+
+    if (it != this->data_.end()){
+        this->data_.erase(it);
+    }
+}
+
+void SparseMatrix<SparseTypes::IDX>::setMat(const int& row_nums, const int& col_nums, const std::unordered_map<std::vector<int>,double,VectorHasher>& matMap){
+    this->rows = row_nums;
+    this->cols = col_nums;
+    this->data_ = matMap;
+}
+
 double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){
 
     // Setting overload

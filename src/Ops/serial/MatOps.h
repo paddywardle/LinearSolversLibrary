@@ -7,6 +7,7 @@
 #include "../Ops.h"
 #include "../../Matrix/DenseMatrix.h"
 #include "../../Matrix/Sparse/SparseMatrix.h"
+#include "../../utils/VectorHasher.h"
 
 template<typename Matrix>
 class MatOps : public Ops<Matrix> {

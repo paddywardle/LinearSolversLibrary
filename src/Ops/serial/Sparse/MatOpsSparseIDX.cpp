@@ -11,21 +11,29 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::matMul(co
     if (matACols != matBRows){
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
+    
+    std::unordered_map<std::vector<int>,double,VectorHasher> matAMap = matA.getDataMap();
+    std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
+    std::unordered_map<std::vector<int>,double,VectorHasher> resultMap;
 
-    std::vector<std::vector<double>> mat(matARows, std::vector<double>(matBCols, 0));
+    for (const auto& matAEntry: matAMap){
+        const int& matARow = matAEntry.first.front();
+        const int& matACol = matAEntry.first.back();
 
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            for(int k=0; k<matBRows; k++){
-                double val = matA(i,k)*matB(k,j);
-                if (val != 0.0){
-                    mat[i][j] += val;
-                }
+        for (const auto& matBEntry: matBMap){
+            const int& matBRow = matBEntry.first.front();
+            const int& matBCol = matBEntry.first.back();
+            
+            if (matACol == matBRow){
+                resultMap[{matARow, matBCol}] += matAEntry.second * matBEntry.second;
+
             }
         }
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat(mat);
+    SparseMatrix<SparseTypes::IDX> resultMat=MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows,matACols);
+
+    resultMat.setMat(matARows, matBCols, resultMap);
 
     return resultMat;
 }
@@ -44,15 +52,10 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemMult(
 
     SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
-    // this will only do it one way - what if there is one in matB that isn't in matA
-    // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            double val = matA(i,j) * matB(i,j);
-            if (val != 0.0){
-                resultMat(i,j) = val;
-            }
-        }
+    std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
+
+    for (const auto& keyVal: matBMap){
+        resultMat(keyVal.first[0], keyVal.first[1]) *= keyVal.second;
     }
 
     return resultMat;
@@ -70,19 +73,21 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemAdd(c
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
-    // this will only do it one way - what if there is one in matB that isn't in matA
-    // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            double val = matA(i,j) + matB(i,j);
-            if (val != 0.0){
-                resultMat(i,j) = val;
-            }
+    std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
+
+    for (const auto& keyVal: matBMap){
+        double val = resultMat(keyVal.first[0], keyVal.first[1]) + keyVal.second;
+
+        if (val == 0.0){
+            resultMat.dropIdx(keyVal.first);
+            continue;
         }
+
+        resultMat(keyVal.first[0], keyVal.first[1]) = val;
     }
-    
+
     return resultMat;
 }
 
@@ -98,18 +103,21 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemSub(c
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
-    // this will only do it one way - what if there is one in matB that isn't in matA
-    // And can't just do the same for loop in reverse as that would mean some were done twice!
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            double val = matA(i,j) - matB(i,j);
-            if (val != 0.0){
-                resultMat(i,j) = val;
-            }
+    std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
+
+    for (const auto& keyVal: matBMap){
+        double val = resultMat(keyVal.first[0], keyVal.first[1]) - keyVal.second;
+
+        if (val == 0.0){
+            resultMat.dropIdx(keyVal.first);
+            continue;
         }
+
+        resultMat(keyVal.first[0], keyVal.first[1]) = val;
     }
+
     
     return resultMat;
 }
@@ -126,16 +134,14 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::elemDiv(c
         throw DenseMatrixExceptions("Error: Matrix dimensions do not match!");
     }
 
-    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
 
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            double val = matA(i,j) / matB(i,j);
-            if (val != 0.0){
-                resultMat(i,j) = val;
-            }
-        }
+    std::unordered_map<std::vector<int>,double,VectorHasher> matBMap = matB.getDataMap();
+
+    for (const auto& keyVal: matBMap){
+        resultMat(keyVal.first[0], keyVal.first[1]) /= keyVal.second;
     }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return resultMat;
 }
@@ -145,16 +151,18 @@ SparseMatrix<SparseTypes::IDX> MatOps<SparseMatrix<SparseTypes::IDX>>::scalarMul
     const int matARows = matA.numRows();
     const int matACols = matA.numCols();
 
-    SparseMatrix<SparseTypes::IDX> resultMat = MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows, matACols);
-
-    for (int i=0; i<matARows; i++){
-        for (int j=0; j<matACols; j++){
-            double calc = val * matA(i,j);
-            if (calc != 0.0){
-                resultMat(i,j) = calc;
-            }
-        }
+    if (val == 0.0){
+        return MatOps<SparseMatrix<SparseTypes::IDX>>::zeros(matARows,matACols);
     }
+
+    SparseMatrix<SparseTypes::IDX> resultMat = matA;
+
+    std::unordered_map<std::vector<int>,double,VectorHasher> matAMap = matA.getDataMap();
+
+    for (const auto& keyVal: matAMap){
+        resultMat(keyVal.first[0], keyVal.first[1]) *= val;
+    }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return resultMat;
 }

@@ -62,6 +62,10 @@ class SparseMatrix<SparseTypes::IDX>: public Matrix {
         std::vector<int> getRowIdx() const;
         std::unordered_map<std::vector<int>,double,VectorHasher> getDataMap() const;
 
+        // Alter functions
+        void dropIdx(const std::vector<int> Idx);
+        void setMat(const int& row_nums, const int& col_nums, const std::unordered_map<std::vector<int>,double,VectorHasher>& matMap);
+
         // Overloads
         double& operator()(const int row, const int col);
         const double& operator()(const  int row, const int col) const;

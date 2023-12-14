@@ -1,4 +1,4 @@
-#ifndef VECTORHASER_H
+#ifndef VECTORHASHER_H
 #define VECTORHASHER_H
 
 #include <vector>
