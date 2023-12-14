@@ -55,8 +55,8 @@ std::ostream& operator<<(std::ostream& os, const DenseVector& denseVec){
 
     for (int i=0; i<vecLen; i++){
             os<<vecData[i]<<" ";
-        }
-        os<<"\n";
+    }
+    os<<"\n";
 
     return os;
 }

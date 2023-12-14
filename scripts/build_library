@@ -2,5 +2,5 @@
 
 ./scripts/setup_dir
 cd build/
-cmake ../../LinearSolversLibrary
+cmake ../../LinearSolversLibrary -DCMAKE_BUILD_TYPE=Release
 make

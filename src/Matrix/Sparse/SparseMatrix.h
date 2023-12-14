@@ -7,7 +7,7 @@
 #include <unordered_map>
 
 #include "../Matrix.h"
-#include "SparseTypes.h"
+#include "../../utils/SparseTypes.h"
 #include "../../Exceptions/DenseMatrixExceptions.h"
 #include "../../utils/VectorHasher.h"
 

@@ -4,3 +4,4 @@ project(LinSolLibrary)
 
 add_subdirectory(src)
 add_subdirectory(docs/examples/C++)
+

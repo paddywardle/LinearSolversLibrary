@@ -1,0 +1,5 @@
+set(SPARSE_VECTOR_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/SparseVectorIDX.cpp
+)
+
+target_sources(LinSol PRIVATE ${SPARSE_VECTOR_FILES})
