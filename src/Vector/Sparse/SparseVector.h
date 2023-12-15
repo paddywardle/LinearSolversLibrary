@@ -16,6 +16,23 @@ class SparseVector: public Vector {
         int defaultZero = 0;
         size_t length;
 
+        struct VectorProxy{
+
+            SparseVector<sparseType>& Vector;
+            int idx;
+
+            VectorProxy(SparseVector<sparseType>& v, int i);
+
+            VectorProxy operator=(double val);
+
+            VectorProxy operator+=(double val);
+
+            VectorProxy operator-=(double val);
+
+            double operator+(double val);
+            double operator-(double val);
+        };
+
     public:
         
         // Instantiation
@@ -28,8 +45,8 @@ class SparseVector: public Vector {
         std::vector<int> getIdx() const;
 
         // Overloads
-        double& operator()(const int row, const int col);
-        const double& operator()(const  int row, const int col) const;
+        VectorProxy& operator()(const int idx);
+        const double& operator()(const int idx) const;
         SparseVector<sparseType>& operator=(const SparseVector<sparseType>& vec);
         SparseVector<sparseType> operator*(const SparseVector<sparseType>& vec);
         friend std::ostream& operator<<(std::ostream& os, const SparseVector<sparseType>& sparseVec);
@@ -43,6 +60,50 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         double defaultZero = 0;
         size_t length;
         std::unordered_map<int,double> data_;
+
+        struct VectorProxy{
+
+            SparseVector<SparseTypes::IDX>& Vector;
+            int idx;
+
+            VectorProxy(SparseVector<SparseTypes::IDX>& v, int i);
+
+            VectorProxy operator=(double val){
+
+                if (val == 0.0){
+                    auto it = Vector.data_.find(idx);
+                    if (it != Vector.data_.end()){
+                        Vector.data_.erase(it);
+                    }
+                    return *this;
+                }
+
+                Vector.data_[idx] = val;
+                return *this;
+
+            };
+
+            VectorProxy operator+=(double val){
+                
+                if (val != 0.0){
+                    Vector.data_[idx] += val;
+                }
+
+                return *this;
+            };
+
+            VectorProxy operator-=(double val){
+                
+                if (val != 0.0){
+                    Vector.data_[idx] -= val;
+                }
+
+                return *this;
+            };
+
+            double operator+(double val);
+            double operator-(double val);
+        };
 
     public:
         
@@ -61,7 +122,7 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         void setVec(const int& length, const std::unordered_map<int,double>& vecMap);
 
         // Overloads
-        double& operator()(const int idx);
+        VectorProxy operator()(const int idx);
         const double& operator()(const int idx) const;
         SparseVector<SparseTypes::IDX>& operator=(const SparseVector& vec);
         SparseVector<SparseTypes::IDX> operator*(const SparseVector<SparseTypes::IDX>& vec);
