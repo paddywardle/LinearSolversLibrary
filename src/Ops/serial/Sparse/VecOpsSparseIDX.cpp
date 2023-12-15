@@ -1,4 +1,4 @@
-#include "VecOps.h"
+#include "../VecOps.h"
 
 SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVector<SparseTypes::IDX>>::elemMult(const SparseVector<SparseTypes::IDX>& vecA, const SparseVector<SparseTypes::IDX>& vecB) const{
 
@@ -9,10 +9,12 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(vecALen, 0));
+    SparseVector<SparseTypes::IDX> resultVec = vecA;
 
-    for (int i=0; i<vecALen; i++){
-        resultVec(i) += vecA(i) * vecB(i);
+    const std::unordered_map<int, double> vecBMap = vecB.getDataMap();
+
+    for (const auto& keyVal: vecBMap){
+        resultVec(keyVal.first) *= keyVal.second;
     }
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
@@ -27,11 +29,22 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(vecALen, 0));
+    SparseVector<SparseTypes::IDX> resultVec = vecA;
 
-    for (int i=0; i<vecALen; i++){
-        resultVec(i) += vecA(i) + vecB(i);
+    const std::unordered_map<int, double> vecBMap = vecB.getDataMap();
+
+    double val;
+    for (const auto& keyVal: vecBMap){
+        val = resultVec(keyVal.first) + keyVal.second;
+
+        if (val == 0.0){
+            resultVec.dropIdx(keyVal.first);
+            continue;
+        }
+
+        resultVec(keyVal.first) = val;
     }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
@@ -45,11 +58,22 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(vecALen, 0));
+    SparseVector<SparseTypes::IDX> resultVec = vecA;
 
-    for (int i=0; i<vecALen; i++){
-        resultVec(i) += (vecA(i) - vecB(i));
+    const std::unordered_map<int, double> vecBMap = vecB.getDataMap();
+
+    double val;
+    for (const auto& keyVal: vecBMap){
+        val = resultVec(keyVal.first) - keyVal.second;
+
+        if (val == 0.0){
+            resultVec.dropIdx(keyVal.first);
+            continue;
+        }
+
+        resultVec(keyVal.first) = val;
     }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
@@ -63,24 +87,32 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(vecALen, 0));
+    SparseVector<SparseTypes::IDX> resultVec = vecA;
 
-    for (int i=0; i<vecALen; i++){
-        resultVec(i) += (vecA(i) / vecB(i));
+    const std::unordered_map<int, double> vecBMap = vecB.getDataMap();
+
+    for (const auto& keyVal: vecBMap){
+        resultVec(keyVal.first) /= keyVal.second;
     }
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
 
 SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVector<SparseTypes::IDX>>::scalarMult(const SparseVector<SparseTypes::IDX>& vecA, const double val) const{
-
+    
     int vecALen = vecA.getLen();
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(vecALen, 0));
-
-    for (int i=0; i<vecALen; i++){
-        resultVec(i) += val * vecA(i);
+    if (val == 0.0){
+        return VecOps<SparseMatrix<SparseTypes::IDX>,SparseVector<SparseTypes::IDX>>::zeros(vecALen);
     }
+
+    SparseVector<SparseTypes::IDX> resultVec=vecA;
+
+    const std::unordered_map<int,double> vecAMap = vecA.getDataMap();
+    for (const auto& keyVal: vecAMap){
+        resultVec(keyVal.first) *= val;
+    }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return resultVec;
 }
@@ -110,15 +142,14 @@ double VecOps<SparseMatrix<SparseTypes::IDX>, SparseVector<SparseTypes::IDX>>::d
         throw DenseVectorExceptions("Error: Vector dimensions do not match!");
     }
 
-    const std::vector<double>& vecAData = vecA.getData();
-    const std::vector<double>& vecBData = vecB.getData();
+    const std::unordered_map<int,double> vecAMap=vecA.getDataMap();
 
-    // needs to be a vector of vectors
     double dotResult = 0;
 
-    for (int i=0; i<vecALen; i++){
-        dotResult += vecAData[i] * vecBData[i];
+    for (const auto& keyVal: vecAMap){
+        dotResult += keyVal.second * vecB(keyVal.first);
     }
+
     // need to actually put it as a vector of vector for the correct initialisation
     return dotResult;
 }
@@ -138,19 +169,28 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
 
     const int vecLen = vec.getLen();
 
-    if (matCols != vecLen){
+    if (vecLen != matRows){
         throw DenseVectorExceptions("Error: Matrix vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(matRows, 0));
+    SparseVector<SparseTypes::IDX> resultVec=VecOps<SparseMatrix<SparseTypes::IDX>,SparseVector<SparseTypes::IDX>>::zeros(vecLen);
 
-    for (int i=0; i<matRows; i++){
-        for (int j=0; j<matCols; j++){
-            // make this look prettier (make sure it's correct)
-            resultVec(i) += mat(i,j)*vec(j);
+    const std::unordered_map<std::vector<int>,double,VectorHasher> matMap=mat.getDataMap();
+    const std::unordered_map<int,double> vecMap=vec.getDataMap();
+
+    int matRow,matCol,vecIdx;
+
+    for (const auto& matEntry: matMap){
+        matRow=matEntry.first[0];
+        matCol=matEntry.first[1];
+        for (const auto& vecEntry: vecMap){
+            vecIdx=vecEntry.first;
+            if (matCol == vecIdx){
+                resultVec(matRow) += matEntry.second * vecEntry.second;
+            }
         }
     }
-    // need to actually put it as a vector of vector for the correct initialisation
+
     return resultVec;
 }
 
@@ -165,15 +205,24 @@ SparseVector<SparseTypes::IDX> VecOps<SparseMatrix<SparseTypes::IDX>, SparseVect
         throw DenseVectorExceptions("Error: Matrix vector dimensions do not match!");
     }
 
-    SparseVector<SparseTypes::IDX> resultVec(std::vector<double>(matRows, 0));
+    SparseVector<SparseTypes::IDX> resultVec=VecOps<SparseMatrix<SparseTypes::IDX>,SparseVector<SparseTypes::IDX>>::zeros(vecLen);
 
-    for (int i=0; i<matCols; i++){
-        for (int j=0; j<matRows; j++){
-            // make this look prettier (make sure it's correct)
-            resultVec(i) += vec(j)*mat(j,i);
+    const std::unordered_map<std::vector<int>,double,VectorHasher> matMap=mat.getDataMap();
+    const std::unordered_map<int,double> vecMap=vec.getDataMap();
+
+    int matRow,matCol,vecIdx;
+
+    for (const auto& vecEntry: vecMap){
+        vecIdx=vecEntry.first;
+        for (const auto& matEntry: matMap){
+            matRow=matEntry.first[0];
+            matCol=matEntry.first[1];
+            if (vecIdx == matRow){
+                resultVec(matCol) += matEntry.second * vecEntry.second;
+            }
         }
     }
-    // need to actually put it as a vector of vector for the correct initialisation
+
     return resultVec;
 }
 

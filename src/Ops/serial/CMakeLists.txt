@@ -5,4 +5,6 @@ set (OPS_FILES
 
 )
 
+add_subdirectory(Sparse)
+
 target_sources(LinSol PRIVATE ${OPS_FILES})

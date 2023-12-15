@@ -8,9 +8,15 @@ int main(){
         std::vector<std::vector<double>> Ax = read_matrix(matrix_path);
         std::vector<double> bx = read_vector(vector_path);
 
-        MatOps<DenseMatrix>& Ops=MatOps<DenseMatrix>::getInstance();
-        DenseMatrix A(Ax);
-        DenseMatrix Asqr = Ops.matMul(A,A);
+        SparseVector<SparseTypes::IDX> b(bx);
+
+        VecOps<SparseMatrix<SparseTypes::IDX>, SparseVector<SparseTypes::IDX>>& Ops=VecOps<SparseMatrix<SparseTypes::IDX>, SparseVector<SparseTypes::IDX>>::getInstance();
+
+        std::cout<<Ops.norm(b)<<" "<<Ops.dot(b,b)<<"\n";
+
+        // MatOps<DenseMatrix>& Ops=MatOps<DenseMatrix>::getInstance();
+        // DenseMatrix A(Ax);
+        // DenseMatrix Asqr = Ops.matMul(A,A);
 
         // MatOps<SparseMatrix<SparseTypes::IDX>>& Ops=MatOps<SparseMatrix<SparseTypes::IDX>>::getInstance();
         // SparseMatrix<SparseTypes::IDX> A(Ax);

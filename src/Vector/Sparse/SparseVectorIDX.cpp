@@ -10,7 +10,7 @@ SparseVector<SparseTypes::IDX>::SparseVector(const std::vector<double> initialDa
         for (int i=0; i<length; i++){
             if (initialData[i] != 0.0){
                 data_[i] = initialData[i];
-            }
+                }
             }
         }
 };
@@ -22,9 +22,11 @@ size_t SparseVector<SparseTypes::IDX>::getLen() const{
 std::vector<double> SparseVector<SparseTypes::IDX>::getData() const{
 
     std::vector<double> values;
+
     for (const auto& value: this->data_){
         values.push_back(value.second);
     }
+
     return values;
 }
 
@@ -102,11 +104,9 @@ SparseVector<SparseTypes::IDX>& SparseVector<SparseTypes::IDX>::operator=(const 
 std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec){
     
     int vecLen = sparseVec.getLen();
-
-    const std::vector<double>& vecData = sparseVec.getData();
-
+    
     for (int i=0; i<vecLen; i++){
-        os<<vecData[i]<<" ";
+        os<<sparseVec(i)<<" ";
     }
     os<<"\n";
 
