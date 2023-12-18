@@ -35,19 +35,19 @@ SparseVector<SparseTypes::IDX>::VectorProxy::VectorProxy(SparseVector<SparseType
 //     return *this;
 // }
 
-double SparseVector<SparseTypes::IDX>::VectorProxy::operator+(double val){
+// double SparseVector<SparseTypes::IDX>::VectorProxy::operator+(double val){
     
-    if (val != 0.0){
-        return Vector.data_[idx] + val;
-    }
-}
+//     if (val != 0.0){
+//         return Vector.data_[idx] + val;
+//     }
+// }
 
-double SparseVector<SparseTypes::IDX>::VectorProxy::operator-(double val){
+// double SparseVector<SparseTypes::IDX>::VectorProxy::operator-(double val){
     
-    if (val != 0.0){
-        return Vector.data_[idx] - val;
-    }
-}
+//     if (val != 0.0){
+//         return Vector.data_[idx] - val;
+//     }
+// }
 
 SparseVector<SparseTypes::IDX>::SparseVector(const std::vector<double> initialData){
 
@@ -114,7 +114,34 @@ SparseVector<SparseTypes::IDX>::VectorProxy SparseVector<SparseTypes::IDX>::oper
     return SparseVector<SparseTypes::IDX>::VectorProxy(*this, idx);
 }
 
-const double& SparseVector<SparseTypes::IDX>::operator()(const int idx) const{
+
+// SparseVector<SparseTypes::IDX>::VectorProxy SparseVector<SparseTypes::IDX>::testOverload(const int idx){
+
+//     // Setting overload
+//     if ((idx < 0) || (idx >= this->getLen())){
+//         throw DenseVectorExceptions("Index Error: Out of bounds!");
+//     }
+
+//     return SparseVector<SparseTypes::IDX>::VectorProxy(*this, idx);
+// }
+
+// double& SparseVector<SparseTypes::IDX>::operator()(const int idx){
+
+//     // Setting overload
+//     if ((idx < 0) || (idx >= this->getLen())){
+//         throw DenseVectorExceptions("Index Error: Out of bounds!");
+//     }
+
+//     auto it = this->data_.find(idx);
+
+//     if (it != this->data_.end()){
+//         return it->second;
+//     }
+    
+//     return this->data_[idx];
+// }
+
+double const& SparseVector<SparseTypes::IDX>::operator()(const int idx) const{
 
     // Access overload
     if ((idx < 0) || (idx >= this->getLen())){

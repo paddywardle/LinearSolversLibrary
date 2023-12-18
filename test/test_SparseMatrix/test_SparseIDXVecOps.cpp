@@ -18,10 +18,10 @@ TEST(SparseVecOpsTest, VectorMultiplication) {
 
     SparseVector<SparseTypes::IDX> vec = OpsVecSparse.elemMult(vecA, vecB);
 
-    EXPECT_EQ(vec(0), 9);
-    EXPECT_EQ(vec(1), 20);
-    EXPECT_EQ(vec(2), 33);
-    EXPECT_EQ(vec(3), 48);
+    EXPECT_EQ(vec(0).getVal(), 9);
+    EXPECT_EQ(vec(1).getVal(), 20);
+    EXPECT_EQ(vec(2).getVal(), 33);
+    EXPECT_EQ(vec(3).getVal(), 48);
 }
 
 TEST(SparseVecOpsTest, DotProduct) {
@@ -47,10 +47,10 @@ TEST(SparseVecOpsTest, VectorAddition) {
 
     SparseVector<SparseTypes::IDX> vec = OpsVecSparse.elemAdd(vecA, vecB);
 
-    EXPECT_EQ(vec(0), 10);
-    EXPECT_EQ(vec(1), 12);
-    EXPECT_EQ(vec(2), 14);
-    EXPECT_EQ(vec(3), 16);
+    EXPECT_EQ(vec(0).getVal(), 10);
+    EXPECT_EQ(vec(1).getVal(), 12);
+    EXPECT_EQ(vec(2).getVal(), 14);
+    EXPECT_EQ(vec(3).getVal(), 16);
 }
 
 TEST(SparseVecOpsTest, VectorSubtraction) {
@@ -63,10 +63,10 @@ TEST(SparseVecOpsTest, VectorSubtraction) {
 
     SparseVector<SparseTypes::IDX> vec = OpsVecSparse.elemSub(vecA, vecB);
 
-    EXPECT_EQ(vec(0), -8);
-    EXPECT_EQ(vec(1), -8);
-    EXPECT_EQ(vec(2), -8);
-    EXPECT_EQ(vec(3), -8);
+    EXPECT_EQ(vec(0).getVal(), -8);
+    EXPECT_EQ(vec(1).getVal(), -8);
+    EXPECT_EQ(vec(2).getVal(), -8);
+    EXPECT_EQ(vec(3).getVal(), -8);
 }
 
 TEST(SparseVecOpsTest, VectorDivision) {
@@ -79,7 +79,7 @@ TEST(SparseVecOpsTest, VectorDivision) {
 
     SparseVector<SparseTypes::IDX> vec = OpsVecSparse.elemDiv(vecA, vecB);
 
-    EXPECT_DOUBLE_EQ(vec(1), 0.2);
+    EXPECT_DOUBLE_EQ(vec(1).getVal(), 0.2);
 }
 
 TEST(SparseVecOpsTest, ScalarMultiplication) {
@@ -91,10 +91,10 @@ TEST(SparseVecOpsTest, ScalarMultiplication) {
 
     SparseVector<SparseTypes::IDX> vec = OpsVecSparse.scalarMult(vecA, val);
 
-    EXPECT_EQ(vec(0), 5);
-    EXPECT_EQ(vec(1), 10);
-    EXPECT_EQ(vec(2), 15);
-    EXPECT_EQ(vec(3), 20);
+    EXPECT_EQ(vec(0).getVal(), 5);
+    EXPECT_EQ(vec(1).getVal(), 10);
+    EXPECT_EQ(vec(2).getVal(), 15);
+    EXPECT_EQ(vec(3).getVal(), 20);
 }
 
 TEST(SparseVecOpsTest, VectorNorm) {
@@ -128,10 +128,10 @@ TEST(SparseVecOpsTest, DVMOpsMatMul) {
 
     SparseVector<SparseTypes::IDX> vecResults = OpsVecSparse.matVecMul(mat, vec);
 
-    EXPECT_EQ(vecResults(0), 30);
-    EXPECT_EQ(vecResults(1), 70);
-    EXPECT_EQ(vecResults(2), 110);
-    EXPECT_EQ(vecResults(3), 150);
+    EXPECT_EQ(vecResults(0).getVal(), 30);
+    EXPECT_EQ(vecResults(1).getVal(), 70);
+    EXPECT_EQ(vecResults(2).getVal(), 110);
+    EXPECT_EQ(vecResults(3).getVal(), 150);
 }
 
 TEST(SparseVecOpsTest, DVMOpsVecMatMul) {
@@ -144,6 +144,6 @@ TEST(SparseVecOpsTest, DVMOpsVecMatMul) {
 
     SparseVector<SparseTypes::IDX> vecResults = OpsVecSparse.vecMatMul(vec, mat);
 
-    EXPECT_EQ(vecResults(0), 7);
-    EXPECT_EQ(vecResults(1), 10);
+    EXPECT_EQ(vecResults(0).getVal(), 7);
+    EXPECT_EQ(vecResults(1).getVal(), 10);
 }

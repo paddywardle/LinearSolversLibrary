@@ -68,41 +68,113 @@ class SparseVector<SparseTypes::IDX>: public Vector {
 
             VectorProxy(SparseVector<SparseTypes::IDX>& v, int i);
 
-            VectorProxy operator=(double val){
+            SparseVector<SparseTypes::IDX>& operator=(double val){
 
                 if (val == 0.0){
                     auto it = Vector.data_.find(idx);
                     if (it != Vector.data_.end()){
                         Vector.data_.erase(it);
                     }
-                    return *this;
+                    return this->Vector;
                 }
 
                 Vector.data_[idx] = val;
-                return *this;
+                return this->Vector;
 
             };
 
-            VectorProxy operator+=(double val){
+            SparseVector<SparseTypes::IDX>& operator+=(double val){
                 
                 if (val != 0.0){
                     Vector.data_[idx] += val;
                 }
-
-                return *this;
+                return this->Vector;
             };
 
-            VectorProxy operator-=(double val){
+            SparseVector<SparseTypes::IDX>& operator-=(double val){
                 
                 if (val != 0.0){
                     Vector.data_[idx] -= val;
                 }
 
-                return *this;
+                return this->Vector;
             };
 
-            double operator+(double val);
-            double operator-(double val);
+
+            SparseVector<SparseTypes::IDX>& operator*=(double val){
+                
+                if (val != 0.0){
+                    Vector.data_[idx] *= val;
+                }
+
+                return this->Vector;
+            };
+
+            SparseVector<SparseTypes::IDX>& operator/=(double val){
+                
+                if (val != 0.0){
+                    Vector.data_[idx] /= val;
+                }
+
+                return this->Vector;
+            };
+
+            double operator*(double val){
+                
+                double returnVal;
+                
+                if (val != 0.0){
+                    returnVal = Vector.data_[idx] * val;
+                }
+
+                return returnVal;
+            };
+
+            double operator-(double val){
+                
+                double returnVal;
+                
+                if (val != 0.0){
+                    returnVal = Vector.data_[idx] - val;
+                }
+
+                return returnVal;
+            };
+
+            double operator/(double val){
+                
+                double returnVal;
+                
+                if (val != 0.0){
+                    returnVal = Vector.data_[idx] / val;
+                }
+
+                return returnVal;
+            };
+
+            double operator+(double val){
+                
+                double returnVal;
+                
+                if (val != 0.0){
+                    returnVal = Vector.data_[idx] + val;
+                }
+
+                return returnVal;
+            };
+
+            double getIdx(){
+                return this->idx;
+            }
+            
+            double getVal(){
+                return this->Vector.data_[idx];
+            }
+
+            std::ostream& operator<<(std::ostream& os){
+                os<<Vector.data_[idx]<<"\n";
+                return os;
+            }
         };
 
     public:
@@ -123,7 +195,7 @@ class SparseVector<SparseTypes::IDX>: public Vector {
 
         // Overloads
         VectorProxy operator()(const int idx);
-        const double& operator()(const int idx) const;
+        double const& operator()(const int idx) const;
         SparseVector<SparseTypes::IDX>& operator=(const SparseVector& vec);
         SparseVector<SparseTypes::IDX> operator*(const SparseVector<SparseTypes::IDX>& vec);
         friend std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec);
