@@ -171,6 +171,14 @@ class SparseVector<SparseTypes::IDX>: public Vector {
                 return this->Vector.data_[idx];
             }
 
+            operator double() const{
+                return this->Vector.data_[idx];
+            }
+
+            operator int() const{
+                return this->Vector.data_[idx];
+            }
+
             std::ostream& operator<<(std::ostream& os){
                 os<<Vector.data_[idx]<<"\n";
                 return os;
