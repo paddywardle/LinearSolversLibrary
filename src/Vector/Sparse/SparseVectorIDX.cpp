@@ -1,7 +1,5 @@
 #include "SparseVector.h"
 
-SparseVector<SparseTypes::IDX>::VectorProxy::VectorProxy(SparseVector<SparseTypes::IDX>& v, int i): Vector(v), idx(i){};
-
 // VectorProxy SparseVector<SparseTypes::IDX>::VectorProxy::operator=(double val){
 
 //     if (val == 0.0){

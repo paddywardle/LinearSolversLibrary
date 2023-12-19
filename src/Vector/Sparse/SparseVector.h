@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unordered_map>
 
+#include "VectorProxy.h"
 #include "../Vector.h"
 #include "../../utils/SparseTypes.h"
 #include "../../Exceptions/DenseVectorExceptions.h"
@@ -15,23 +16,24 @@ class SparseVector: public Vector {
     private:
         int defaultZero = 0;
         size_t length;
+        // friend struct VectorProxy;
 
-        struct VectorProxy{
+        // struct VectorProxy{
 
-            SparseVector<sparseType>& Vector;
-            int idx;
+        //     SparseVector<sparseType>& Vector;
+        //     int idx;
 
-            VectorProxy(SparseVector<sparseType>& v, int i);
+        //     VectorProxy(SparseVector<sparseType>& v, int i);
 
-            VectorProxy operator=(double val);
+        //     VectorProxy operator=(double val);
 
-            VectorProxy operator+=(double val);
+        //     VectorProxy operator+=(double val);
 
-            VectorProxy operator-=(double val);
+        //     VectorProxy operator-=(double val);
 
-            double operator+(double val);
-            double operator-(double val);
-        };
+        //     double operator+(double val);
+        //     double operator-(double val);
+        // };
 
     public:
         
@@ -61,129 +63,7 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         size_t length;
         std::unordered_map<int,double> data_;
 
-        struct VectorProxy{
-
-            SparseVector<SparseTypes::IDX>& Vector;
-            int idx;
-
-            VectorProxy(SparseVector<SparseTypes::IDX>& v, int i);
-
-            SparseVector<SparseTypes::IDX>& operator=(double val){
-
-                if (val == 0.0){
-                    auto it = Vector.data_.find(idx);
-                    if (it != Vector.data_.end()){
-                        Vector.data_.erase(it);
-                    }
-                    return this->Vector;
-                }
-
-                Vector.data_[idx] = val;
-                return this->Vector;
-
-            };
-
-            SparseVector<SparseTypes::IDX>& operator+=(double val){
-                
-                if (val != 0.0){
-                    Vector.data_[idx] += val;
-                }
-                return this->Vector;
-            };
-
-            SparseVector<SparseTypes::IDX>& operator-=(double val){
-                
-                if (val != 0.0){
-                    Vector.data_[idx] -= val;
-                }
-
-                return this->Vector;
-            };
-
-
-            SparseVector<SparseTypes::IDX>& operator*=(double val){
-                
-                if (val != 0.0){
-                    Vector.data_[idx] *= val;
-                }
-
-                return this->Vector;
-            };
-
-            SparseVector<SparseTypes::IDX>& operator/=(double val){
-                
-                if (val != 0.0){
-                    Vector.data_[idx] /= val;
-                }
-
-                return this->Vector;
-            };
-
-            double operator*(double val){
-                
-                double returnVal;
-                
-                if (val != 0.0){
-                    returnVal = Vector.data_[idx] * val;
-                }
-
-                return returnVal;
-            };
-
-            double operator-(double val){
-                
-                double returnVal;
-                
-                if (val != 0.0){
-                    returnVal = Vector.data_[idx] - val;
-                }
-
-                return returnVal;
-            };
-
-            double operator/(double val){
-                
-                double returnVal;
-                
-                if (val != 0.0){
-                    returnVal = Vector.data_[idx] / val;
-                }
-
-                return returnVal;
-            };
-
-            double operator+(double val){
-                
-                double returnVal;
-                
-                if (val != 0.0){
-                    returnVal = Vector.data_[idx] + val;
-                }
-
-                return returnVal;
-            };
-
-            double getIdx(){
-                return this->idx;
-            }
-            
-            double getVal(){
-                return this->Vector.data_[idx];
-            }
-
-            operator double() const{
-                return this->Vector.data_[idx];
-            }
-
-            operator int() const{
-                return this->Vector.data_[idx];
-            }
-
-            std::ostream& operator<<(std::ostream& os){
-                os<<Vector.data_[idx]<<"\n";
-                return os;
-            }
-        };
+        friend struct VectorProxy;
 
     public:
         
