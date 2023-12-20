@@ -1,19 +1,17 @@
+#ifndef VECTORPROXY_H
+#define VECTORPROXY_H
+
 #include "SparseVector.h"
 
-template <SparseTypes sparseType>
-class SparseVector;
-
+template<typename sparseVec>
 struct VectorProxy{
 
-    SparseVector<SparseTypes::IDX>& Vector;
+    sparseVec& Vector;
     int idx;
 
-    VectorProxy(SparseVector<SparseTypes::IDX>& v, int i){
-        Vector = v;
-        idx = i;
-    };
+    VectorProxy(sparseVec& v, int i) : Vector(v), idx(i) {}
 
-    SparseVector<SparseTypes::IDX> operator=(double val){
+    sparseVec operator=(double val){
 
         if (val == 0.0){
             Vector.dropIdx(this->idx);
@@ -25,7 +23,7 @@ struct VectorProxy{
 
     };
 
-    SparseVector<SparseTypes::IDX> operator+=(double val){
+    sparseVec operator+=(double val){
         
         if (val != 0.0){
             val += Vector.getIdxVal(this->idx);
@@ -34,7 +32,7 @@ struct VectorProxy{
         return this->Vector;
     };
 
-    SparseVector<SparseTypes::IDX> operator-=(double val){
+    sparseVec operator-=(double val){
         
         if (val != 0.0){
             val -= Vector.getIdxVal(this->idx);
@@ -44,7 +42,7 @@ struct VectorProxy{
     };
 
 
-    SparseVector<SparseTypes::IDX> operator*=(double val){
+    sparseVec operator*=(double val){
         
         if (val != 0.0){
             val *= Vector.getIdxVal(this->idx);
@@ -53,7 +51,7 @@ struct VectorProxy{
         return this->Vector;
     };
 
-    SparseVector<SparseTypes::IDX> operator/=(double val){
+    sparseVec operator/=(double val){
         
         if (val != 0.0){
             val /= Vector.getIdxVal(this->idx);
@@ -99,3 +97,5 @@ struct VectorProxy{
         return os;
     }
 };
+
+#endif

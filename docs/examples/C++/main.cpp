@@ -27,8 +27,6 @@ int main(){
 
         double val = b(0);
         std::cout<<val<<"\n";
-
-        // std::cout<<b.testOverload(0).getVal()<<"\n";
         
         for (const auto& keyVal:bMap){
             std::cout<<keyVal.first<<" "<<keyVal.second<<"\n";

@@ -1,5 +1,5 @@
-#ifndef SparseVector_H
-#define SparseVector_H
+#ifndef SPARSEVECTOR_H
+#define SPARSEVECTOR_H
 
 #include <vector>
 #include <iostream>
@@ -33,7 +33,7 @@ class SparseVector: public Vector {
         void setIdx(const int idx, const double val);
 
         // Overloads
-        VectorProxy& operator()(const int idx);
+        VectorProxy<SparseVector<SparseTypes::IDX>> operator()(const int idx);
         const double& operator()(const int idx) const;
         SparseVector<sparseType>& operator=(const SparseVector<sparseType>& vec);
         SparseVector<sparseType> operator*(const SparseVector<sparseType>& vec);
@@ -68,7 +68,7 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         void setIdx(const int idx, const double val);
 
         // Overloads
-        VectorProxy operator()(const int idx);
+        VectorProxy<SparseVector<SparseTypes::IDX>> operator()(const int idx);
         double const& operator()(const int idx) const;
         SparseVector<SparseTypes::IDX>& operator=(const SparseVector& vec);
         SparseVector<SparseTypes::IDX> operator*(const SparseVector<SparseTypes::IDX>& vec);

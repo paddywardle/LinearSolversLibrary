@@ -1,52 +1,5 @@
 #include "SparseVector.h"
 
-// VectorProxy SparseVector<SparseTypes::IDX>::VectorProxy::operator=(double val){
-
-//     if (val == 0.0){
-//         auto it = Vector.data_.find(idx);
-//         if (it != Vector.data_.end()){
-//             Vector.data_.erase(it);
-//         }
-//         return *this;
-//     }
-
-//     Vector.data_[idx] = val;
-//     return *this;
-
-// }
-
-// VectorProxy SparseVector<SparseTypes::IDX>::VectorProxy::operator+=(double val){
-    
-//     if (val != 0.0){
-//         Vector.data_[idx] += val;
-//     }
-
-//     return *this;
-// }
-
-// VectorProxy SparseVector<SparseTypes::IDX>::VectorProxy::operator-=(double val){
-    
-//     if (val != 0.0){
-//         Vector.data_[idx] -= val;
-//     }
-
-//     return *this;
-// }
-
-// double SparseVector<SparseTypes::IDX>::VectorProxy::operator+(double val){
-    
-//     if (val != 0.0){
-//         return Vector.data_[idx] + val;
-//     }
-// }
-
-// double SparseVector<SparseTypes::IDX>::VectorProxy::operator-(double val){
-    
-//     if (val != 0.0){
-//         return Vector.data_[idx] - val;
-//     }
-// }
-
 SparseVector<SparseTypes::IDX>::SparseVector(const std::vector<double> initialData){
 
     length = initialData.size();
@@ -115,14 +68,14 @@ void SparseVector<SparseTypes::IDX>::setVec(const int& length, const std::unorde
     this->data_ = vecMap;
 }
 
-VectorProxy SparseVector<SparseTypes::IDX>::operator()(const int idx){
+VectorProxy<SparseVector<SparseTypes::IDX>> SparseVector<SparseTypes::IDX>::operator()(const int idx){
 
     // Setting overload
     if ((idx < 0) || (idx >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
 
-    return VectorProxy(*this, idx);
+    return VectorProxy<SparseVector<SparseTypes::IDX>>(*this, idx);
 }
 
 double const& SparseVector<SparseTypes::IDX>::operator()(const int idx) const{
