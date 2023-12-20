@@ -84,6 +84,15 @@ std::vector<int> SparseVector<SparseTypes::IDX>::getIdx() const{
     return Indices;
 }
 
+double SparseVector<SparseTypes::IDX>::getIdxVal(const int idx) const{
+
+    auto it = this->data_.find(idx);
+
+    // return ((it != this->data_.end()) ? it->second : 0);
+    return 0;
+    
+}
+
 std::unordered_map<int,double> SparseVector<SparseTypes::IDX>::getDataMap() const{
     return this->data_;
 }
@@ -97,47 +106,24 @@ void SparseVector<SparseTypes::IDX>::dropIdx(const int Idx){
     }
 }
 
+void SparseVector<SparseTypes::IDX>::setIdx(const int idx, const double val){
+    this->data_[idx] = val;
+}
+
 void SparseVector<SparseTypes::IDX>::setVec(const int& length, const std::unordered_map<int,double>& vecMap){
     this->length = length;
     this->data_ = vecMap;
 }
 
-SparseVector<SparseTypes::IDX>::VectorProxy SparseVector<SparseTypes::IDX>::operator()(const int idx){
+VectorProxy SparseVector<SparseTypes::IDX>::operator()(const int idx){
 
     // Setting overload
     if ((idx < 0) || (idx >= this->getLen())){
         throw DenseVectorExceptions("Index Error: Out of bounds!");
     }
 
-    return SparseVector<SparseTypes::IDX>::VectorProxy(*this, idx);
+    return VectorProxy(*this, idx);
 }
-
-
-// SparseVector<SparseTypes::IDX>::VectorProxy SparseVector<SparseTypes::IDX>::testOverload(const int idx){
-
-//     // Setting overload
-//     if ((idx < 0) || (idx >= this->getLen())){
-//         throw DenseVectorExceptions("Index Error: Out of bounds!");
-//     }
-
-//     return SparseVector<SparseTypes::IDX>::VectorProxy(*this, idx);
-// }
-
-// double& SparseVector<SparseTypes::IDX>::operator()(const int idx){
-
-//     // Setting overload
-//     if ((idx < 0) || (idx >= this->getLen())){
-//         throw DenseVectorExceptions("Index Error: Out of bounds!");
-//     }
-
-//     auto it = this->data_.find(idx);
-
-//     if (it != this->data_.end()){
-//         return it->second;
-//     }
-    
-//     return this->data_[idx];
-// }
 
 double const& SparseVector<SparseTypes::IDX>::operator()(const int idx) const{
 

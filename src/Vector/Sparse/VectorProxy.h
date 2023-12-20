@@ -1,105 +1,81 @@
 #include "SparseVector.h"
 
+template <SparseTypes sparseType>
+class SparseVector;
+
 struct VectorProxy{
 
     SparseVector<SparseTypes::IDX>& Vector;
     int idx;
 
-    VectorProxy(SparseVector<SparseTypes::IDX>& v, int i): Vector(v), idx(i){};
+    VectorProxy(SparseVector<SparseTypes::IDX>& v, int i){
+        Vector = v;
+        idx = i;
+    };
 
-    SparseVector<SparseTypes::IDX>& operator=(double val){
+    SparseVector<SparseTypes::IDX> operator=(double val){
 
         if (val == 0.0){
-            auto it = Vector.data_.find(idx);
-            if (it != Vector.data_.end()){
-                Vector.data_.erase(it);
-            }
+            Vector.dropIdx(this->idx);
             return this->Vector;
         }
+        Vector.setIdx(this->idx, val);
 
-        Vector.data_[idx] = val;
         return this->Vector;
 
     };
 
-    SparseVector<SparseTypes::IDX>& operator+=(double val){
+    SparseVector<SparseTypes::IDX> operator+=(double val){
         
         if (val != 0.0){
-            Vector.data_[idx] += val;
+            val += Vector.getIdxVal(this->idx);
+            Vector.setIdx(this->idx, val);
         }
         return this->Vector;
     };
 
-    SparseVector<SparseTypes::IDX>& operator-=(double val){
+    SparseVector<SparseTypes::IDX> operator-=(double val){
         
         if (val != 0.0){
-            Vector.data_[idx] -= val;
+            val -= Vector.getIdxVal(this->idx);
+            Vector.setIdx(this->idx, val);
         }
-
         return this->Vector;
     };
 
 
-    SparseVector<SparseTypes::IDX>& operator*=(double val){
+    SparseVector<SparseTypes::IDX> operator*=(double val){
         
         if (val != 0.0){
-            Vector.data_[idx] *= val;
+            val *= Vector.getIdxVal(this->idx);
+            Vector.setIdx(this->idx, val);
         }
-
         return this->Vector;
     };
 
-    SparseVector<SparseTypes::IDX>& operator/=(double val){
+    SparseVector<SparseTypes::IDX> operator/=(double val){
         
         if (val != 0.0){
-            Vector.data_[idx] /= val;
+            val /= Vector.getIdxVal(this->idx);
+            Vector.setIdx(this->idx, val);
         }
-
         return this->Vector;
     };
 
     double operator*(double val){
-        
-        double returnVal;
-        
-        if (val != 0.0){
-            returnVal = Vector.data_[idx] * val;
-        }
-
-        return returnVal;
+        return Vector.getIdxVal(this->idx) * val;
     };
 
     double operator-(double val){
-        
-        double returnVal;
-        
-        if (val != 0.0){
-            returnVal = Vector.data_[idx] - val;
-        }
-
-        return returnVal;
+        return Vector.getIdxVal(this->idx) - val;
     };
 
     double operator/(double val){
-        
-        double returnVal;
-        
-        if (val != 0.0){
-            returnVal = Vector.data_[idx] / val;
-        }
-
-        return returnVal;
+        return Vector.getIdxVal(this->idx) / val;
     };
 
     double operator+(double val){
-        
-        double returnVal;
-        
-        if (val != 0.0){
-            returnVal = Vector.data_[idx] + val;
-        }
-
-        return returnVal;
+        return Vector.getIdxVal(this->idx) + val;
     };
 
     double getIdx(){
@@ -107,19 +83,19 @@ struct VectorProxy{
     }
     
     double getVal(){
-        return this->Vector.data_[idx];
+        return Vector.getIdxVal(this->idx);
     }
 
     operator double() const{
-        return this->Vector.data_[idx];
+        return Vector.getIdxVal(this->idx);
     }
 
     operator int() const{
-        return this->Vector.data_[idx];
+        return Vector.getIdxVal(this->idx);
     }
 
     std::ostream& operator<<(std::ostream& os){
-        os<<Vector.data_[idx]<<"\n";
+        os<<Vector.getIdxVal(this->idx)<<"\n";
         return os;
     }
 };

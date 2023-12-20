@@ -16,24 +16,6 @@ class SparseVector: public Vector {
     private:
         int defaultZero = 0;
         size_t length;
-        // friend struct VectorProxy;
-
-        // struct VectorProxy{
-
-        //     SparseVector<sparseType>& Vector;
-        //     int idx;
-
-        //     VectorProxy(SparseVector<sparseType>& v, int i);
-
-        //     VectorProxy operator=(double val);
-
-        //     VectorProxy operator+=(double val);
-
-        //     VectorProxy operator-=(double val);
-
-        //     double operator+(double val);
-        //     double operator-(double val);
-        // };
 
     public:
         
@@ -44,7 +26,11 @@ class SparseVector: public Vector {
         // Access functions
         size_t getLen() const override;
         std::vector<double> getData() const override;
-        std::vector<int> getIdx() const;
+        std::vector<int> getIdx(const int idx) const;
+        double getIdxVal(const int idx) const;
+
+        // Alter functions
+        void setIdx(const int idx, const double val);
 
         // Overloads
         VectorProxy& operator()(const int idx);
@@ -63,8 +49,6 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         size_t length;
         std::unordered_map<int,double> data_;
 
-        friend struct VectorProxy;
-
     public:
         
         // Instantiation
@@ -76,10 +60,12 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         std::vector<double> getData() const override;
         std::vector<int> getIdx() const;
         std::unordered_map<int,double> getDataMap() const;
+        double getIdxVal(const int idx) const;
 
         // Alter functions
         void dropIdx(const int Idx);
         void setVec(const int& length, const std::unordered_map<int,double>& vecMap);
+        void setIdx(const int idx, const double val);
 
         // Overloads
         VectorProxy operator()(const int idx);
