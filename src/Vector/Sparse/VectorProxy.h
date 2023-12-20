@@ -92,10 +92,10 @@ struct VectorProxy{
         return Vector.getIdxVal(this->idx);
     }
 
-    std::ostream& operator<<(std::ostream& os){
-        os<<Vector.getIdxVal(this->idx)<<"\n";
-        return os;
-    }
+    // std::ostream& operator<<(std::ostream& os){
+    //     os<<Vector.getIdxVal(this->idx)<<"\n";
+    //     return os;
+    // }
 };
 
 #endif
