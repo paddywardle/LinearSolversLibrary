@@ -5,10 +5,12 @@
 #include <iostream>
 #include <unordered_map>
 
-#include "VectorProxy.h"
 #include "../Vector.h"
 #include "../../utils/SparseTypes.h"
 #include "../../Exceptions/DenseVectorExceptions.h"
+
+template<typename sparseVec>
+struct VectorProxy;
 
 template<SparseTypes sparseType>
 class SparseVector: public Vector {
@@ -33,7 +35,7 @@ class SparseVector: public Vector {
         void setIdx(const int idx, const double val);
 
         // Overloads
-        VectorProxy<SparseVector<SparseTypes::IDX>> operator()(const int idx);
+        VectorProxy<SparseVector<sparseType>> operator()(const int idx);
         const double& operator()(const int idx) const;
         SparseVector<sparseType>& operator=(const SparseVector<sparseType>& vec);
         SparseVector<sparseType> operator*(const SparseVector<sparseType>& vec);
@@ -74,6 +76,36 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         SparseVector<SparseTypes::IDX> operator*(const SparseVector<SparseTypes::IDX>& vec);
         friend std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec);
 
+};
+
+template<typename sparseVec>
+struct VectorProxy{
+
+    sparseVec& Vector;
+    int idx;
+
+    VectorProxy(sparseVec& v, int i);
+
+    // Overloads
+    void operator=(double val);
+    void operator+=(double val);
+    void operator-=(double val);
+    void operator*=(double val);
+    void operator/=(double val);
+    double operator*(double val);
+    double operator-(double val);
+    double operator/(double val);
+    double operator+(double val);
+
+    // Access functions
+    double getIdx();
+    double getVal();
+
+    // Type conversions
+    operator double() const;
+    operator int() const;
+
+    friend std::ostream& operator<<(std::ostream& os, VectorProxy<sparseVec> vectorProxy);
 };
 
 #endif

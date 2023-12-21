@@ -1,4 +1,5 @@
 set(SPARSE_VECTOR_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/VectorProxy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SparseVectorIDX.cpp
 )
 
