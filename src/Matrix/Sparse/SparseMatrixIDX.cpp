@@ -45,6 +45,18 @@ std::vector<double> SparseMatrix<SparseTypes::IDX>::getData() const{
     return values;
 }
 
+double SparseMatrix<SparseTypes::IDX>::getIdxVal(const int row, const int col) const{
+
+    auto it = this->data_.find({row,col});
+
+    return ((it != this->data_.end()) ? it->second : 0);
+    
+}
+
+void SparseMatrix<SparseTypes::IDX>::setIdx(const int row, const int col, const double val){
+    this->data_[{row,col}] = val;
+}
+
 std::vector<int> SparseMatrix<SparseTypes::IDX>::getColIdx() const{
 
     std::vector<int> colIndices;
@@ -67,9 +79,9 @@ std::unordered_map<std::vector<int>,double,VectorHasher> SparseMatrix<SparseType
     return this->data_;
 }
 
-void SparseMatrix<SparseTypes::IDX>::dropIdx(const std::vector<int> Idx){
+void SparseMatrix<SparseTypes::IDX>::dropIdx(std::vector<int> rowCol){
 
-    auto it = this->data_.find(Idx);
+    auto it = this->data_.find(rowCol);
 
     if (it != this->data_.end()){
         this->data_.erase(it);
@@ -82,20 +94,14 @@ void SparseMatrix<SparseTypes::IDX>::setMat(const int& row_nums, const int& col_
     this->data_ = matMap;
 }
 
-double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){
+MatrixProxy<SparseMatrix<SparseTypes::IDX>> SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col){
 
     // Setting overload
     if ((row < 0) || (col < 0) || (row >= this->numRows()) || (col >= this->numCols())){
         throw DenseMatrixExceptions("Index Error: Out of bounds!");
     }
 
-    auto it = this->data_.find({row, col});
-
-    if (it != this->data_.end()){
-        return it->second;
-    }
-    
-    return this->data_[{row, col}];
+    return MatrixProxy<SparseMatrix<SparseTypes::IDX>>(*this, row, col);
 }
 
 const double& SparseMatrix<SparseTypes::IDX>::operator()(const int row, const int col) const{
@@ -124,21 +130,4 @@ SparseMatrix<SparseTypes::IDX>& SparseMatrix<SparseTypes::IDX>::operator=(const 
     }
     
     return *this;
-}
-
-std::ostream& operator<<(std::ostream& os, const SparseMatrix<SparseTypes::IDX>& sparseMat){
-    
-    int matRows = sparseMat.numRows();
-    int matCols = sparseMat.numCols();
-
-    const std::vector<double>& matData = sparseMat.getData();
-
-    for (int i=0; i<matRows; i++){
-        for (int j=0; j<matCols; j++){
-            os<<sparseMat(i,j)<<" ";
-        }
-        os<<"\n";
-    }
-
-    return os;
 }

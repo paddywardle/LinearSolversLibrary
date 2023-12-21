@@ -1,4 +1,5 @@
 set(SPARSE_MATRIX_FILES 
+    ${CMAKE_CURRENT_SOURCE_DIR}/MatrixProxy.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SparseMatrixIDX.cpp
 )
 

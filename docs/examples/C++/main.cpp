@@ -25,8 +25,9 @@ int main(){
         SparseVector<SparseTypes::IDX> b({1,0,5,0,2});
         std::unordered_map<int,double> bMap = b.getDataMap();
 
-        double val = b(0);
+        double val = b(0).getVal();
         std::cout<<val<<"\n";
+        // std::cout<<b(0)<<" Val\n";
         
         for (const auto& keyVal:bMap){
             std::cout<<keyVal.first<<" "<<keyVal.second<<"\n";

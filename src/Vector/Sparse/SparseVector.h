@@ -74,7 +74,18 @@ class SparseVector<SparseTypes::IDX>: public Vector {
         double const& operator()(const int idx) const;
         SparseVector<SparseTypes::IDX>& operator=(const SparseVector& vec);
         SparseVector<SparseTypes::IDX> operator*(const SparseVector<SparseTypes::IDX>& vec);
-        friend std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec);
+
+        friend std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec){
+            
+            int vecLen = sparseVec.getLen();
+            
+            for (int i=0; i<vecLen; i++){
+                os<<sparseVec(i)<<" ";
+            }
+            os<<"\n";
+
+            return os;
+        }
 
 };
 
@@ -105,7 +116,10 @@ struct VectorProxy{
     operator double() const;
     operator int() const;
 
-    friend std::ostream& operator<<(std::ostream& os, VectorProxy<sparseVec> vectorProxy);
+    friend std::ostream& operator<<(std::ostream& os, VectorProxy<sparseVec>& vectorProxy){
+        os<<vectorProxy.getVal()<<"\n";
+        return os;
+    };
 };
 
 #endif

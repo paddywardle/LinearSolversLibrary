@@ -41,8 +41,7 @@ double SparseVector<SparseTypes::IDX>::getIdxVal(const int idx) const{
 
     auto it = this->data_.find(idx);
 
-    // return ((it != this->data_.end()) ? it->second : 0);
-    return 0;
+    return ((it != this->data_.end()) ? it->second : 0);
     
 }
 
@@ -104,16 +103,4 @@ SparseVector<SparseTypes::IDX>& SparseVector<SparseTypes::IDX>::operator=(const 
     }
     
     return *this;
-}
-
-std::ostream& operator<<(std::ostream& os, const SparseVector<SparseTypes::IDX>& sparseVec){
-    
-    int vecLen = sparseVec.getLen();
-    
-    for (int i=0; i<vecLen; i++){
-        os<<sparseVec(i)<<" ";
-    }
-    os<<"\n";
-
-    return os;
 }

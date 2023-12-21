@@ -18,11 +18,11 @@ TEST(SparseIDXMatOpsTest, MatrixMultiplication) {
 
     EXPECT_EQ(matA.numRows(), mat.numRows());
     EXPECT_EQ(matB.numCols(), mat.numCols());
-    EXPECT_EQ(mat(0,0), 0);
-    EXPECT_EQ(mat(0,1), -12);
-    EXPECT_EQ(mat(1,1), 176);
-    EXPECT_EQ(mat(1,3), 288);
-    EXPECT_EQ(mat(2,2), 276);
+    EXPECT_EQ(mat(0,0).getVal(), 0);
+    EXPECT_EQ(mat(0,1).getVal(), -12);
+    EXPECT_EQ(mat(1,1).getVal(), 176);
+    EXPECT_EQ(mat(1,3).getVal(), 288);
+    EXPECT_EQ(mat(2,2).getVal(), 276);
 }
 
 TEST(SparseIDXMatOpsTest, ElementMult) {
@@ -34,10 +34,10 @@ TEST(SparseIDXMatOpsTest, ElementMult) {
     SparseMatrix<SparseTypes::IDX> matB(matBData);
 
     SparseMatrix<SparseTypes::IDX> mat = SparseOperations.elemMult(matA, matB);
-    EXPECT_EQ(mat(0,0), 9);
-    EXPECT_EQ(mat(1,0), 65);
-    EXPECT_EQ(mat(1,3), 128);
-    EXPECT_EQ(mat(2,2), 209);
+    EXPECT_EQ(mat(0,0).getVal(), 9);
+    EXPECT_EQ(mat(1,0).getVal(), 65);
+    EXPECT_EQ(mat(1,3).getVal(), 128);
+    EXPECT_EQ(mat(2,2).getVal(), 209);
 }
 
 TEST(SparseIDXMatOpsTest, ElementAdd) {
@@ -49,10 +49,10 @@ TEST(SparseIDXMatOpsTest, ElementAdd) {
     SparseMatrix<SparseTypes::IDX> matB(matBData);
 
     SparseMatrix<SparseTypes::IDX> mat = SparseOperations.elemAdd(matA, matB);
-    EXPECT_EQ(mat(0,0), 10);
-    EXPECT_EQ(mat(1,0), 18);
-    EXPECT_EQ(mat(1,3), 24);
-    EXPECT_EQ(mat(2,2), 30);
+    EXPECT_EQ(mat(0,0).getVal(), 10);
+    EXPECT_EQ(mat(1,0).getVal(), 18);
+    EXPECT_EQ(mat(1,3).getVal(), 24);
+    EXPECT_EQ(mat(2,2).getVal(), 30);
 }
 
 TEST(SparseIDXMatOpsTest, ElementSub) {
@@ -64,10 +64,10 @@ TEST(SparseIDXMatOpsTest, ElementSub) {
     SparseMatrix<SparseTypes::IDX> matB(matBData);
 
     SparseMatrix<SparseTypes::IDX> mat = SparseOperations.elemSub(matA, matB);
-    EXPECT_EQ(mat(0,0), -8);
-    EXPECT_EQ(mat(1,0), -8);
-    EXPECT_EQ(mat(1,3), -8);
-    EXPECT_EQ(mat(2,2), -8);
+    EXPECT_EQ(mat(0,0).getVal(), -8);
+    EXPECT_EQ(mat(1,0).getVal(), -8);
+    EXPECT_EQ(mat(1,3).getVal(), -8);
+    EXPECT_EQ(mat(2,2).getVal(), -8);
 }
 
 TEST(SparseIDXMatOpsTest, ElementDiv) {
@@ -80,8 +80,8 @@ TEST(SparseIDXMatOpsTest, ElementDiv) {
 
     SparseMatrix<SparseTypes::IDX> mat = SparseOperations.elemDiv(matA, matB);
 
-    EXPECT_EQ(mat(0,1), 0.2);
-    EXPECT_EQ(mat(1,3), 0.5);
+    EXPECT_EQ(mat(0,1).getVal(), 0.2);
+    EXPECT_EQ(mat(1,3).getVal(), 0.5);
 }
 
 TEST(SparseIDXMatOpsTest, ScalarMultiplication) {
@@ -91,8 +91,8 @@ TEST(SparseIDXMatOpsTest, ScalarMultiplication) {
     SparseMatrix<SparseTypes::IDX> matA(matAData);
 
     SparseMatrix<SparseTypes::IDX> mat = SparseOperations.scalarMult(matA, 5);
-    EXPECT_EQ(mat(0,1), 10);
-    EXPECT_EQ(mat(1,1), 30);
-    EXPECT_EQ(mat(1,3), 40);
-    EXPECT_EQ(mat(2,2), 55);
+    EXPECT_EQ(mat(0,1).getVal(), 10);
+    EXPECT_EQ(mat(1,1).getVal(), 30);
+    EXPECT_EQ(mat(1,3).getVal(), 40);
+    EXPECT_EQ(mat(2,2).getVal(), 55);
 }

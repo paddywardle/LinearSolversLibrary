@@ -28,10 +28,9 @@ template<typename sparseVec>
 void VectorProxy<sparseVec>::operator-=(double val){
     
     if (val != 0.0){
-        val -= Vector.getIdxVal(this->idx);
-        Vector.setIdx(this->idx, val);
+        double valSub = Vector.getIdxVal(this->idx) - val;
+        Vector.setIdx(this->idx, valSub);
     }
-    
 };
 
 template<typename sparseVec>
@@ -48,8 +47,8 @@ template<typename sparseVec>
 void VectorProxy<sparseVec>::operator/=(double val){
     
     if (val != 0.0){
-        val /= Vector.getIdxVal(this->idx);
-        Vector.setIdx(this->idx, val);
+        double valDiv = Vector.getIdxVal(this->idx) / val;
+        Vector.setIdx(this->idx, valDiv);
     }
     
 };
@@ -92,12 +91,6 @@ VectorProxy<sparseVec>::operator double() const{
 template<typename sparseVec>
 VectorProxy<sparseVec>::operator int() const{
     return Vector.getIdxVal(this->idx);
-}
-
-template<typename sparseVec>
-std::ostream& operator<<(std::ostream& os, VectorProxy<sparseVec> vectorProxy){
-    os<<vectorProxy.Vector.getIdxVal(vectorProxy.idx)<<"\n";
-    return os;
 }
 
 template struct VectorProxy<SparseVector<SparseTypes::IDX>>;
